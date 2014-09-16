@@ -1,0 +1,121 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+html{
+	background:url('../img/bg_tile.jpg') repeat #dbdbdb;
+}
+
+body{
+	color:#FCFCFC;
+	background:url('../img/bg_vertical') repeat-x;
+	font:15px Calibri,Arial,sans-serif;
+	border:1px solid transparent;
+}
+
+#page{
+	width:660px;
+	margin:140px auto 60px;
+}
+
+.item{
+	background: url("../img/shadow_wide.png") no-repeat center bottom;
+	padding-bottom: 6px;
+	display: inline-block;
+	margin-bottom: 30px;
+	position:relative;
+}
+
+.item .delete{
+	background:url('../img/delete_icon.png') no-repeat;
+	width:37px;
+	height:38px;
+	position:absolute;
+	cursor:pointer;
+	top:10px;
+	right:-80px
+}
+
+.item a{
+	background-color: #FAFAFA;
+	border: none;
+	display: block;
+	padding: 10px;
+	text-decoration: none;
+}
+
+.item:first-child .delete:before{
+	background:url('../img/tooltip.png') no-repeat;
+	content:'.';
+	text-indent:-9999px;
+	overflow:hidden;
+	width:145px;
+	height:90px;
+	position:absolute;
+	right:-110px;
+	top:-95px;
+}
+
+.item a img{
+	display:block;
+	border:none;
+}
+
+/* General styles */
+
+#footer{
+	background-color:#212121;
+	position:fixed;
+	width:100%;
+	height:70px;
+	bottom:0;
+	left:0;
+}
+
+#footer .tri{
+	border-color:transparent transparent #212121;
+	border-style:solid;
+	border-width:20px 17px;
+	height:0;
+	left:50%;
+	margin:-40px 0 0 -400px;
+	position:absolute;
+	top:0;
+	width:0;
+}
+
+#footer h1{
+	font-size:20px;
+	font-weight:normal;
+	left:50%;
+	margin-left:-400px;
+	padding:25px 0;
+	position:absolute;
+	width:400px;
+}
+
+#footer a.tzine,a.tzine:visited{
+	background:url("../img/tzine.png") no-repeat right top;
+	border:none;
+	text-decoration:none;
+	color:#FCFCFC;
+	font-size:12px;
+	height:70px;
+	left:50%;
+	line-height:31px;
+	margin:23px 0 0 110px;
+	position:absolute;
+	top:0;
+	width:290px;
+}
+
+a, a:visited {
+	text-decoration:underline;
+	outline:none;
+	color:#97CAE6;
+}
+
+a:hover{
+	text-decoration:none;
+}

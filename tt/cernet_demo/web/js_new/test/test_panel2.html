@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="gb2312">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>学校--窗口页面</title>
+<link rel="stylesheet" rev="stylesheet" href="/css/common.css" type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="/css/group_2008.css" type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="/css/change_org.css" type="text/css" media="all" />
+
+<script language="javascript" type="text/javascript">
+function GetMouseXY_ForLayer(obj_div)
+{
+	obj_div.style.display = "";		
+}
+
+/*
+ *Hidden the data area,need to improve it
+ */
+function closeAll(){
+   closeDivById("new_frame");
+}
+
+function closeDivById(idVal){
+   document.getElementById(idVal).style.display = "none";
+}
+
+function openDivById(idVal){
+   var obj = document.getElementById("new_frame");
+   GetMouseXY_ForLayer(obj);
+   document.getElementById(idVal).style.display = "";
+}
+
+</script>
+</head>
+
+<body>
+<p>&nbsp;</p>
+<p>
+  <input type="button" class="input_submit" value="弹出窗口" onClick="openDivById('new_frame')"/>
+</p>
+<p>和资讯页面里面“修改订阅”用的技术是一样的。用了一个新的id。 </p>
+
+
+
+
+
+
+
+
+<div id="new_frame" style="position:absolute;left:290px;top:20px;display:none">
+<div class="xgk_title"><span class="left">选择学校</span> <span class="right"><a onClick="closeAll();return false" href="#"><img src="/images/panel_close.jpg" alt="关闭" /></a></span></div>
+<p class="z_blue01_14">　　<a href="#" class="z_blue01_14">高考</a> | <a href="#" class="z_blue01_14">考研</a> | </p>
+
+  <div class="xgk_text">
+    <p>
+      <input type="checkbox" name="checkbox" value="checkbox" />
+      高考快讯 
+      <input type="checkbox" name="checkbox" value="checkbox" />
+      各科指导 
+      <input type="checkbox" name="checkbox" value="checkbox" />
+      高考政策 
+      <input type="checkbox" name="checkbox" value="checkbox" />
+      高考试题</p>
+    <p>
+      <input type="checkbox" name="checkbox2" value="checkbox" />
+      高考快讯
+  <input type="checkbox" name="checkbox2" value="checkbox" />
+      各科指导
+  <input type="checkbox" name="checkbox2" value="checkbox" />
+      高考政策
+  <input type="checkbox" name="checkbox2" value="checkbox" />
+    高考试题</p>
+    <p><input type="checkbox" name="checkbox" value="checkbox" /> 
+    高考经验 <input type="checkbox" name="checkbox" value="checkbox" /> 高考心理</p>
+  </div>
+  <div class="xgk_text">
+    <p class="xgk_checked">已选择的订阅信息</p>
+    <p><span class="z_blue01_12b">高考：</span> 高考快讯  招生信息  专业资讯  </p>
+    <p><span class="z_blue01_12b">考研：</span> </p>
+  </div>
+  <div class="xgk_text">
+    <div class="xgk_border">
+      <ul>
+        <li><a href="#" class="z_blue01_12l">中央工艺美术学院附属中学</a></li>
+        <li> 北京市一二八中学</li>
+        <li> 北京市一六四中学</li>
+        <li> 北京市东城区教研科研中心</li>
+        <li> 北京市东城综合高中</li>
+        <li> 北京市东直门中学</li>
+        <li> 北京市交道口中学</li>
+      </ul>
+	  
+	  <ul>
+        <li>中央工艺美术学院附属中学</li>
+        <li> 北京市一二八中学</li>
+        <li> 北京市一六四中学</li>
+        <li> 北京市东城区教研科研中心</li>
+        <li> 北京市东城综合高中</li>
+        <li> 北京市东直门中学</li>
+        <li> 北京市交道口中学</li>
+      </ul>
+	  
+      <div class="no_way"></div>
+    </div>
+    <p><a href="#" class="z_blue01_12l">没有我的学校 </a></p>
+  </div>
+</div>
+</body>
+
+</html>

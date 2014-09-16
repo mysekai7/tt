@@ -1,0 +1,34 @@
+<div id="dvSchool" name="dvSchool" style="overflow-y:auto;width:100%;height:120px">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td height="25" align="left" style="padding-left:4px;"><input type="checkbox" id="unchkgenderall" name="unchkgenderall" onclick="_unChkAll(this,'chkgender')" value="255" text="不限">&nbsp;
+						<strong>不限</strong>&nbsp;&nbsp;
+						<input type="checkbox" id="chkgenderall" name="chkgenderall" onclick="_onChkAll(this,'chkgender')" value="" text="全选">&nbsp;
+						<strong>全选</strong></td>
+</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td width="30" height="25" align="center"><input type="checkbox" id="chkgender" name="chkgender" onclick="_chkOne(this,'chkgender')" value="1" text="男"></td>
+<td>男</td>
+<td width="30" height="25" align="center"><input type="checkbox" id="chkgender" name="chkgender" onclick="_chkOne(this,'chkgender')" value="0" text="女"></td>
+<td>女</td>
+<td>&nbsp;
+			</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><img src="select/none.gif" width="20" height="5"></td>
+</tr>
+<tr>
+<td height="25" align="right" valign="top"><input type="button" name="btnSelect" value=" 确定 " onClick="javascript:DoSelect('cv_basic$gender','gender');">&nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;</td>
+</tr>
+</table>

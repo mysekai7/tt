@@ -1,0 +1,7 @@
+2010-03-10 10:22:18	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-03-10 10:22:24	Notice: %%72^72B^72B5FBAE%%post.html.php:17: Undefined property: stdClass::$created_date
+2010-03-10 10:25:08	Notice: %%72^72B^72B5FBAE%%post.html.php:9: Trying to get property of non-object
+2010-03-10 10:26:45	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-10 13:46:30	Error: AdminCacheController.class.php:114: Non-static method Cache::getTotal() should not be called statically, assuming $this from incompatible context
+2010-03-10 13:46:30	Notice: %%12^122^12225C47%%post.html.php:9: Trying to get property of non-object
+2010-03-10 13:46:30	Notice: %%12^122^12225C47%%post.html.php:21: Undefined property: stdClass::$created_date

@@ -1,0 +1,6 @@
+2010-04-11 21:17:13	Notice: AdminArticleController.class.php:26: Undefined index:  cid
+2010-04-11 21:17:13	Notice: AdminArticleController.class.php:51: Undefined index:  debug
+2010-04-11 21:17:13	Notice: %%32^32D^32DBDDB7%%article_list.html.php:20: Undefined index:  cid
+2010-04-11 21:17:15	Notice: %%A4^A41^A41A59B5%%post.html.php:9: Trying to get property of non-object
+2010-04-11 21:17:34	Warning: index.php:21: Cannot modify header information - headers already sent
+2010-04-11 21:17:42	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object

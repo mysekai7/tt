@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="Nginx配置文件中文详解:Nginx,nginx " /><meta name="description" content="Nginx配置文件中文详解,无法获得锁 /var/cache/apt/archives/lock - open (11 资源临时不可用),pre中自动换行的问题" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>Nginx配置文件中文详解</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/nginx/">Nginx</a>&gt;<strong class="current">Nginx配置文件中文详解</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="无法获得锁 /var/cache/apt/archives/lock - open (11 资源临时不可用)" href="http://sk2.com/post/180.html" rel="nofollow">Newer</a></li><li class="older"><a title="pre中自动换行的问题" href="http://sk2.com/post/178.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>Nginx配置文件中文详解</h1><ul class="info"><li class="date">2010年 04月 2日  16:28</li><li class="category"><a href="http://sk2.com/category/nginx/">Nginx</a></li></ul><div class="textbody"><p>
+	Nginx配置文件详解<br />
+	nginx配置说明—————————-
+</p>
+
+<div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">#运行用户
+&nbsp;
+user nobody nobody;
+&nbsp;
+#启动进程
+&nbsp;
+worker_processes 2;
+&nbsp;
+#全局错误日志及PID文件
+&nbsp;
+error_log logs/error.log notice;
+&nbsp;
+pid logs/nginx.pid;
+&nbsp;
+#工作模式及连接数上限
+&nbsp;
+events {
+&nbsp;
+use epoll;
+&nbsp;
+worker_connections 1024;
+&nbsp;
+}
+&nbsp;
+#设定http服务器，利用它的反向代理功能提供负载均衡支持
+&nbsp;
+http {
+&nbsp;
+#设定mime类型
+&nbsp;
+include conf/mime.types;
+&nbsp;
+default_type application/octet-stream;
+&nbsp;
+#设定日志格式
+&nbsp;
+log_format main ‘$remote_addr – $remote_user [$time_local] ‘
+&nbsp;
+‘”$request” $status $bytes_sent ‘
+&nbsp;
+‘”$http_referer” “$http_user_agent” ‘
+&nbsp;
+‘”$gzip_ratio”‘;
+&nbsp;
+log_format download ‘$remote_addr – $remote_user [$time_local] ‘
+&nbsp;
+‘”$request” $status $bytes_sent ‘
+&nbsp;
+‘”$http_referer” “$http_user_agent” ‘
+&nbsp;
+‘”$http_range” “$sent_http_content_range”‘;
+&nbsp;
+#设定请求缓冲
+&nbsp;
+client_header_buffer_size 1k;
+&nbsp;
+large_client_header_buffers 4 4k;
+&nbsp;
+&nbsp;
+&nbsp;
+#开启gzip模块
+&nbsp;
+gzip on;
+&nbsp;
+gzip_min_length 1100;
+&nbsp;
+gzip_buffers 4 8k;
+&nbsp;
+gzip_types text/plain;
+&nbsp;
+output_buffers 1 32k;
+&nbsp;
+postpone_output 1460;
+&nbsp;
+#设定access log
+&nbsp;
+access_log logs/access.log main;
+&nbsp;
+client_header_timeout 3m;
+&nbsp;
+client_body_timeout 3m;
+&nbsp;
+send_timeout 3m;
+&nbsp;
+sendfile on;
+&nbsp;
+tcp_nopush on;
+&nbsp;
+tcp_nodelay on;
+&nbsp;
+keepalive_timeout 65;
+&nbsp;
+#设定负载均衡的服务器列表
+&nbsp;
+upstream mysvr {
+&nbsp;
+#weigth参数表示权值，权值越高被分配到的几率越大
+&nbsp;
+#本机上的Squid开启3128端口
+&nbsp;
+server 192.168.8.1:3128 weight=5;
+&nbsp;
+server 192.168.8.2:80 weight=1;
+&nbsp;
+server 192.168.8.3:80 weight=6;
+&nbsp;
+}
+&nbsp;
+#设定虚拟主机
+&nbsp;
+server {
+&nbsp;
+listen 80;
+&nbsp;
+server_name 192.168.8.1 www.hahaer.com;
+&nbsp;
+charset gb2312;
+&nbsp;
+#设定本虚拟主机的访问日志
+&nbsp;
+access_log logs/www.hahaer.com.access.log main;
+&nbsp;
+#如果访问 /img/*, /js/*, /css/* 资源，则直接取本地文件，不通过squid
+&nbsp;
+#如果这些文件较多，不推荐这种方式，因为通过squid的缓存效果更好
+&nbsp;
+location ~ ^/(img|js|css)/ {
+&nbsp;
+root /data3/Html;
+&nbsp;
+expires 24h;
+&nbsp;
+}
+&nbsp;
+#对 “/” 启用负载均衡
+&nbsp;
+location / {
+&nbsp;
+proxy_pass http://mysvr;
+&nbsp;
+proxy_redirect off;
+&nbsp;
+proxy_set_header Host $host;
+&nbsp;
+proxy_set_header X-Real-IP $remote_addr;
+&nbsp;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&nbsp;
+client_max_body_size 10m;
+&nbsp;
+client_body_buffer_size 128k;
+&nbsp;
+proxy_connect_timeout 90;
+&nbsp;
+proxy_send_timeout 90;
+&nbsp;
+proxy_read_timeout 90;
+&nbsp;
+proxy_buffer_size 4k;
+&nbsp;
+proxy_buffers 4 32k;
+&nbsp;
+proxy_busy_buffers_size 64k;
+&nbsp;
+proxy_temp_file_write_size 64k;
+&nbsp;
+}
+&nbsp;
+&nbsp;
+&nbsp;
+#设定查看Nginx状态的地址
+&nbsp;
+location /NginxStatus {
+&nbsp;
+stub_status on;
+&nbsp;
+access_log on;
+&nbsp;
+auth_basic “NginxStatus”;
+&nbsp;
+auth_basic_user_file conf/htpasswd;
+&nbsp;
+}</pre></div>
+<p>
+	备注：conf/htpasswd 文件的内容用 apache 提供的 htpasswd 工具来产生即可，内容大致如下：<br />
+	3.) 查看 Nginx 运行状态<br />
+	输入地址 http://192.168.8.1/NginxStatus/，输入验证帐号密码，即可看到类似如下内容：<br />
+	Active connections: 328<br />
+	server accepts handled requests<br />
+	9309 8982 28890<br />
+	Reading: 1 Writing: 3 Waiting: 324
+</p>
+<p>
+	第一行表示目前活跃的连接数<br />
+	第三行的第三个数字表示Nginx运行到当前时间接受到的总请求数，如果快达到了上限，就需要加大上限值。<br />
+	第四行是Nginx的队列状态
+</p></div><div class="entry-tags"><strong>Tags:</strong><a href="http://sk2.com/tag/nginx/">nginx</a></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/180.html">无法获得锁 /var/cache/apt/archives/lock - open (11 资源临时不可用)</a></li><li>Older:<a href="http://sk2.com/post/178.html">pre中自动换行的问题</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

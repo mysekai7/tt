@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>观察者模式</title>
+	<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="A">点击添加观察者</div>
+	<div id="B">点击移除观察者</div>
+	<div id="C">点击触发事件</div>
+
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.array.js"></script>
+	<script>
+		Jet().$package(function(J){
+			var $=J.dom.id;
+			var $D=J.dom;
+			var $E=J.event;
+			
+			var onMsg = new $E.Publish();
+			
+			
+			var fnA=function(){
+				onMsg.subscribe(fnA2);
+				
+			};
+			var fnA2=function(a){
+				alert(a);
+			};
+			
+			var fnB=function(){
+				onMsg.unsubscribe(fnA2);
+			};
+			
+			var fnC=function(){
+				onMsg.deliver(123);
+			};
+
+			
+
+			
+			$E.on($("A"),"click",fnA);
+			$E.on($("B"),"click",fnB);
+			$E.on($("C"),"click",fnC);
+
+
+
+
+		});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+/*----页面通用部分----*/
+
+body {font-family: Arial, Verdana, Helvetica, sans-serif, "宋体";margin:0px auto;font-size:12px;color: #333;background:#ffffff;}
+p,form,img{border:0px;margin:0px;}
+ul, li{margin:0px;padding: 0px;list-style-type:none;list-style-position: outside;}
+a:link,a:visited {color:#333;text-decoration: none;}
+a:hover {color: #ff0000;text-decoration: none;}
+
+.left{float: left;}
+.right{float: right;}
+.clear{clear:both;}
+.no_way{clear:both;display:block;}
+
+
+
+/*个人中心引用eol统一头部css，原宽度910，局部*/
+#glbtop{margin:0px auto;width:998px;font:12px Verdana;}
+#glbt1{line-height:26px;background:url(../images/topbg.jpg) repeat-x #f3f3f3;height:26px;}
+#glbt1 a:link,#glbt1 a:visited {color:#8c8e8b;}
+#glbt1 a:hover,#glbt1 a:active {color:#c30;}
+a.a_e{float:left;padding-left:10px;margin-left:15px;}
+a.a_e:link,a.a_e:visited{background:url(../images/dot_g.jpg) no-repeat left 9px;}
+a.a_e:hover,a.a_e:active{background:url(../images/dot_r.jpg) no-repeat left 9px;}
+#a_home,#a_fav{float:right;margin-right:15px;padding-left:15px;}
+#a_home{background:url(../images/home.jpg) no-repeat left 7px;}
+#a_fav{background:url(../images/fav.jpg) no-repeat left 7px;}
+
+/*个人中心998宽度统一页底*/
+#ieol_bot{margin:0px auto;line-height:22px;width:998px;padding-top:15px;clear:both;text-align:center;color:#666;}
+#ieol_bot a:link,#ieol_bot a:visited {color:#666;}
+#ieol_bot a:hover,#ieol_bot a:active {color:#f00;}
+
+
+
+/*左列共用导航部分*/
+
+#ieol_left_menu{margin:30px 0px 0px 20px;font-weight:bold;font-size:14px;line-height:35px;}
+#ieol_left_menu li{margin:3px 0px;}
+#ieol_left_menu a:link, #ieol_left_menu a:visited{text-decoration:underline;}
+#ieol_left_menu a:hover, #ieol_left_menu a:active{text-decoration:none;}
+
+.li01{background:url(../images/zj_rizhi.jpg) no-repeat;padding-left:40px;}
+.li02{background:url(../images/zj_xuexiao.jpg) no-repeat;padding-left:40px;}
+.li03{background:url(../images/zj_zixun.jpg) no-repeat;padding-left:40px;}
+.li04{background:url(../images/zj_wenda.jpg) no-repeat;padding-left:40px;}
+.li05{background:url(../images/zj_gongxiang.jpg) no-repeat;padding-left:40px;}
+.li06{background:url(../images/zj_haoyou.jpg) no-repeat;padding-left:40px;}
+.li07{background:url(../images/zj_qunzu.jpg) no-repeat;padding-left:40px;}
+.li08{background:url(../images/zj_xiangce.jpg) no-repeat;padding-left:40px;}
+
+.li_down{background:url(../images/dot_ileft_03.jpg) no-repeat 0px 4px;padding-left:15px;margin-left:105px;}
+a.li_down:link, a.li_down:visited{color:#999;}
+a.li_down:hover{color:#f00;}
+
+.li_zhiyuan{width:100px;margin:10px auto 20px;border-top:1px dashed #666;border-bottom:1px dashed #666;background:url(../images/zj_zhiyuan.jpg) no-repeat 5px 15px;padding:15px 0px 10px 40px;font-weight:bold;font-size:14px;line-height:35px;text-align:left;}
+.li_zhiyuan a:link, .li_zhiyuan a:visited{text-decoration:underline;}
+.li_zhiyuan a:hover, .li_zhiyuan a:active{text-decoration:none;}
+
+.li_zujian01{background:url(../images/dot_ileft_01.jpg) no-repeat 0px 1px;padding-left:15px;margin-left:25px;}
+.li_zujian02{background:url(../images/dot_ileft_02.jpg) no-repeat 0px 2px;padding-left:15px;margin-left:25px;}
+a.li_zujian01:link, a.li_zujian01:visited, a.li_zujian02:link, a.li_zujian02:visited{color:#999;}
+a.li_zujian01:hover, a.li_zujian02:hover{color:#f00;}
+
+/*顶部共用导航部分*/
+
+#ieol_change{float:left;margin:25px 0px 0px 8px;width:100px;}
+#ieol_top_welcome{float:left;width:160px;margin:19px 0px 0px 58px;padding-left:12px;font-weight:normal;font-size:12px;color:#fff;text-align:left;}
+#ieol_top_menu{float:left;width:470px;margin:19px 0px 0px 8px;font-weight:normal;font-size:12px;color:#fff;text-align:left;}

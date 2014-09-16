@@ -1,0 +1,22 @@
+2010-04-09 00:00:12	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-04-09 00:00:20	Notice: IndexController.class.php:78: Undefined index:  page
+2010-04-09 00:04:38	Notice: IndexController.class.php:169: Undefined variable: recent_post
+2010-04-09 00:07:43	Notice: AdminArticleController.class.php:26: Undefined index:  cid
+2010-04-09 00:07:43	Notice: AdminArticleController.class.php:51: Undefined index:  debug
+2010-04-09 00:07:43	Notice: %%32^32D^32DBDDB7%%article_list.html.php:20: Undefined index:  cid
+2010-04-09 00:08:16	Notice: %%A4^A41^A41A59B5%%post.html.php:9: Trying to get property of non-object
+2010-04-09 00:08:31	Warning: index.php:21: Cannot modify header information - headers already sent
+2010-04-09 00:18:41	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-04-09 00:25:05	Notice: IndexController.class.php:117: Undefined variable: recent_post
+2010-04-09 00:25:05	Notice: IndexController.class.php:132: Undefined variable: recent_post
+2010-04-09 00:26:56	Notice: IndexController.class.php:117: Undefined variable: cache
+2010-04-09 00:28:09	Notice: IndexController.class.php:95: Undefined index:  page
+2010-04-09 01:43:08	Notice: %%C1^C14^C14AEF59%%index.html.php:14: Undefined index:  page_nav
+2010-04-09 02:38:49	Notice: IndexController.class.php:138: Undefined variable: cache
+2010-04-09 02:41:11	Notice: IndexController.class.php:96: Undefined index:  page
+2010-04-09 03:14:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-04-09 03:14:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-04-09 03:14:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-04-09 03:14:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-04-09 03:14:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-04-09 03:14:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object

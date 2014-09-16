@@ -1,0 +1,13 @@
+/*左列共用导航部分*/
+#ieol_logo{margin:0px auto 0px;width:143px;height:51px;background:url(../images/bg_logo_org.jpg) no-repeat;padding:19px 0px 0px 28px;}
+/*可改变背景图*/
+
+/*顶部共用导航部分*/
+#ieol_top{clear:both;margin:0px auto;width:825px;height:49px;background:url(../images/bg_itop_org.jpg) no-repeat;padding:0px;}
+/*可改变背景图*/
+
+.ieol_title{color:#9C3F0C;font-weight:bold;}
+/*可改变颜色标题*/
+
+.input_submit{background:#F06000;border-top:solid 2px #FCB300;border-left:solid 2px #FCB300;border-bottom:solid 2px #C64F00;border-right:solid 2px #C64F00;padding:2px 2px 0px;color:#fff;}
+/*可改变颜色按钮*/

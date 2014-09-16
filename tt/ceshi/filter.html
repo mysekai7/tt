@@ -1,0 +1,36 @@
+<?php
+
+$kw = $_GET['q'];
+
+$kw = '16.2%25';
+$kw = urldecode($kw);
+
+var_dump($kw);
+
+
+
+?>
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+<!--
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+-->
+</head>
+<body>
+
+<form method="GET">
+<input type="text" name="q" value="<?php echo $kw ?>" />
+<input type="submit" value="go" />
+</form>
+
+    
+</body>
+</html>

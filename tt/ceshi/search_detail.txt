@@ -1,0 +1,12 @@
+tt?id=ir&type=cone####cone右侧询盘按钮
+tt?id=ir&type=mytootoo####mytootoo右侧询盘按钮
+tt?id=basket&type=cone####cone购物车按钮
+tt?id=basket&type=mytootoo####mytootoo购物车按钮
+tt?id=headproduct&type=cone####cone头部滚动产品
+tt?id=headproduct&type=mytootoo####mytootoo头部滚动产品
+tt?id=minipic&type=cone####cone产品小缩略图
+tt?id=minipic&type=mytootoo####mytootoo产品小缩略图
+tt?id=page&type=cone####cone分页
+tt?id=page&type=mytootoo####mytootoo分页
+tt?id=adv&type=cone####cone左侧推广
+tt?id=adv&type=mytootoo####mytootoo左侧推广

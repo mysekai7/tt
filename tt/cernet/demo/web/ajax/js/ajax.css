@@ -1,0 +1,57 @@
+#appdiv
+{
+  display: none;
+  z-index: 5000;
+  opacity: 0.85;
+}
+
+#appdiv div
+{
+  width: 350px;
+  margin: 0px auto;
+  height: 24px;
+  min-height: 24px;
+  padding: 8px 10px 8px 46px;
+}
+
+#appdiv div.info
+{
+  margin-left: 5px;
+  background: url(/ajax/images/info.gif) 6px 3px no-repeat;
+  background-color: #F7FDCB;
+  border: 1px solid #C2D071;
+}
+
+#appdiv div.error
+{
+  margin-left: 5px;
+  background: url(/ajax/images/error.gif) 6px 3px no-repeat;
+  background-color: #EF9398;
+  border: 1px solid #DC5757;
+}
+
+#appdiv div.success
+{
+  margin-left: 5px;
+  background: url(/ajax/images/success.gif) 6px 3px no-repeat;
+  background-color: #A6EF7B;
+  border: 1px solid #76C83F;
+}
+
+#appdiv div.loading
+{
+  margin-left: 5px;
+  background: url(/ajax/images/loading.gif) 6px 3px no-repeat;
+  background-color: #EBEBEB;
+  border: 1px solid #CCCCCC;
+}
+
+#appdiv div.debug
+{
+  overflow: scroll;
+  height: 250px;
+  width: 350px;
+  background: url(/ajax/images/info.gif) 6px 3px no-repeat;
+  background-color: #F7FDCB;
+  border: 1px solid #C2D071;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>前端i18n国际化 - JET</title>
+<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.i18n.js"></script>
+	<script type="text/javascript" src="../../source/jet.i18n.zh-cn.js"></script>
+
+	
+	<script type="text/javascript">
+		Jet().$package(function(J){
+
+	        J.event.onDomReady(function() {
+				alert("默认是英文："+J.i18n.text.helloWorld);
+	            
+	            J.i18n.set("zh-cn");
+	            alert("切换到中文："+J.i18n.text.helloWorld);
+
+	        });
+	    });
+
+    </script>
+</body>
+</html>

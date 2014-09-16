@@ -1,0 +1,36 @@
+
+		<form method=post action="../../../eollogin/web/templates/login.php?action=login" name="form">
+			<table width="258" border="0" align="center" cellpadding="6" cellspacing="0" class="n_txz">
+          <tr>
+            <td width="84" height="25" >&nbsp;</td>
+            <td width="168" >&nbsp;</td>
+          </tr>
+          <tr>
+                <td colspan="2" align="center" style="color: #FF6600;font-weight: bold;" >您需要登录后才能继续操作</td>
+          </tr>
+          <tr>
+            <td align="right" >通行证:</td>
+            <td >
+              <label>
+                <input name="email" type="text" class="input" maxlength="30" />
+                </label>            </td>
+          </tr>
+          <tr>
+            <td align="right" >密　码:</td>
+            <td ><input name="passwd" type="password" class="input" maxlength="20" /></td>
+          </tr>
+          <tr>
+            <td align="right" >验证码:</td>
+            <td ><input name="number" type="text" size="6" maxlength="4" />
+              <span id="ImageID"><img src="../../../eollogin/web/templates/image.php" width="60" height="20" align="absmiddle" border=0  onclick="checkImage()" alt="若看不清数字请点击图片"/></span></td>
+          </tr>
+         
+		</table>
+		<table width="208" border="0" align="center" cellpadding="6" cellspacing="0" >
+          <tr>
+            <td colspan="2" align="center" ><a href="../../../eollogin/web/templates/passwd_get.php"><img src="/images/zhmm.gif" width="84" height="23" border="0"/></a></td>
+			<td colspan="2" align="center" ><a href="../../../eollogin/web/templates/active_send.php"><img src="/images/hq.gif" width="84" height="23" border="0"/></a></td>
+            </tr>
+			
+        </table>
+        </form>

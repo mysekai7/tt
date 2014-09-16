@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="安装centos5.2:Linux,centos " /><meta name="description" content="安装centos5.2,linux vi命令使用,一些常用的SSH命令" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>安装centos5.2</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/linux/">Linux</a>&gt;<strong class="current">安装centos5.2</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="linux vi命令使用" href="http://sk2.com/post/116.html" rel="nofollow">Newer</a></li><li class="older"><a title="一些常用的SSH命令" href="http://sk2.com/post/114.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>安装centos5.2</h1><ul class="info"><li class="date">2010年 03月23日  00:22</li><li class="category"><a href="http://sk2.com/category/linux/">Linux</a></li></ul><div class="textbody"><p>进入正题 在windows下装虚拟机</p><p>1. 打开VWare Workstation ,&nbsp; 创建新虚拟机，选RedHat5，大小8G</p><p>2.开始安装，硬盘分区，我这里设置为，boot 100M， swap 1024M， 剩下的全分给/</p><p>3.选择安装软件 <br /></p><p>4.安装VWare Tools，选择gz包，拖到桌面，cd /root/Desktop，解压</p><p>常用的压缩解压命令</p><p><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">介绍tar，gzip的使用方法。
+1.压缩一组文件为tar.gz后缀。
+# tar cvf backup.tar /etc
+# gzip -q backup.tar 或 # tar cvfz backup.tar.gz /etc/
+&nbsp;
+2.释放一个后缀为 tar.gz的文件。
+# gunzip backup.tar.gz #tar xvf backup.tar
+或 # tar xvfz backup.tar.gz
+&nbsp;
+3.用一个命令完成压缩 #tar cvf - /etc/ | gzip -qc &gt; backup.tar.gz
+&nbsp;
+4.用一个命令完成释放 #gunzip -c backup.tar.gz | tar xvf -
+&nbsp;
+5.如何解开tar.Z的文件？
+# tar xvfz backup.tar.Z 或 # uncompress backup.tar.Z #tar xvf backup.tar
+&nbsp;
+6.如何解开.tgz文件？ #gunzip backup.tgz
+&nbsp;
+7.如何压缩和解压缩.bz2的包？
+#bzip2 /etc/smb.conf 这将压缩文件smb.conf成smb.conf.bz2
+#bunzip2 /etc/smb.conf.bz2 这将在当前目录下还原smb.conf.bz2为smb.conf
+注:.bz2压缩格式不是很常用，你可以man bzip2</pre></div></p><p>OK 解压完之后，执行installer.pl 进行安装，一路回车即可</p><p>安装后reboot重启</p><p>5.添加共享文件夹</p><p>虚拟机-&gt; 设置-&gt;options-&gt;Shared Folders 这时在/mnt下就应该出现共享的文件夹了</p><p>6.通过桥接上网</p><p>首先设置windows本地连接为共享&nbsp; 允许其他计算机上网打勾</p><p>这时虚拟机就可上网了</p><p><br /></p></div><div class="entry-tags"><strong>Tags:</strong><a href="http://sk2.com/tag/centos/">centos</a></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/116.html">linux vi命令使用</a></li><li>Older:<a href="http://sk2.com/post/114.html">一些常用的SSH命令</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

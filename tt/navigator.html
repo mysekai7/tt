@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+    <link rel="stylesheet" href="html5reset.css" type="text/css" />
+    <link rel="stylesheet" href="html5semanticmarkup.css" type="text/css" />
+    <!--[if lt ie 9]>
+        <script src="html5.js"></script>
+    <![endif]-->
+</head>
+ <body>
+  <script>
+  
+  
+function _debug(o)
+{
+	var s = '';
+	for(var i in o)
+	{
+		s += i +' : '+ o[i] + "\n";
+	}
+	var pre = document.createElement('pre');
+	var txt = document.createTextNode(s);
+	pre.appendChild(txt);
+	document.getElementsByTagName('body')[0].appendChild(pre);
+}
+
+
+
+_debug(navigator);
+
+  </script>
+ </body>
+</html>

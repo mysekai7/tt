@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+	<div id="alert">...</div>
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.http.js"></script>
+	<script type="text/javascript">
+
+		Jet().$package(function(J){
+			var $D = J.dom;
+			
+			var sf = function(o){
+				$D.id("alert").innerHTML = name + ' 2010';
+			}
+			var config = {
+				onSuccess:sf,
+				arguments:99
+				
+			};
+			var http=J.http.loadScript("mod.js", config);
+			//http.abort();
+
+
+		});
+
+
+	</script>
+</body>
+
+</html>

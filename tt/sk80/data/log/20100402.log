@@ -1,0 +1,9 @@
+2010-04-02 02:02:15	Notice: common.php:543: Undefined variable: code
+2010-04-02 02:02:15	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-04-02 02:02:15	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-04-02 02:02:36	Notice: AdminArticleController.class.php:36: Undefined index:  debug
+2010-04-02 02:02:39	Notice: %%A4^A41^A41A59B5%%post.html.php:9: Trying to get property of non-object
+2010-04-02 02:02:39	Notice: %%A4^A41^A41A59B5%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-04-02 02:02:53	Warning: index.php:21: Cannot modify header information - headers already sent
+2010-04-02 02:03:00	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-04-02 02:19:55	Warning: common.php:556: preg_replace() [<a href='function.preg-replace'>function.preg-replace</a>]: Unknown modifier '&gt;'

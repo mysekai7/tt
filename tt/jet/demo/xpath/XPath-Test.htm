@@ -1,0 +1,589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+ <head> 
+  <title>XPath Functional Test</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <meta http-equiv="Content-Style-Type" content="text/css" /> 
+  <meta http-equiv="Content-Script-Type" content="text/javascript" /> 
+ 
+  <script type="text/javascript" src="./xpath-test/logger.js"></script> 
+  <!--LOCAL_DATA_HERE--> 
+ 
+  <script type="text/javascript" src="./xpath-test/config.js"></script> 
+  <script type="text/javascript" src="./xpath-test/uai.js"></script> 
+  <script type="text/javascript" src="./xpath-test/lexer.js"></script> 
+  <script type="text/javascript" src="./xpath-test/ctx.js"></script> 
+  <script type="text/javascript" src="./xpath-test/baseExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/binaryExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/unaryExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/unionExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/pathExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/filterExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/stepExpr.js"></script> 
+  <script type="text/javascript" src="./xpath-test/nodeType.js"></script> 
+  <script type="text/javascript" src="./xpath-test/nameTest.js"></script> 
+  <script type="text/javascript" src="./xpath-test/variableReference.js"></script> 
+  <script type="text/javascript" src="./xpath-test/literal.js"></script> 
+  <script type="text/javascript" src="./xpath-test/number.js"></script> 
+  <script type="text/javascript" src="./xpath-test/functionCall.js"></script> 
+  <script type="text/javascript" src="./xpath-test/nodeSet.js"></script> 
+  <script type="text/javascript" src="./xpath-test/api.js"></script> 
+  <style type="text/css"> 
+body {
+    font-family: monospace;
+}
+iframe {
+    width: 1px;
+    height: 1px;
+    visibility: hidden;
+}
+table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+td, th {
+    border: 3px solid white;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 8px;
+    color: #61666D;
+}
+td a {
+    color: #6166AA;
+}
+td {
+    font-size: 11px;
+    background: #C8CBD0;
+}
+th {
+    font-size: 12px;
+    background: #BBBBBB;
+}
+td a {
+    
+}
+ 
+td.error,
+td.ng{
+    background: #F36F6F;
+    color: #F3F1F1;
+}
+td.ok {
+    background: #AAF3AA;
+}
+ 
+td.heavy {
+    background: #F3E3AA;
+}
+ 
+span#counter {
+    font-size: 70%;
+}
+ 
+span#counter .counter-ok {
+    color: green;
+}
+ 
+span#counter .counter-ng {
+    color: red;
+}
+ 
+span.local-counter {
+    font-size: 80%;
+}
+ 
+span.local-counter .local-counter-ok {
+    color: green;
+}
+ 
+span.local-counter .local-counter-ng {
+    color: red;
+}
+ 
+h2 {
+    margin-top: 2em;
+    margin-bottom: 0.2em;
+}
+ 
+pre {
+    font-size: 80%;
+    padding: 1em;
+    line-height: 1.5;
+    color: #444;
+    border: 2px solid #AAA;
+}
+  </style> 
+ </head> 
+ <body> 
+  <h1><a href="?">XPath Functional Test</a> <span id="counter"><span class="counter-ok">0</span> / <span>0</span></span></h1> 
+  <div id="testLog"></div> 
+  <iframe id="testFrame"></iframe> 
+  <script type="text/javascript"> 
+// <![CDATA[ 
+ 
+var testFrame = document.getElementById('testFrame'); 
+var testLog = document.getElementById('testLog'); 
+ 
+ 
+{ 
+    var ct_elem = document.getElementById('counter'); 
+    Logger.globalCounter = new Counter(ct_elem.firstChild, ct_elem.lastChild, 'counter-ng'); 
+} 
+ 
+function getTestData(id) { 
+    if (window.TEST_DATAS) 
+        return TEST_DATAS[id]; 
+ 
+    var xhr = window.XMLHttpRequest ? new window.XMLHttpRequest : new ActiveXObject('Msxml2.XMLHTTP'); 
+    var status, responseText; 
+    try { 
+        xhr.open('GET', 'data/' + id + '?' + Math.random(), false); 
+        xhr.send(null); 
+        status = xhr.status; 
+        if (status == 0) { 
+            status = 200; 
+        } 
+        responseText = xhr.responseText; 
+        if (!responseText) { 
+            status = 404; 
+        } 
+    } 
+    catch(e) { 
+        status = 404; 
+    } 
+    if (status == 200) { 
+        return responseText; 
+    } 
+    else { 
+        return undefined; 
+    } 
+} 
+ 
+function loadFrame(html) { 
+    var win = testFrame.contentWindow; 
+    var doc = win.document; 
+    doc.open(); 
+    doc.write(html); 
+    doc.close(); 
+    install(win); 
+    var html = doc.documentElement; 
+    var attrs = html.attributes; 
+    var t = ''; 
+ 
+    for (var i = 0, attr; attr = attrs[i]; i ++) { 
+        t += (attr.prefix ? attr.prefix + ':' : '') + ' ' + attr.name + '=' + attr.value;
+    }
+//    return html.outerHTML || '><' + (html.prefix ? html.prefix + ':' : '') + html.nodeName + t + '>' + html.innerHTML + '</' + (html.prefix ? html.prefix + ':' : '') + html.nodeName + '>';
+}
+ 
+function applyXPath(context, expr) {
+    var doc = testFrame.contentWindow.document;
+    var expr = doc.createExpression(expr, null);
+    var start_t = new Date;
+    var result = expr.evaluate(context, 0, null);
+    var time = new Date - start_t;
+    if (result.resultType > 3) {
+        result = expr.evaluate(context, 7, null);
+        var array = [];
+        for (var i = 0, length = result.snapshotLength; i < length; i ++) {
+            array[i] = result.snapshotItem(i);
+        }
+        return [array, time];
+    }
+    else {
+        if (result.resultType == 1) {
+            return [result.numberValue, time];
+        }
+        if (result.resultType == 2) {
+            return [result.stringValue, time];
+        }
+        if (result.resultType == 3) {
+            return [result.booleanValue, time];
+        }
+    }
+}
+ 
+function parseTestData(data) {
+    if (data == undefined) {
+        return undefined;
+    }
+    var dataSplited = data.split(/\n--------\n/);
+ 
+    var comment = dataSplited[0];
+    var html = dataSplited[1];
+    var contextExpr = dataSplited[2];
+    var testData = dataSplited[3];
+ 
+    var testDataSplited = testData.split(/\n/);
+    var tests = [];
+    for (var i = 0, length = testDataSplited.length; i < length; i ++) {
+        if (testDataSplited[i].match(/^\s*#/)) continue; // comment
+        var m = testDataSplited[i].match(/^\s*(.*?)\s*=>\s*(.*?)?\s*$/);
+        if (m) { 
+            tests.push({ expr: m[1], data: m[2] });
+        }
+    }
+    return {comment: comment, html: html, contextExpr: contextExpr, tests: tests};
+}
+ 
+function NodeTest(data) {
+    this.nodes = [];
+    data = data || '';
+    if (data.match(/^\s*\(none\)\s*$/)) return;
+    var tokens = data.match(/([\w-]+\(.*?\)|\w+(\.[\w-]+|#[\w-]+|\[[\w-]+=("[^"]*"|'[^']*')\])*)(:\w+)*/g);
+    tokens = tokens || [];
+    for (var i = 0, l = tokens.length; i < l; i ++) {
+        var token = tokens[i];
+        var m = token.match(/([\w-]+)\(((([\w-]+)=)?("[^"]*"|'[^']*'|-?\d+|NaN|-?Infinity|true|false)?)\)((:\w+)*)/);
+        var uas, nodeData, nodeType, nodeName, nodeValue;
+        uas = nodeData = nodeType = nodeName = nodeValue = null;
+        if (m) {
+            nodeType = this.typeMap[m[1]];
+            switch (nodeType) {
+                case 0:
+                    nodeName = '#value';
+                    nodeValue = m[2];
+                    break;
+                case 2: case 7:
+                    nodeName = m[4];
+                    nodeValue = m[5];
+                    break;
+                case 3:
+                    nodeName = '#text';
+                    nodeValue = m[2];
+                    break;
+                case 4:
+                    nodeName = '#cdata-section';
+                    nodeValue = m[2];
+                    break;
+                case 8:
+                    nodeName = '#comment';
+                    nodeValue = m[2];
+                    break;
+                case 9:
+                    nodeName = '#document';
+                    nodeValue = null;
+                    break;
+                default:
+                    nodeValue = m[2];
+                    break;
+            }
+            if (nodeValue && nodeType != 0) {
+                var first = nodeValue.charAt(0);
+                var last = nodeValue.charAt(nodeValue.length - 1);
+                if (last == first && (first == '"' || first == "'")) {
+                    nodeValue = eval(nodeValue);
+                }
+            }
+            uas = m[6].split(':');
+        }
+        else {
+            m = token.match(/((\w+)((\.[\w-]+|#[\w-]+|\[[\w-]+=("[^"]*"|'[^']*')\])*))((:\w+)*)/);
+ 
+            nodeType = 1;
+            nodeName = m[2]
+            var nodeDatas = m[3];
+            nodeDatas = nodeDatas.match(/\.[\w-]+|#[\w-]+|\[[\w-]+=("[^"]*"|'[^']*')\]/g);
+            if (nodeDatas) {
+                nodeData = [];
+                for (var j = 0; j < nodeDatas.length; j ++) {
+                    var data = nodeDatas[j];
+                    switch (data.charAt(0)) {
+                        case '.':
+                            data = {
+                                type: 'class',
+                                name: data.substring(1),
+                                match: function(node) {
+                                    var classes = node.className.split(/\s+/);
+                                    for (var i = 0; i < classes.length; i ++) {
+                                        if (classes[i] == this.name) {
+                                            return true;
+                                        }
+                                    }
+                                    return false;
+                                }
+                            };
+                            nodeData.push(data);
+                            break;
+                        case '#':
+                            data = {
+                                type: 'id',
+                                name: data.substring(1),
+                                match: function(node) {
+                                    return node.id == this.name;
+                                }
+                            };
+                            nodeData.push(data);
+                            break;
+                        case '[':
+                            data = data.substring(1, data.length - 1);
+                            data = data.split(/=/);
+                            data = {
+                                type: 'attr',
+                                name: data[0],
+                                value: eval(data[1]), // quot
+                                match: function(node) {
+                                    return node.getAttribute(this.name) == this.value;
+                                }
+                            };
+                            nodeData.push(data);
+                            break;
+                        default:
+                    }
+                }
+            }
+            else {
+            }
+            uas = m[6].split(':');
+        }
+        for (var j = 0, l0 = uas.length; j < l0; j++) {
+            if (!uas[j]) {
+                uas.splice(j, 1);
+            }
+        }
+ 
+        function createNodeInfo(nodeType, nodeName, nodeValue, nodeData) {
+            return {
+                nodeType: nodeType,
+                nodeName: nodeName,
+                nodeValue: nodeValue,
+                nodeData: nodeData,
+                match: function(node) {
+                    if (node.nodeType != this.nodeType) return false;
+                    if (node.nodeName.toLowerCase() != this.nodeName.toLowerCase()) return false;
+                    if (node.nodeValue != this.nodeValue) return false;
+                    if (this.nodeData) {
+                        for (var i = 0; i < this.nodeData.length; i ++) {
+                            if (!this.nodeData[i].match(node)) return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+ 
+        if (uas.length) {
+            for (var j = 0, l0 = uas.length; j < l0; j++) {
+                if (uai[uas[j]]) {
+                    this.nodes.push(createNodeInfo(nodeType, nodeName, nodeValue, nodeData));
+                    break;
+                }
+            }
+        }
+        else {
+            this.nodes.push(createNodeInfo(nodeType, nodeName, nodeValue, nodeData));
+        }
+    }
+    if (this.nodes.length == 1 && this.nodes[0].nodeType == 0) {
+        this.primitive = true;
+        this.value = eval(this.nodes[0].nodeValue);
+    }
+}
+ 
+NodeTest.prototype.typeMap = {
+    value: 0,
+    element: 1,
+    attribute: 2,
+    text: 3,
+    'cdata-section': 4,
+    'entity-reference': 5,
+    entity: 6,
+    'processing-instruction': 7,
+    comment: 8,
+    document: 9,
+    'document-type': 10,
+    'document-fragment': 11,
+    notation: 12
+}
+ 
+NodeTest.prototype.test = function(nodes) {
+    if (nodes.length != this.nodes.length) {
+//        console.log(nodes.length, this.nodes.length)
+        return false;
+    }
+    for (var i = 0; i < nodes.length; i ++) {
+        if (!this.nodes[i].match(nodes[i])) {
+/*
+            alert(i);
+            alert(nodes[i].nodeValue == this.nodes[i].nodeValue);
+            if (nodes[i].nodeValue)
+                alert(nodes[i].nodeValue.replace(/ /g, 's').replace(/\n/g, 'n'));
+            if (this.nodes[i].nodeValue)
+                alert(this.nodes[i].nodeValue.replace(/ /g, 's').replace(/\n/g, 'n'));
+            
+            console.log(nodes[i], this.nodes[i]);
+*/
+            return false;
+        }
+    }
+    return true;
+}
+ 
+function testNodes(nodes, data) {
+    var tester = new NodeTest(data);
+    if (tester.primitive) {
+        if (tester.value == nodes) {
+            return { status: 'ok', detail: 'ok' };
+        }
+        else {
+            if (typeof tester.value != 'string') {
+                return { status: 'ng', detail: 'value(' + nodes + ')' }
+            }
+            else {
+                return { status: 'ng', detail: 'value("' + nodes.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")' }
+            }
+        }
+    }
+    if (tester.test(nodes)) {
+        return { status: 'ok', detail: 'ok' };
+    }
+    var detail = [];
+    for (var i = 0; i < nodes.length; i ++) {
+        var t = '';
+        var node = nodes[i]
+        switch (node.nodeType) {
+            case 1:
+                t += node.nodeName.toLowerCase();
+                if (node.id) {
+                    t += '#' + node.id;
+                }
+                if (node.className) {
+                    var classes = node.className.split(/\s+/);
+                    t += '.' + classes.join('.');
+                }
+ 
+                /*
+                var attrs = node.attributes;
+                for (var j = 0; j < attrs.length; j ++) {
+                    if (attrs[j].nodeName == 'class' || attrs[j].nodeName == 'id') {
+                        continue;
+                    }
+                    if (attrs[j].nodeValue) {
+                        t += '[' + attrs[j].nodeName + '="' + attrs[j].nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '"]';
+                    }
+                }
+                */
+                break;
+            case 3:
+                t += 'text("' + node.nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")';
+                break;
+            case 7:
+                t += 'processing-instruction(' + node.nodeName + '="' + node.nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")';
+                break;
+            case 8:
+                t += 'comment("' + node.nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")';
+                break;
+            case 9:
+                t += 'document()';
+                break;
+            default:
+                t += 'unknown';
+                break;
+        }
+        detail.push(t);
+    }
+    return { status: 'ng', detail: detail.join(' ') };
+}
+ 
+var search = document.location.search;
+if (search) {
+    var splited = search.replace(/^\?/, '').split(/-/);
+    if (splited[0]) {
+        var reservedTestIndex = parseInt(splited[0].replace(/^0*/, '') || 0);
+    }
+    if (splited[1]) {
+        var reservedCaseIndex = parseInt(splited[1].replace(/^0*/, ''));
+    }
+}
+ 
+window._setTimeout = window.setTimeout;
+ 
+window.setTimeout = function() {
+    var f = arguments[0];
+    var t = arguments[1];
+    var args = [];
+    for (var i = 2, l = arguments.length; i < l; i ++) args.push(arguments[i]);
+    _setTimeout(function() { return f.apply(this, args) }, t);
+};
+ 
+var testIndex = (reservedTestIndex || 0);
+var prevLogger = null;
+ 
+var prevId = null;
+function f () {
+    var doc = testFrame.contentWindow.document;
+    var id = testIndex ++;
+    id = (10000 + id + '').substring(1)
+    var data = parseTestData(getTestData(id));
+    if (!data) return;
+ 
+    loadFrame(data.html);
+    var context = doc.evaluate(data.contextExpr, doc, null, 7, null).snapshotItem(0);
+    var tests = data.tests;
+    var logger = new Logger(data.comment, data.html, id, prevId);
+    prevId = id;
+    if (prevLogger) prevLogger.next(id);
+    prevLogger = logger;
+    var i = (reservedCaseIndex || 0), length = tests.length;;
+ 
+    function g(fin) {
+        if (!(i < length)) return fin();
+        var test = tests[i];
+        var expr = test.expr;
+        try {
+            var nodesAndTime = applyXPath(context, expr);
+            var result = testNodes(nodesAndTime[0], test.data);
+            var t = nodesAndTime[1];
+            var ok = result.detail == 'ok';
+ 
+            var anchor = document.createElement('a');
+            anchor.href = '?' + id + '-' + (10000 + logger.localCounter.countAll + '').substring(1);
+            anchor.appendChild(document.createTextNode('only this case'));
+ 
+            logger.log([
+                expr,
+                test.data,
+                {
+                    label: result.detail,
+                    className: result.status
+                },
+                {
+                    label: t,
+                    className: (t>50) ? 'heavy': null
+                },
+                {
+                    richLabel: anchor
+                }
+            ]);
+            logger.localCounter.inc(ok);
+            Logger.globalCounter.inc(ok);
+        }
+        catch (e) {
+            logger.log([expr, test.data, e.message, 'error']);
+            logger.localCounter.inc(false);
+            Logger.globalCounter.inc(false);
+//          alert(e);
+        }
+        i ++;
+        if (reservedCaseIndex == undefined) {
+            setTimeout(g, 10, fin);
+        }
+    }
+ 
+    setTimeout(g , 10, function() {
+        if (reservedTestIndex == undefined) {
+            setTimeout(f, 10);
+        }
+    });
+}
+ 
+setTimeout(f, 10);
+ 
+// ]]>
+  </script> 
+ </body> 
+</html> 
+ 

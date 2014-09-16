@@ -1,0 +1,23 @@
+CREATE TABLE `cmsware_content_1` (
+  `ContentID` int(10) NOT NULL auto_increment,
+  `Title` varchar(250) NOT NULL default '',
+  `TitleColor` varchar(7) NOT NULL default '',
+  `Author` varchar(20) NOT NULL default '',
+  `Editor` varchar(20) NOT NULL default '',
+  `Photo` varchar(250) NOT NULL default '',
+  `SubTitle` varchar(250) NOT NULL default '',
+  `Content` longtext NOT NULL,
+  `Keywords` varchar(250) NOT NULL default '',
+  `FromSite` varchar(250) NOT NULL default '',
+  `Intro` text NOT NULL,
+  `CreationDate` int(10) NOT NULL default '0',
+  `ModifiedDate` int(10) NOT NULL default '0',
+  `CreationUserID` int(8) NOT NULL default '0',
+  `LastModifiedUserID` int(8) NOT NULL default '0',
+  `RelateDoc` text NOT NULL,
+  `ContributionUserID` int(8) NOT NULL default '0',
+  `ContributionID` int(8) NOT NULL default '0',
+  `Lanmu` varchar(50) NOT NULL default '',
+  `WantComment` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`ContentID`)
+) TYPE=MyISAM

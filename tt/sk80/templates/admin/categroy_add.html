@@ -1,0 +1,69 @@
+<{include file="admin/header.html"}>
+    <{strip}>
+          <div id="main">
+              <div id="content">
+                  <h1>添加分类</h1>
+                  <div id="tip" style="display:none"></div>
+                  <form action="index.php?job=admin_category&action=add" method="post">
+                      <div class="form-area">
+                          <p class="title">
+                              <label for="category-name">分类名字</label>
+                              <input id="category-name" name="cat[name]" class="textbox" size="255" maxlength="255" type="text" />
+                          </p>
+                          <p class="title">
+                              <label for="category-slug">分类别名(英文小写)</label>
+                              <input id="category-slug" name="cat[slug]" class="textbox" size="30" maxlength="30" type="text" />
+                          </p>
+
+                          <div class="rows">
+                              <p>
+                                  <label>父分类</label>
+                                  <select name="cat[pid]">
+                                      <option value="0">无分类</option>
+                                      <{foreach item=val from=$cats}>
+                                      <option value="<{$val->id}>"><{$val->name}></option>
+                                      <{/foreach}>
+
+                                  </select>
+                              </p>
+                          </div>
+                      </div>
+
+                      <p class="buttons">
+                          <input name="submit" type="submit" value="创建分类" />
+                          or
+                          <a href="javascript:history.back()">Cancel</a>
+                      </p>
+                  </form>
+              </div>
+          </div>
+    <{/strip}>
+<{include file="admin/footer.html"}>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        $("form").submit( function () {
+            var error_msg='';
+            var tip = $("#tip");
+            if($("#category-name").val() == '') {
+                error_msg += '请输入分类<br />';
+            }
+
+            //不起作用
+            if($("#category-slug").val() == '') {
+                var slugReg = /^[a-z]{1,29}$/;
+                if(!slugReg.test($("#category-slug").val()))
+                    error_msg += 'slug只允许字母，长度在1-30之间<br />';
+            }
+
+            if(error_msg != ''){
+                tip.html(error_msg).slideDown("slow");
+
+                return false;
+            }
+            if(tip.style.display != 'none')
+                tip.slideUp('slow');
+            return true;
+        } );
+    });
+</script>

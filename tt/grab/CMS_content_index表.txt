@@ -1,0 +1,27 @@
+CREATE TABLE `cmsware_content_index` (
+  `IndexID` int(10) NOT NULL auto_increment,
+  `ContentID` int(10) NOT NULL default '0',
+  `NodeID` int(10) NOT NULL default '0',
+  `ParentIndexID` int(8) NOT NULL default '0',
+  `Type` tinyint(1) NOT NULL default '1',
+  `PublishDate` int(10) NOT NULL default '0',
+  `SelfTemplate` varchar(250) NOT NULL default '',
+  `SelfPSN` varchar(250) NOT NULL default '',
+  `SelfPublishFileName` varchar(250) NOT NULL default '',
+  `SelfPSNURL` varchar(250) NOT NULL default '',
+  `SelfURL` varchar(250) NOT NULL default '',
+  `State` tinyint(2) NOT NULL default '0',
+  `URL` varchar(250) NOT NULL default '',
+  `Top` smallint(5) NOT NULL default '0',
+  `Pink` smallint(5) NOT NULL default '0',
+  `Sort` smallint(3) NOT NULL default '100',
+  `TableID` int(10) NOT NULL default '0',
+  PRIMARY KEY  (`IndexID`,`ContentID`,`NodeID`),
+  UNIQUE KEY `IndexID` (`IndexID`),
+  KEY `N_P` (`NodeID`,`State`,`Top`,`PublishDate`,`Sort`),
+  KEY `PID` (`ParentIndexID`),
+  KEY `Type` (`Type`),
+  KEY `Top` (`Top`),
+  KEY `Pink` (`Pink`)
+) TYPE=MyISAM
+

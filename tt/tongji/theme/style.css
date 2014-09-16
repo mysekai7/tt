@@ -1,0 +1,73 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,textarea,blockquote,th,td{margin:0;padding:0;}
+body{font:12px/120% 'Arial','Verdana',sans-serif; text-align:center; color:#333; background:#EEEEEE;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+a{color:#369; text-decoration:none; outline:none;}
+a:hover{color:#36c;}
+
+.clear{clear:both;}
+.center{text-align:center;}
+.title{font-family:'Microsoft Yahei',"Lucida Grande",Helvetica,Arial,sans-serif; color:#000;}
+.mod_title{background:#DCDCD1; border:1px solid #B3B3AA; padding:14px 10px 4px; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; border-radius: 5px 5px 0 0; font-size:14px; font-weight:bold; color:#000; text-shadow:0 1px 0 #FFFFFF;}
+#header{width:960px; margin:0 auto; padding:10px 0; color:#336699; font:bold 18px 'Verdana',sans-serif; text-align:left;}
+#main{width:960px; margin:0 auto 60px; padding:30px 0; background:#FFF; text-align:left; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; overflow:hidden;}
+#content{float:left; width:720px; padding-left:15px;}
+#sidebar{float:right; width:190px; padding:0 15px; 0 10px}
+#sub-title{padding:0 15px; margin-bottom:20px; font-size:14px; font-weight:bold; color:#000;}
+#sub-title span{color:#999;}
+
+
+#content .tbody{margin-bottom:40px; border-bottom:2px solid #D2D2C8;}
+#content .tbody td{border-bottom:1px solid #EEE;}
+#summary .numeric{font-size:14px; font-weight:bold; font-family:Helvetica,Arial,sans-serif;}
+#summary .prev{color:#999; font-size:11px;}
+#summary table{width:180px; float:left;}
+#summary table:hover{background:#FFFFCC;}
+#summary td{height:2.7em; line-height:2.7em; border-bottom:1px solid #EEE;}
+#summary .text{ line-height:1em;font-size:11px;}
+.up{color:green;}
+.down{color:red;}
+.list{overflow-x:hidden; overflow-y:auto; height:16.5em;}
+.list table, .tit table{width:100%;}
+.list th, .tit th{padding:0;background:#E1E1E1; border-top:1px solid #FFF; border-bottom:1px solid #BBB; line-height:15px;}
+.list table, .mod_title table{width:100%;}
+.list td{line-height:1.9;}
+.list .curr, .list .last, .mod_title .curr, .mod_title .last{width:100px;}
+.list .curr{color:#000;}
+.list td.last{color:#999; font-size:11px;}
+.list .first, .tit .first{padding-left:10px;}
+.list .first img{margin-left:2px;vertical-align:middle;}
+.list .diff, .mod_title .diff, .tit .diff2{width:80px;}
+.list .diff2, .mod_title .diff2, .tit .diff2{width:55px;}
+.list:hover{background:#F9F9F9;}
+.list tr:hover{background:#FFFFCC;}
+
+#calender{border:1px solid #B3B3AA; margin-bottom:30px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+#calender table{width:100%;border-collapse:collapse;border-spacing:0;}
+#calender th{margin:0; padding:3px 0; background:#DCDCD1; text-align:center; font-weight:bold;}
+#calender td{margin:0; padding:2px 0 3px; text-align:center; color:#999;}
+#calender td b{display:inline-block; padding:1px 2px; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; background:#FF9900; color:#000}
+#calender .yearmon{text-align:center; font-weight:bold; font:bold 14px/27px Georgia,'Times New Roman',Times,serif; color:#000;}
+
+#calender .prev_mon{display:block; margin:0 auto; width:21px; height:27px; text-indent:-9999px;background:url(img/calender_pp.gif) no-repeat 0 0;}
+#calender .prev_mon:hover{background:url(img/calender_pp.gif) no-repeat -21px 0;}
+#calender .next_mon{display:block; margin:0 auto; width:21px; height:27px; text-indent:-9999px;background:url(img/calender_np.gif) no-repeat 0 0;}
+#calender .next_mon:hover{background:url(img/calender_np.gif) no-repeat -21px 0;}
+
+#calender td a{font-weight:bold;}
+#calender td a:hover{color:#FF9900;}
+#calender td .today{display:inline-block; padding:0 1px; border:1px solid #DCDCD1; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; color:#000}
+
+#select select{width:188px;}
+#select h2{margin:10px 0 5px;}
+
+.w350{width:350px;}
+.left{float:left;}
+.right{float:right;}
+
+#crawl .last{width:auto}
+

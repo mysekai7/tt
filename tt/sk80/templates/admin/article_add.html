@@ -1,0 +1,170 @@
+<{include file="admin/header.html"}>
+    <{strip}>
+          <div id="main">
+              <div id="content">
+                  <h1>文章</h1>
+                  <div id="tip" style="display:none"></div>
+                  <form method="post" action="index.php?job=admin_article&action=add">
+                      <div class="form-area">
+                          <p class="title">
+                              <label for="article-title">文章标题</label>
+                              <input id="article-title" class="textbox" name="content[title]" value="<{$article->title}>" size="255" maxlength="255" type="text" />
+                          </p>
+                          <div id="extended-metadata" style="display:none">
+                              <table>
+                                  <tbody>
+                                      <tr>
+                                          <td class="label">Slug</td>
+                                          <td class="field"><input class="textbox" type="text" name="content[slug]" value="<{$article->slug}>" /></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="label">Keywords</td>
+                                          <td class="field"><input class="textbox" type="text" name="content[keywords]" value="<{$article->keywords}>" /></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="label">Description</td>
+                                          <td class="field"><input class="textbox" type="text" name="content[description]" value="<{$article->description}>" /></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="label">Tags</td>
+                                          <td class="field"><input class="textbox" type="text" name="tags" value="<{foreach from=$article->tags item=tag name=tag}><{$tag}><{if !$smarty.foreach.tag.last}>,<{/if}><{/foreach}>" /></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="label">Password</td>
+                                          <td class="field"><input class="textbox" type="text" name="content[password]" value="<{$article->password}>" /></td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <p class="more-or-less"><small><a id="show_btn" href="#">More</a></small></p>
+                          <label class="article-body" for="article-body">文章内容</label>
+                          <div id="article-body">
+                              <textarea  rows="12" cols="80" id="elm1" name="content_part[content]"><{$article->content}></textarea>
+                          </div>
+                          <div class="rows">
+                              <p>
+                                  <label>分类</label>
+                                  <select name="content[cid]">
+                                      <option value="0">无分类</option>
+                                      <{foreach name=cats item=val from=$cats}>
+                                      <option value="<{$val->id}>" <{if $article->cid eq $val->id}>selected<{/if}>><{$val->name}></option>
+                                      <{/foreach}>
+                                  </select>
+                              </p>
+                              <p>
+                                  <label>类型</label>
+                                  <select name="content[type]">
+                                      <option value="post" <{if $article->type eq 'post'}>selected<{/if}>>文章</option>
+                                      <option value="page" <{if $article->type eq 'page'}>selected<{/if}>>页面</option>
+                                  </select>
+                              </p>
+                              <p>
+                                  <label>状态</label>
+                                  <select name="content[status]">
+                                      <option value="publish" <{if $article->status eq 'publish'}>selected<{/if}>>发布</option>
+                                      <option value="draft" <{if $article->status eq 'draft'}>selected<{/if}>>草稿</option>
+                                  </select>
+                              </p>
+                              <p>
+                                  <label>评论</label>
+                                  <select name="content[is_comment]">
+                                      <option value="1" <{if $article->allow_cmt eq '1'}>selected<{/if}>>允许</option>
+                                      <option value="0" <{if $article->allow_cmt eq '0'}>selected<{/if}>>不允许</option>
+                                  </select>
+                              </p>
+                          </div>
+                          <{if $article->updated_date}>
+                          <p><small>Last updated by UID.<{$article->updated_uid}> at <{$article->updated_date|date_format:"%I:%M:%S %p"}> on <{$article->updated_date|date_format:"%A, %B %e, %Y"}></small></p>
+                          <{/if}>
+                      </div>
+
+                      <p class="buttons">
+                          <input name="content[id]" type="hidden" value="<{$article->id}>" />
+                          <input name="add" type="submit" value="创建文章" />
+                          <input name="save" type="submit" value="保存并继续编辑" />
+                          or
+                          <a href="javascript:history.back();">Cancel</a>
+                      </p>
+                  </form>
+              </div>
+          </div>
+    <{/strip}>
+<{include file="admin/footer.html"}>
+<script type="text/javascript" src="<{$site_url}>include/js/xheditor/xheditor-zh-cn.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //编辑器初始化
+        var editor = $('#elm1').xheditor(true,{plugins:{Code:{c:'btnCode',t:'插入代码',e:function(){
+			var _this=this;
+			var htmlCode='<div><select id="xheCodeType"><option value="plain">其它</option><option value="php">PHP</option><option value="C">C</option><option value="Bash">Bash</option><option value="Python">Python</option><option value="Perl">Perl</option><option value="SQL">SQL</option><option value="MySql">MySql</option><option value="ActionScript 3">AS3</option><option value="Javascript">Javascript</option><option value="HTML">HTML</option><option value="div">DIV</option><option value="CSS">CSS</option><option value="text">Text</option></select></div><div><textarea id="xheCodeValue" wrap="soft" spellcheck="false" style="font:normal 12px Consolas, courier new; width:350px;height:150px;" /></div><div style="text-align:right;"><input type="button" id="xheSave" value="确定" /></div>';
+			var jCode=$(htmlCode),jType=jSave=$('#xheCodeType',jCode),jValue=jSave=$('#xheCodeValue',jCode),jSave=$('#xheSave',jCode);
+			jSave.click(function(){
+				_this.focus();
+				_this.pasteText('[code='+jType.val()+']\r\n'+jValue.val()+'\r\n[/code]');
+				_this.hidePanel();
+				return false;
+			});
+			_this.showDialog(jCode);
+		}}},forcePtag:false,upLinkUrl:"upload.php",upLinkExt:"zip,rar,txt",upImgUrl:"upload.php",upImgExt:"jpg,jpeg,gif,png",upFlashUrl:"upload.php",upFlashExt:"swf",upMediaUrl:"upload.php",upMediaExt:"wmv,avi,wma,mp3,mid"});
+
+		$("#show_btn").text("More").toggle(
+			function(){
+				$(this).text("Less");
+			},
+			function(){
+				$(this).text("More");
+			}
+		).click(function(){
+			$("#extended-metadata").slideToggle('slow');
+		});
+
+        $("form").submit( function () {
+            var error_msg='';
+            var tip = $("#tip");
+            if($("#article-title").val() == '') {
+                error_msg += '请输入文章标题<br />';
+            }
+
+            if($("input[name='content[slug]']").val() != '') {
+                var slugReg = /^[A-Za-z ]{5,29}$/;
+                if(!slugReg.test($("input[name='content[slug]']").val()))
+                {
+                    error_msg += 'slug只允许字母+空格，长度在6-30之间<br />';
+                }
+            }
+
+            if($("input[name='content[password]']").val() != '') {
+                var passwordReg = /^[a-zA-Z0-9]{5,14}$/;
+                if(!passwordReg.test($("input[name='content[password]']").val()))
+                {
+                    error_msg += 'password以字母数字组合，长度在6-15之间<br />';
+                }
+            }
+
+            if($("input[name='tags']").val() != '') {
+                var tagsReg = /[\~!@#\$%\^&\*\.\(\)\[\]\{\}<>\?\\\\\/'\"]+/;
+                if(tagsReg.test($("input[name='tags']").val()))
+                {
+                    error_msg += 'tags不能含有特殊字符<br />';
+                }
+            }
+            
+            if( editor.getSource().length < 10) {
+                error_msg += '文章内容字符不能小于20<br />';
+            }
+            if($("select[name='content[cid]']").val() == 0) {
+                error_msg += '请选择文章分类<br />';
+            }
+            if(error_msg != ''){
+                tip.html(error_msg).slideDown("slow");
+              
+                return false;
+            }
+            if(tip.style.display != 'none')
+                tip.slideUp('slow');
+            return true;
+        } );
+    });
+
+</script>

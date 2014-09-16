@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="体验XHProf:Linux,XHProf " /><meta name="description" content="体验XHProf,Javascript的事件以及事件处理,不用curl，纯PHP实现POST提交" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>体验XHProf</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/linux/">Linux</a>&gt;<strong class="current">体验XHProf</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="Javascript的事件以及事件处理" href="http://sk2.com/post/186.html" rel="nofollow">Newer</a></li><li class="older"><a title="不用curl，纯PHP实现POST提交" href="http://sk2.com/post/184.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>体验XHProf</h1><ul class="info"><li class="date">2010年 04月 8日  10:35</li><li class="category"><a href="http://sk2.com/category/linux/">Linux</a></li></ul><div class="textbody">调试PHP时，<a href="http://xdebug.org/" target="_blank">XDebug</a>一直是大众的不二选择，搭配上<a href="http://code.google.com/p/webgrind/" target="_blank">Webgrind</a>，可以获得不错的效果。今天看<a target="_blank" href="http://www.ooso.net/archives/522">某人的栖息地里的介绍</a>，才发现了<a href="http://mirror.facebook.net/facebook/xhprof/" target="_blank">XHProf</a>，于是体验了一下，感觉很酷，与XDebug相比，运行更轻便，表现更易懂，下面记录一下体验过程。<br /><br /><strong>安装XHProf：</strong><br /><br /><div class="code"><pre class="bash" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;"><span style="color: #c20cb9; font-weight: bold;">wget</span> http:<span style="color: #000000; font-weight: bold;">//</span>pecl.php.net<span style="color: #000000; font-weight: bold;">/</span>get<span style="color: #000000; font-weight: bold;">/</span>xhprof-0.9.2.tgz
+<span style="color: #c20cb9; font-weight: bold;">tar</span> zxf xhprof-0.9.2.tgz
+<span style="color: #7a0874; font-weight: bold;">cd</span> xhprof-0.9.2
+<span style="color: #c20cb9; font-weight: bold;">cp</span> <span style="color: #660033;">-r</span> xhprof_html xhprof_lib
+<span style="color: #7a0874; font-weight: bold;">cd</span> extension
+phpize
+.<span style="color: #000000; font-weight: bold;">/</span>configure
+<span style="color: #c20cb9; font-weight: bold;">make</span>
+<span style="color: #c20cb9; font-weight: bold;">make</span> <span style="color: #c20cb9; font-weight: bold;">install</span></pre></div><span style="font-family:宋体;"></span><br /><br /><strong>编辑php.ini：</strong><br /><br /><div class="code"><pre class="ini" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;"><span style="color: #000066; font-weight:bold;"><span style="">&#91;</span>xhprof<span style="">&#93;</span></span>
+<span style="color: #000099;">extension</span><span style="color: #000066; font-weight:bold;">=</span><span style="color: #660066;">xhprof.so</span>
+<span style="color: #666666; font-style: italic;">;</span>
+<span style="color: #666666; font-style: italic;">; directory used by default implementation of the iXHProfRuns</span>
+<span style="color: #666666; font-style: italic;">; interface (namely, the XHProfRuns_Default class) for storing</span>
+<span style="color: #666666; font-style: italic;">; XHProf runs.</span>
+<span style="color: #666666; font-style: italic;">;</span>
+xhprof.output_dir<span style="color: #000066; font-weight:bold;">=</span></pre></div><br /><br />重启服务让修改生效，现在就可以使用XHProf了，不过为了显示效果更炫，最好继续安装Graphviz。<br /><br /><strong>安装Graphviz：</strong><br /><div class="code"><pre class="bash" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;"><span style="color: #c20cb9; font-weight: bold;">wget</span> http:<span style="color: #000000; font-weight: bold;">//</span>www.graphviz.org<span style="color: #000000; font-weight: bold;">/</span>pub<span style="color: #000000; font-weight: bold;">/</span>graphviz<span style="color: #000000; font-weight: bold;">/</span>stable<span style="color: #000000; font-weight: bold;">/</span>SOURCES<span style="color: #000000; font-weight: bold;">/</span>graphviz-2.24.0.tar.gz
+<span style="color: #c20cb9; font-weight: bold;">tar</span> zxf graphviz-2.24.0.tar.gz
+<span style="color: #7a0874; font-weight: bold;">cd</span> graphviz-2.24.0
+.<span style="color: #000000; font-weight: bold;">/</span>configure
+<span style="color: #c20cb9; font-weight: bold;">make</span>
+<span style="color: #c20cb9; font-weight: bold;">make</span> <span style="color: #c20cb9; font-weight: bold;">install</span></pre></div><br /><br />安装完成后，会生成/usr/local/bin/dot文件，你应该确保路径在PATH环境变量里，以便XHProf能找到它。<br /><br /><strong>使用XHProf：</strong><br /><br /><div class="code"><pre class="php" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;"><span style="color: #666666; font-style: italic;">// start profiling</span>
+xhprof_enable<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// run program</span>
+<span style="color: #339933;">....</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// stop profiler</span>
+<span style="color: #000088;">$xhprof_data</span> <span style="color: #339933;">=</span> xhprof_disable<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">//</span>
+<span style="color: #666666; font-style: italic;">// Saving the XHProf run</span>
+<span style="color: #666666; font-style: italic;">// using the default implementation of iXHProfRuns.</span>
+<span style="color: #666666; font-style: italic;">//</span>
+<span style="color: #b1b100;">include_once</span> <span style="color: #000088;">$XHPROF_ROOT</span> <span style="color: #339933;">.</span> <span style="color: #0000ff;">&quot;/xhprof_lib/utils/xhprof_lib.php&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #b1b100;">include_once</span> <span style="color: #000088;">$XHPROF_ROOT</span> <span style="color: #339933;">.</span> <span style="color: #0000ff;">&quot;/xhprof_lib/utils/xhprof_runs.php&quot;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000088;">$xhprof_runs</span> <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> XHProfRuns_Default<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// Save the run under a namespace &quot;xhprof_foo&quot;.</span>
+<span style="color: #666666; font-style: italic;">//</span>
+<span style="color: #666666; font-style: italic;">// **NOTE**:</span>
+<span style="color: #666666; font-style: italic;">// By default save_run() will automatically generate a unique</span>
+<span style="color: #666666; font-style: italic;">// run id for you. [You can override that behavior by passing</span>
+<span style="color: #666666; font-style: italic;">// a run id (optional arg) to the save_run() method instead.]</span>
+<span style="color: #666666; font-style: italic;">//</span>
+<span style="color: #000088;">$run_id</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$xhprof_runs</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">save_run</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$xhprof_data</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">&quot;xhprof_foo&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #b1b100;">echo</span> <span style="color: #0000ff;">&quot;---------------<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #339933;">.</span>
+<span style="color: #0000ff;">&quot;Assuming you have set up the http based UI for <span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #339933;">.</span>
+<span style="color: #0000ff;">&quot;XHProf at some address, you can view run at <span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #339933;">.</span>
+<span style="color: #0000ff;">&quot;http://&lt;xhprof-ui-address&gt;/index.php?run=<span style="color: #006699; font-weight: bold;">$run_id</span>&amp;source=xhprof_foo<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #339933;">.</span>
+<span style="color: #0000ff;">&quot;---------------<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #339933;">;</span></pre></div><br /><br />如此一来，会在上面设定的xhprof.output_dir目录里生成名字类似49bafaa3a3f66.xhprof_foo的数据文件，可以很方便的通过Web方式浏览效果：<br /><br />http://&lt;xhprof-ui-address&gt;/index.php?run=49bafaa3a3f66&amp;source=xhprof_foo<br /><br />目前显示的是表格形式的显示，点击页面上的[View Full Callgraph]，就能看到<a target="_blank" href="http://mirror.facebook.net/facebook/xhprof/sample-callgraph-image.jpg">精美的图片显示</a>了。</div><div class="entry-tags"><strong>Tags:</strong><a href="http://sk2.com/tag/XHProf/">XHProf</a></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/186.html">Javascript的事件以及事件处理</a></li><li>Older:<a href="http://sk2.com/post/184.html">不用curl，纯PHP实现POST提交</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

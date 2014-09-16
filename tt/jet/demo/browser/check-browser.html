@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Browser 检测 - Demo - JET</title>
+
+	<link rel="stylesheet" href="../../source/assets/jet.reset.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style type="text/css">
+
+	.styleA{
+		padding:5px 0;
+		overflow:hidden;
+	}
+	.styleB{
+		padding:5px 0;
+	}
+	</style>
+</head>
+
+<body>
+	<h1 id="Div1" class="styleA">Browser 检测</h1>
+	<ul class="styleB">
+		<li>原始Platform：<span id="Platform1">...</span></li>
+		<li>原始UserAgent：<span id="UserAgent">...</span></li>
+		<li>操作系统平台：<span id="Platform2">...</span></li>
+		<li>系统版本：<span id="PlatformVer">...</span></li>
+		<li>浏览器：<span id="BrowserName">...</span></li>
+		<li>版本：<span id="BrowserVer">...</span></li>
+		<li>引擎：<span id="EngineName">...</span></li>
+		<li>引擎版本：<span id="EngineVer">...</span></li>
+		<li>支持特性：<span id="Features">...</span></li>
+		<li>Flash版本：<span id="Flash">...</span></li>
+		<li>插件：<span id="Plugin">...</span></li>
+		
+	</ul>
+
+	
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+
+	<script>
+	
+		J = new Jet();
+
+		var $=J.dom.id;
+
+		$("Platform1").innerHTML = J.platform.getPlatform();
+		$("UserAgent").innerHTML = J.browser.getUserAgent();
+		$("Platform2").innerHTML = J.platform.name;
+		$("PlatformVer").innerHTML = J.platform.version;
+		$("BrowserName").innerHTML = J.browser.name;
+		$("BrowserVer").innerHTML = J.browser.version;
+		$("EngineName").innerHTML = J.browser.engine.name;
+		$("EngineVer").innerHTML = J.browser.engine.version;
+		$("Features").innerHTML = "xpath:"+J.browser.features.xpath+", air:"+J.browser.features.air+", query:"+J.browser.features.query;
+		$("Flash").innerHTML = J.browser.plugins.flash;
+		
+		$("Plugin").innerHTML = (function(){
+			var a=[];
+			window.plug = J.browser.getPlugins();
+			for(var i=0; i<J.browser.getPlugins().length; i++){
+				a.push(J.browser.getPlugins()[i].name);
+			}
+			
+			return a.join(",<br />");
+		})();
+		
+		
+
+
+
+	</script>
+</body>
+</html>

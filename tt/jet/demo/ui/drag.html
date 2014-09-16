@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>鼠标拖拽</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+	.draggable1{  
+		position:absolute;  
+		left:100px;
+		top:100px;
+		width:300px;   
+		height:200px;  
+		background: blue;
+		border:2px solid gray;
+	}
+	.draggable2{  
+		position:absolute;  
+		left:200px;
+		top:200px;
+		width:300px;   
+		height:200px;  
+		background: red;  
+	}
+	#titleBar1{
+		background:yellow;
+	}
+	</style>
+</head>
+
+<body>
+	<button id="lock">lock</button>
+	<button id="unlock">unlock</button>
+	<div id="m1" class="draggable1">
+		<div id="titleBar1">title</div>
+	</div>  
+	<div id="m2" class="draggable2"></div>  
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.ui.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package(function(J){
+			var $D = J.dom,
+				$E = J.event;
+			var lockButton = $D.id("lock"),
+				unlockButton = $D.id("unlock");
+				
+			var p = new J.ui.Drag($D.id("titleBar1"), $D.id("m1"));
+			var q = new J.ui.Drag($D.id("m2"));
+			$E.on(lockButton, "click", function(){
+				p.lock();
+				q.lock();
+				
+			});
+			$E.on(unlockButton, "click", function(){
+				p.unlock();
+				q.unlock();
+			});
+		});
+		
+	//]]>
+	</script>
+</body>
+</html>

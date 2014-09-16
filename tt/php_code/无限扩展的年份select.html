@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="Editplus4PHP" />
+    <meta name="keywords" content="Editplus4PHP" />
+    <meta name="description" content="Editplus4PHP" />
+    <meta name="author" content="Leo" />
+<!--
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+-->
+    <title>Example | xHTML1.0</title>
+</head>
+<body>
+<script>
+//-------------------------------------
+//  无限扩展的年份select
+//  
+//   作者: PuterJam
+//-------------------------------------
+
+var Lastyear
+function selYear(obj,Cyear){
+var len=16 //select长度
+var selObj=document.getElementById(obj)
+var selIndex=parseInt(len/2)-1
+var newOpt
+var LY=Cyear-Lastyear
+for (i=0;i<len;i++){
+   if (selObj.options.length!=len){
+     newOpt=document.createElement("OPTION")
+     newOpt.text=Cyear-selIndex+i
+     newOpt.value=Cyear-selIndex+i
+     selObj.options.add(newOpt,i)
+      if (selIndex==i) {Lastyear=newOpt.value}      
+     }
+    else
+    {
+     selObj.options[i].text=parseInt(selObj.options[i].text)+LY
+     selObj.options[i].value=parseInt(selObj.options[i].value)+LY
+     if (selIndex==i) {Lastyear=selObj.options[i].value}          
+    }
+}
+  selObj.selectedIndex=selIndex
+}
+</script>
+<select size="1" id="yearSelect" name="yearSelect" onchange="selYear('yearSelect',this.value)"></select>
+<script>selYear('yearSelect',2005) //初试化select</script>    
+</body>
+</html>

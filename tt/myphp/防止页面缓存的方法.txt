@@ -1,0 +1,18 @@
+htm网页
+<metahttp-equiv="pragma"content="no-cache">
+<metahttp-equiv="cache-control"content="no-cache,must-revalidate">
+<metahttp-equiv="expires"content="wed,26feb199708:21:57gmt">
+或者
+<metahttp-equiv="expires"content="0">
+
+asp网页
+response.expires=-1 response.expiresabsolute=now()-1
+response.cachecontrol="no-cache"
+
+php网页
+header("expires:mon,26jul199705:00:00gmt");
+header("cache-control:no-cache,must-revalidate");
+header("pragma:no-cache");
+
+jsp网页
+response.addHeader("Pragma", "No-cache");

@@ -1,0 +1,10 @@
+2010-03-30 21:58:46	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-03-30 21:58:46	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-30 21:58:59	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt
+2010-03-30 22:01:14	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-03-30 22:01:14	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-03-30 22:01:14	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-03-30 22:01:14	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-03-30 22:01:14	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-03-30 22:01:14	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object
+2010-03-30 22:15:05	Notice: %%72^72B^72B5FBAE%%post.html.php:21: Undefined property: stdClass::$created_date

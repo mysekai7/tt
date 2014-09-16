@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>代码运行 - Code Playground</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+		.container{
+			height:300px;
+			overflow:auto;
+		}
+		#ObjectA{
+			display:none;
+		}
+		#ObjectB{
+
+		}
+	</style>
+</head>
+
+<body>
+	<div id="Content">
+		<h1>显示/隐藏 - show/hide</h1>
+
+		<div class="optionButton">
+			<button id="Button_A1" onclick="Display.showA()">显示 ObjectA</button>
+			<button id="Button_A2" onclick="Display.hideA()">隐藏 ObjectA</button>
+			<button id="Button_B1" onclick="Display.showB()">显示 ObjectB</button>
+			<button id="Button_B2" onclick="Display.hideB()">隐藏 ObjectB</button>
+
+		</div>
+		
+		<div id="ObjectA">ObjectA</div>
+		
+		<div class="container">
+			我是自由数字<a id="ObjectB" href="#">ObjectB</a><span>我是span</span>
+		</div>
+	</div> 
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package("Display",function(J){
+			var $D = J.dom;
+			var ObjectA = $D.id("ObjectA");
+			var ObjectB = $D.id("ObjectB");
+			
+			this.showA = function(){
+				$D.show(ObjectA);
+			};
+			this.hideA = function(){
+				$D.hide(ObjectA);
+			};
+			this.showB = function(){
+				$D.show(ObjectB);
+			};
+			this.hideB = function(){
+				$D.hide(ObjectB);
+			};
+		});
+	//]]>
+	</script>
+</body>
+</html>

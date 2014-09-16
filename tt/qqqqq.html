@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+    <link rel="stylesheet" href="html5reset.css" type="text/css" />
+    <link rel="stylesheet" href="html5semanticmarkup.css" type="text/css" />
+    <!--[if lt ie 9]>
+        <script src="html5.js"></script>
+    <![endif]-->
+</head>
+ <body>
+
+
+
+  <div id="div" style="border:2px solid #ddd; background:#EEE; display:none">
+	<ul>
+		<li><a href="">111111111111</a></li>
+		<li><a href="">111111111111</a></li>
+		<li><a href="">111111111111</a></li>
+		<li><a href="">111111111111</a></li>
+		<li><a href="">111111111111</a></li>
+		<li><a href="">111111111111</a></li>
+	</ul>
+  </div>
+  <button onclick="opendiv()">open</button>
+
+ <script>
+	var stopPropagation = true;
+
+	function listenEvent(eventTarget, eventType, eventHandler)
+	{
+		if (eventTarget.addEventListener) {
+			if (eventType === 'mouseenter') {
+				eventTarget.addEventListener('mouseover', mouseEnter(eventHandler), false); 
+			} else if (eventType === 'mouseleave') {
+				eventTarget.addEventListener('mouseout', mouseEnter(eventHandler), false);
+			} else {
+				eventTarget.addEventListener(eventType, eventHandler, false);
+			}
+		} else if (eventTarget.attachEvent) {
+			eventType = "on" + eventType;
+			eventTarget.attachEvent(eventType, eventHandler);
+		} else {
+			eventTarget["on" + eventType] = eventHandler;
+		}
+	}
+
+	function mouseEnter(_fn)
+	{
+	   return function(_evt)
+	   {
+		  var relTarget = _evt.relatedTarget;
+		  if (this === relTarget || isAChildOf(this, relTarget))
+			 { return; }
+
+		  _fn.call(this, _evt);
+	   }
+	};
+
+	function isAChildOf(_parent, _child)
+	{
+		if (_parent === _child) { return false; }
+		while (_child && _child !== _parent)
+		{ _child = _child.parentNode; }
+
+		return _child === _parent;
+	}
+
+	function cancelPropagation (event)
+	{
+		if (event.stopPropagation)
+		{
+			event.stopPropagation();
+		} else {
+			event.cancelBubble = true;
+		}
+	}
+
+	function opendiv()
+	{
+		var div = document.getElementById('div');
+		div.style.display='block';
+		
+		listenEvent(div, 'mouseleave',func);
+	}
+
+	function func(e){
+		//alert("Hi from Two");
+		var div = document.getElementById('div');
+		div.style.display = 'none';
+		//if (stopPropagation) {
+			cancelPropagation(e);
+		//}
+		
+	}
+
+
+</script> 
+
+
+<ul id = "theList">
+   <li>List Item One</li>
+   <li>List Item Two</li>
+   <li>List Item Three</li>
+   <li>List Item Four</li>
+</ul>
+
+<script type = "text/javascript">
+
+</script>
+ </body>
+</html>

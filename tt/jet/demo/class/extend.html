@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>new J.Class() - Demo - JET</title>
+
+	<link rel="stylesheet" href="../../source/assets/jet.reset.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style type="text/css">
+
+	.styleA{
+		padding:5px 0;
+		overflow:hidden;
+	}
+	.styleB{
+		padding:5px 0;
+	}
+	</style>
+</head>
+
+<body>
+
+
+
+	
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+
+	<script>
+	
+		Jet().$package(function(J){
+			var Panel = new J.Class({
+				init:function(name){
+					this.name = name;
+				},
+				showName:function(){
+					alert("this.name: "+this.name);
+					
+				}
+			});
+			var c1 = new Panel("c1");
+
+			var Panel2 = new J.Class({extend:Panel},{
+				init:function(name,width){
+					this.width = width;
+				},
+				showWidth:function(){
+					alert("this.width: "+this.width);
+				}
+			
+			});
+			var c2 = new Panel("c2");
+			var Panel3 = new J.Class({extend:Panel2},{
+				init:function(name,width,height){
+					this.height = height;
+				},
+				showHeight:function(){
+					alert("this.height: "+this.height);
+				}
+			
+			});
+
+			var c3 = new Panel3("c3",200,100);
+			J.out("q.showWidth:"+c3.showWidth)
+			c3.showName();
+			c3.showHeight();
+		
+		});
+		
+		
+
+
+
+	</script>
+</body>
+</html>

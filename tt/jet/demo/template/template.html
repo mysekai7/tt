@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>[JET demo]: JET template演示</title>
+	<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<script id="template" type="text/html">
+		<ul>
+			<li><%=title%></li>
+			<li><%=name%></li>
+			<li><%=email%></li>
+			<li><%=address%></li>
+			<li><%=tel%></li>
+		</ul>
+	</script>
+	
+	<div id="out"></div>
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.string.js"></script>
+
+	<script type="text/javascript">
+
+		/**
+		 * [JET demo]: JET template演示
+		 */
+		Jet().$package(function(J){
+		
+		
+			var html=J.dom.id("template").innerHTML;
+
+			html = J.string.template(html, {
+				title: "联系人薄",
+				name: "Kinvix",
+				email: "kinvix@gmail.com",
+				address: "深圳",
+				tel: "0755 - 8888 9999"
+			});
+			
+			J.dom.id("out").innerHTML=html;
+		
+		
+		});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>MVP two view - Javascript</title>
+	<style type="text/css">
+		.view1{
+			background: #e1e1e1;
+		}
+		.view2{
+			background:#e1e161;
+		}
+	</style>
+</head>
+
+<body>
+	
+	<div class="view1">
+		<h3>View1</h3>
+		<select id="selAnimal">
+			<option value="cat">cat</option>
+			<option value="fish">fish</option>
+			<option value="bird">bird</option>
+			<option value="other">other</option>
+		</select>
+		<p id="whatDoesThisAnimalDo">view</p>
+	</div>
+	
+	<div class="view2">
+		<h3>View2</h3>
+		<select id="selAnimal2">
+			<option value="cat">cat</option>
+			<option value="fish">fish</option>
+			<option value="bird">bird</option>
+			<option value="other">other</option>
+		</select>
+		<p id="whatDoesThisAnimalDo2">view2</p>
+	</div>
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	
+		// model 层：
+		Jet().$package("whatDoesAnimalDo.model", function(J){
+			var $E = J.event;
+			
+			// animal的字典数据
+			var animalDictionary = {
+					cat: "[字典释义]小猫，喵喵~~",
+					fish: "[字典释义]鱼，游来游去~~~",
+					bird: "[字典释义]鸟，飞翔~"
+				};
+			
+			// 当前的animal，也就是这个application的状态
+			var currentAnimal= null;
+			
+			// 数据模型负责【业务逻辑】和【数据存储】
+			this.setAnimal = function(animalName) {
+				currentAnimal = animalDictionary[animalName] ? animalName : null;
+				
+				// 触发事件
+				$E.notifyObservers(this,"ModelChange", this.getAnimalAction());
+			};
+			
+			// 还需要响应视图对当前状态的查询
+			this.getAnimalAction = function() {
+				return currentAnimal ? currentAnimal + ": " + animalDictionary[currentAnimal] : "汪汪?";
+			};
+		});
+		
+		// view 层：1
+		Jet().$package("whatDoesAnimalDo.view", function(J){
+			var $E = J.event;
+			
+			// 用户输入触发onchange事件
+			this.init = function() {
+				document.getElementById('selAnimal').onchange = J.bind(function(){
+					// 触发自己的事件
+					$E.notifyObservers(this, "ViewChange", document.getElementById('selAnimal').value);
+				},this);
+			};
+
+			// 视图更新显示的方法，其中视图会向model查询当前的状态，并将其显示给用户
+			this.update = function(data) {
+				document.getElementById('whatDoesThisAnimalDo').innerHTML = data;
+			};
+		});
+		
+		// view 层：2
+		Jet().$package("whatDoesAnimalDo.view2", function(J){
+			var $E = J.event;
+			
+			// 用户输入触发onchange事件
+			this.init = function() {
+				document.getElementById('selAnimal2').onchange = J.bind(function(){
+					// 触发自己的事件
+					$E.notifyObservers(this, "ViewChange", document.getElementById('selAnimal2').value);
+				},this);
+			};
+
+			// 视图更新显示的方法，其中视图会向model查询当前的状态，并将其显示给用户
+			this.update = function(data) {
+				document.getElementById('whatDoesThisAnimalDo2').innerHTML = data;
+			};
+		});
+		
+		
+		// presenter(主持者，呈献者) 层：1
+		Jet().$package("whatDoesAnimalDo.presenter", function(J){
+			var $E = J.event;
+
+			// 选择视图
+			this.init = function() {
+				this.view = whatDoesAnimalDo.view;
+				$E.addObserver(whatDoesAnimalDo.model, "ModelChange", J.bind(this.onModelChange,this));
+				$E.addObserver(whatDoesAnimalDo.view, "ViewChange", J.bind(this.onViewChange,this));
+				this.view.init();
+			};
+			
+			// 将用户的操作映射到模型的更新上
+			this.onViewChange = function(animalName) {
+				whatDoesAnimalDo.model.setAnimal(animalName);
+			};
+			
+			// 将模型的更新映射到View视图上
+			this.onModelChange = function(data) {
+				whatDoesAnimalDo.view.update(data);
+			};
+
+			//this.init();
+		});
+		
+		
+		// presenter 层：2
+		Jet().$package("whatDoesAnimalDo.presenter2", function(J){
+			var $E = J.event;
+
+			// 选择视图
+			this.init = function() {
+				this.view = whatDoesAnimalDo.view2;
+				$E.addObserver(whatDoesAnimalDo.model, "ModelChange", J.bind(this.onModelChange,this));
+				$E.addObserver(whatDoesAnimalDo.view2, "ViewChange", J.bind(this.onViewChange,this));
+				this.view.init();
+			};
+			
+			// 将用户的操作映射到模型的更新上
+			this.onViewChange = function(animalName) {
+				whatDoesAnimalDo.model.setAnimal(animalName);
+			};
+			
+			// 将模型的更新映射到View视图上
+			this.onModelChange = function(data) {
+				whatDoesAnimalDo.view2.update(data);
+			};
+
+			//this.init();
+		});
+		
+		
+		whatDoesAnimalDo.presenter.init();
+		whatDoesAnimalDo.presenter2.init();
+		
+
+	</script>
+</body>
+</html>

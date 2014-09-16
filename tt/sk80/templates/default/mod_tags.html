@@ -1,0 +1,12 @@
+<{if $tag_list}>
+<{strip}>
+<li id="tags">
+  <h2>标签</h2>
+  <ul>
+      <{foreach from=$tag_list item=val name=tag_list}>
+      <li><a style="font-size: <{$val.size}>px;" href="<{$site_url}>tag/<{$val.word|lower}>/"><{$val.word}></a></li>
+      <{/foreach}>
+  </ul>
+</li>
+<{/strip}>
+<{/if}>

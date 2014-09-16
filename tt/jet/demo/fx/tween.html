@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Tween 动画 - JET</title>
+</head>
+<body>
+	<div style="padding-left:50px;">
+	  <div style="position:relative; border:1px solid #000000; width:550px; height:50px;">
+		<div id="idMove" style="width:50px; height:50px; background:blue; position:absolute;"></div>
+	  </div>
+	  <div style="position:relative;width:550px;height:200px; margin-top:50px;">
+		<div id="idChart" style="border:1px solid #000;height:200px;"> </div>
+		<div id="idLine" style="position:absolute;top:0;left:0;height:200px;width:1px;background:#000;"></div>
+	  </div>
+	</div>
+	<div>
+	  <p> Tween类型： <br />
+		<label>
+		  <input name="vTween" type="radio" value="linear" checked="checked" />
+		  Linear </label>
+		<label>
+		  <input name="vTween" type="radio" value="quadratic" />
+		  Quadratic </label>
+		<label>
+		  <input name="vTween" type="radio" value="cubic" />
+		  Cubic </label>
+		<label>
+		  <input name="vTween" type="radio" value="quartic" />
+		  Quartic </label>
+		<label>
+		  <input name="vTween" type="radio" value="quintic" />
+		  Quintic </label>
+		<label>
+		  <input name="vTween" type="radio" value="sinusoidal" />
+		  Sinusoidal </label>
+		<br />
+		<label>
+		  <input name="vTween" type="radio" value="exponential" />
+		  Exponential </label>
+		<label>
+		  <input name="vTween" type="radio" value="circular" />
+		  Circular </label>
+		<label>
+		  <input name="vTween" type="radio" value="elastic" />
+		  Elastic </label>
+		<label>
+		  <input name="vTween" type="radio" value="back" />
+		  Back </label>
+		<label>
+		  <input name="vTween" type="radio" value="bounce" />
+		  Bounce </label>
+	  </p>
+	  <p> ease类型： <br />
+		<label>
+		  <input name="vEase" type="radio" value="easeIn" checked="checked" />
+		  easeIn </label>
+		<label>
+		  <input name="vEase" type="radio" value="easeOut" />
+		  easeOut </label>
+		<label>
+		  <input name="vEase" type="radio" value="easeInOut" />
+		  easeInOut </label>
+	  </p>
+	  <input id="idSpeed" type="button" value="减慢速度" />
+	  <input id="idRun" type="button" value=" Run " />
+	</div>
+	
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.fx.js"></script>
+	<script>
+		Jet().$package(function(J){
+			var $ = J.dom.id,
+				$D = J.dom,
+				$E = J.event,
+				$T = J.fx.tween;
+
+			var Each = function(list, fun){
+				for (var i = 0, len = list.length; i < len; i++) { fun(list[i], i); }
+			};
+
+			//////////////////////////////////////////////////////////
+
+			var fun, iChart = 550, iDuration = 100;
+
+			function Move(){
+				var oM = $("idMove").style, oL = $("idLine").style, t=0, c=500, d=iDuration;
+				oM.left=oL.left="0px";
+				clearTimeout(Move._t);
+				function _run(){
+					if(t<d){
+						t++;
+						/*
+						t: current time（当前时间）；
+						b: beginning value（初始值）；
+						c: change in value（变化量）；
+						d: duration（持续时间）。
+
+						*/
+						oM.left = Math.ceil(fun(t,0,c,d)) + "px";
+						oL.left = Math.ceil($T.linear(t,0,iChart,d)) + "px";
+						Move._t = setTimeout(_run, 10);
+					}else{
+						oM.left = c + "px";
+						oL.left = iChart + "px";
+					}
+				}
+				_run();
+			}
+
+			////////////////////////////////////////////////////////
+
+			function Chart(){
+				var a = [];
+				for (var i = 0; i < iChart; i++) {
+					a.push('<div style="background:red;font-size:0;width:3px;height:3px;position:absolute;left:' + (i-1) + 'px;top:' + (Math.ceil(fun(i,200,-200,iChart))) + 'px;"><\/div>');
+				}
+				$("idChart").innerHTML = a.join("");
+			}
+
+			////////////////////////////////////////////////////////
+
+			var arrTween = $D.name("vTween");
+			var arrEase = $D.name("vEase");
+
+			Each(arrTween, function(o){ 
+				$E.on(o,"click", function(){ SetFun(); Chart(); });
+			});
+			Each(arrEase, function(o){
+				$E.on(o,"click", function(){ SetFun(); Chart(); });
+			});
+
+			function SetFun(){
+				var sTween, sEase;
+				Each(arrTween, function(o){ if(o.checked){ sTween = o.value; } })
+				Each(arrEase, function(o){ if(o.checked){ sEase = o.value; } })
+				fun = sTween == "linear" ? $T.linear : $T[sTween][sEase];
+			}
+
+			$E.on($("idRun"),"click", function(){
+				SetFun(); Chart(); Move();
+			});
+
+			$E.on($("idSpeed"),"click", function(){
+				if(iDuration == 100){
+					iDuration = 500; this.value = "加快速度";
+				}else{
+					iDuration = 100; this.value = "减慢速度";
+				}
+			});
+			
+		});
+	</script>
+</body>
+</html>

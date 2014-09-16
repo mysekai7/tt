@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+    <link rel="stylesheet" href="html5reset.css" type="text/css" />
+    <link rel="stylesheet" href="html5semanticmarkup.css" type="text/css" />
+    <!--[if lt ie 9]>
+        <script src="html5.js"></script>
+    <![endif]-->
+</head>
+ <body>
+<style>
+#one
+{
+width: 100px; height: 100px; background-color: #0f0;
+}
+#two {
+width: 50px; height: 50px; background-color: #f00;
+}
+#stop
+{
+display: block;
+}
+</style>
+<script>
+// global for signaling propagation cancel
+var stopPropagation = false;
+
+function listenEvent(eventTarget, eventType, eventHandler)
+{
+	if (eventTarget.addEventListener) {
+		eventTarget.addEventListener(eventType, eventHandler,false);
+	} else if (eventTarget.attachEvent) {
+		eventType = "on" + eventType;
+		eventTarget.attachEvent(eventType, eventHandler);
+	} else {
+		eventTarget["on" + eventType] = eventHandler;
+	}
+}
+// cancel propagation
+function cancelPropagation (event)
+{
+	if (event.stopPropagation)
+	{
+		event.stopPropagation();
+	} else {
+		event.cancelBubble = true;
+	}
+}
+listenEvent(window,"load",function() {
+	listenEvent(document.getElementById("one"),"click",clickBoxOne);
+	listenEvent(document.getElementById("two"),"click",clickBoxTwo);
+	listenEvent(document.getElementById("stop"),"click",stopProp);
+});
+
+function stopProp() {
+	stopPropagation = true;
+}
+
+function clickBoxOne(evt)
+{
+	alert("Hello from One");
+}
+
+function clickBoxTwo(evt)
+{
+	alert("Hi from Two");
+	if (stopPropagation) {
+		cancelPropagation(evt);
+	}
+}
+</script>
+
+<div id="one">
+	<div id="two">
+		<p>Inner</p>
+	</div>
+</div>
+<button id="stop">Stop Propagation</button>
+ </body>
+</html>

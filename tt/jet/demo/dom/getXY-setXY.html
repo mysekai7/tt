@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>获取/设置页面范围的XY坐标 - getXY/setXY</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+		#Content{
+			width:800px;
+			height:600px;
+		}
+		#ObjectA{
+			position:absolute;
+			left:300px;
+			top:300px;
+			width:100px;
+			height:100px;
+			background:blue;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="Content">
+		<h1>获取/设置页面范围的XY坐标 - getXY/setXY</h1>
+
+		<div class="optionButton">
+			<button id="Button_1" onclick="Position.getXY()">获取XY</button>
+			<button id="Button_2" onclick="Position.setXY()">设置XY</button>
+
+		</div>
+		<div>
+			<label>X:</label>
+			<input id="xInput" type="text" value="100" size="8" />
+			<label>Y:</label>
+			<input id="yInput" type="text" value="100" size="8" />
+		
+		</div>
+		<div id="ObjectA">ObjectA</div>
+	</div> 
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package("Position",function(J){
+			var $D = J.dom;
+			var ObjectA = $D.id("ObjectA"),
+				xInput = $D.id("xInput"),
+				yInput = $D.id("yInput");
+				
+			
+			this.getXY = function(){
+				alert($D.getXY(ObjectA));
+			};
+			this.setXY = function(){
+				$D.setXY(ObjectA,xInput.value,yInput.value);
+			};
+
+		});
+	//]]>
+	</script>
+</body>
+</html>

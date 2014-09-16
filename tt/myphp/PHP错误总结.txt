@@ -1,0 +1,889 @@
+1:为什么我得不到变量
+
+我在一网页向另一网页POST数据name，为什么输出$name时却得不到任何值?
+
+在PHP4.2以后的版本中register_global默认为off
+若想取得从另一页面提交的变量:
+
+方法一:在PHP.ini中找到register_global，并把它设置为on.
+方法二:在接收网页最前面放上这个extract($_POST);extract($_GET);(注意extract($_SESSION)前必须要有Session_Start()).
+方法三:一个一个读取变量$a=$_GET["a"];$b=$_POST["b"]等，这种方法虽然麻烦，但比较安全.
+
+2：调试你的程序
+
+在运行时必须知道某个变量为何值。我是这样做的，建立一文件debug.php,其内容如下:
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+Ob_Start(); 
+Session_Start(); 
+Echo "<pre>"; 
+
+Echo "本页得到的_GET变量有:"; 
+Print_R($_GET); 
+
+Echo "本页得到的_POST变量有:"; 
+Print_R($_POST); 
+
+Echo "本页得到的_COOKIE变量有:"; 
+Print_R($_COOKIE); 
+
+Echo "本页得到的_SESSION变量有:"; 
+Print_R($_SESSION); 
+Echo "</pre>"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+然后在php.ini中设置：include_path = "c:/php"，并将debug.php放在此文件夹,
+以后就可以在每个网页里包含此文件，查看得到的变量名和值.
+
+3：如何使用session
+
+凡是与session有关的,之前必须调用函数session_start();
+
+为session付值很简单,如:
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+Session_start(); 
+$Name = "这是一个Session例子"; 
+Session_Register("Name");//注意,不要写成：Session_Register("$Name"); 
+Echo $_SESSION["Name"]; 
+//之后$_SESSION["Name"]为"这是一个Session例子" 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+在php4.2之后,可以为session直接付值:
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+Session_Start(); 
+$_SESSION["name"]="value"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+取消session可以这样:
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+session_start(); 
+session_unset(); 
+session_destroy(); 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+取消某个session变量在php4.2以上还有BUG.
+
+
+
+注意:
+
+1:在调用Session_Start()之前不能有任何输出.例如下面是错误的.
+==========================================
+1行
+2行 
+3行 Session_Start();//之前在第一行已经有输出 
+4行 ..... 
+5行 
+
+
+==========================================
+
+
+提示1:
+
+凡是出现"........headers already sent..........",就是Session_Start()之前向浏览器输出信息.
+去掉输出就正常,（COOKIE也会出现这种错误,错误原因一样）
+
+提示2:
+
+如果你的Session_Start()放在循环语句里,并且很难确定之前哪里向浏览器输出信息,可以用下面这种方法:
+1行 
+Ob_Start();
+
+
+........这里是你的程序......
+
+
+
+2:这是什么错误
+
+Warning: session_start(): open(/tmpsess_7d190aa36b4c5ec13a5c1649cc2da23f, O_RDWR) failed:....
+因为你没有指定session文件的存放路径.
+
+解决方法:
+(1)在c盘建立文件夹tmp
+(2)打开php.ini,找到session.save_path,修改为session.save_path= "c:/tmp"
+
+
+
+4:为什么我向另一网页传送变量时,只得到前半部分,以空格开头的则全部丢失
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$Var="hello php";//修改为$Var="      hello php";试试得到什么结果 
+$post= "receive.php?Name=".$Var; 
+header("location:$post"); 
+
+
+
+
+--------------------------------------------------------------------------------
+
+receive.php的内容:
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+Echo "<pre>"; 
+Echo    $_GET["Name"]; 
+Echo "</pre>"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+正确的方法是:
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$Var="hello php"; 
+$post= "receive.php?Name=".urlencode($Var); 
+header("location:$post"); 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+在接收页面你不需要使用Urldecode(),变量会自动编码.
+
+
+5:如何截取指定长度汉字而不会出现以"[/php]"结尾,超出部分以"..."代替
+
+
+一般来说,要截取的变量来自Mysql,首先要保证那个字段长度要足够长,一般为char(200),可以保持100个汉字，包括标点.
+
+PHP代码:--------------------------------------------------------------------------------
+
+$str="这个字符好长呀,^_^"; 
+$Short_Str=showShort($str,4);//截取前面4个汉字,结果为:这个字符... 
+Echo    "$Short_Str"; 
+Function csubstr($str,$start,$len) 
+{ 
+$strlen=strlen($str); 
+$clen=0; 
+for($i=0;$i<$strlen;$i++,$clen++) 
+{ 
+if ($clen>=$start+$len) 
+break; 
+if(ord(substr($str,$i,1))>0xa0) 
+{ 
+if ($clen>=$start) 
+$tmpstr.=substr($str,$i,2); 
+$i++; 
+} 
+else 
+{ 
+if ($clen>=$start) 
+$tmpstr.=substr($str,$i,1); 
+} 
+} 
+
+return $tmpstr; 
+} 
+Function showShort($str,$len) 
+{ 
+$tempstr = csubstr($str,0,$len); 
+if ($str<>$tempstr) 
+$tempstr .= "..."; //要以什么结尾,修改这里就可以. 
+
+return $tempstr; 
+} 
+
+-------------------------------------------------------------------------------- 
+
+
+
+6:规范你的SQL语句 
+
+
+在表格，字段前面加上"`",这样就不会因为误用关键字而出现错误， 
+当然我并不推荐你使用关键字. 
+
+例如 
+$Sql="INSERT INTO `xltxlm` (`author`, `title`, `id`, `content`, `date`) VALUES ('xltxlm', 'use`', 1, 'criterion your sql string ', '2003-07-11 00:00:00')" 
+
+"`"怎么输入? 在TAB键上面. 
+
+
+7:如何使Html/PHP格式的字符串不被解释,而是照原样显示 
+
+
+PHP代码:-------------------------------------------------------------------------------- 
+
+[php] 
+$str="<h1>PHP</h1>"; 
+Echo "被解释过的: ".$str."<br>经过处理的:"; 
+Echo    htmlentities(nl2br($str)); 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+8:怎么在函数里取得函数外的变量值
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$a="PHP"; 
+foo(); 
+Function foo() 
+{ 
+   global $a;//删除这里看看是什么结果 
+   Echo "$a"; 
+} 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+9:我怎么知道系统默认支持什么函数
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$arr = get_defined_functions(); 
+Function php() { 
+} 
+echo    "<pre>"; 
+Echo    "这里显示系统所支持的所有函数,和自定以函数phpn"; 
+print_r($arr); 
+echo    "</pre>"; 
+
+
+
+--------------------------------------------------------------------------------
+
+
+10:如何比较两个日期相差几天
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$Date_1="2003-7-15";//也可以是:$Date_1="2003-6-25 23:29:14"; 
+$Date_2="1982-10-1"; 
+$Date_List_1=explode("-",$Date_1); 
+$Date_List_2=explode("-",$Date_2); 
+$d1=mktime(0,0,0,$Date_List_1[1],$Date_List_1[2],$Date_List_1[0]); 
+$d2=mktime(0,0,0,$Date_List_2[1],$Date_List_2[2],$Date_List_2[0]); 
+$Days=round(($d1-$d2)/3600/24); 
+Echo    "偶已经奋斗了 $Days 天^_^"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+11:为什么我升级PHP后,原来的程序出现满屏的 Notice: Undefined variable:
+
+
+这是警告的意思,由于变量未定义引起的.
+打开php.ini,找到最下面的error_reporting,修改为error_reporting = E_ALL & ~E_NOTICE
+
+对于Parse error错误
+error_reporting(0)无法关闭.
+如果你想关闭任何错误提示,打开php.ini,找到display_errors,设置为display_errors = Off.以后任何错误都不会提示.
+
+那什么是error_reporting?
+
+
+
+12:我想在每个文件最前，最后面都加上一文件.但一个一个添加很麻烦
+
+1:打开php.ini文件
+设置 include_path= "c:"
+
+2:写两个文件 
+auto_prepend_file.php 和 auto_append_file.php 保存在c盘,他们将自动依附在每个php文件的头部和尾部.
+
+3:在php.ini中找到:
+Automatically add files before or after any PHP document.
+auto_prepend_file = auto_prepend_file.php;依附在头部
+auto_append_file = auto_append_file.php;依附在尾部
+
+以后你每个php文件就相当于
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+Include "auto_prepend_file.php" ; 
+
+.......//这里是你的程序 
+
+
+Include "auto_append_file.php"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+13:如何利用PHP上传文件
+
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+<html><head> 
+<title>上载文件表单</title></head> 
+<body> 
+<form enctype="multipart/form-data" action="" method="post"> 
+请选择文件： <br> 
+<input name="upload_file" type="file"><br> 
+<input type="submit" value="上传文件"> 
+</form> 
+</body> 
+</html> 
+
+$upload_file=$_FILES['upload_file']['tmp_name']; 
+$upload_file_name=$_FILES['upload_file']['name']; 
+
+if($upload_file){ 
+$file_size_max = 1000*1000;// 1M限制文件上传最大容量(bytes) 
+$store_dir = "d:/";// 上传文件的储存位置 
+$accept_overwrite = 1;//是否允许覆盖相同文件 
+// 检查文件大小 
+if ($upload_file_size > $file_size_max) { 
+echo "对不起，你的文件容量大于规定"; 
+exit; 
+} 
+
+// 检查读写文件 
+if (file_exists($store_dir . $upload_file_name) && !$accept_overwrite) { 
+Echo    "存在相同文件名的文件"; 
+exit; 
+} 
+
+//复制文件到指定目录 
+if (!move_uploaded_file($upload_file,$store_dir.$upload_file_name)) { 
+echo "复制文件失败"; 
+exit; 
+} 
+
+} 
+
+Echo    "<p>你上传了文件:"; 
+echo   $_FILES['upload_file']['name']; 
+echo "<br>"; 
+//客户端机器文件的原名称。 
+
+Echo    "文件的 MIME 类型为:"; 
+echo $_FILES['upload_file']['type']; 
+//文件的 MIME 类型，需要浏览器提供该信息的支持，例如“image/gif”。 
+echo "<br>"; 
+
+Echo    "上传文件大小:"; 
+echo $_FILES['upload_file']['size']; 
+//已上传文件的大小，单位为字节。 
+echo "<br>"; 
+
+Echo    "文件上传后被临时储存为:"; 
+echo $_FILES['upload_file']['tmp_name']; 
+//文件被上传后在服务端储存的临时文件名。 
+echo "<br>"; 
+
+
+$Erroe=$_FILES['upload_file']['error']; 
+switch($Erroe){ 
+         case 0: 
+             Echo    "上传成功"; break; 
+         case 1: 
+             Echo    "上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值."; break; 
+         case 2: 
+             Echo    "上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值。";     break; 
+         case 3: 
+             Echo    "文件只有部分被上传";break; 
+         case 4: 
+             Echo    "没有文件被上传";break; 
+} 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+14:如何配置GD库
+
+
+下面是我的配置过程
+1:用dos命令(也可以手动操作,拷贝dlls文件夹里所有dll文件到system32目录下) copy c:phpdlls*.dll c:windowssystem32 
+2:打开php.ini
+设置extension_dir = "c:/php/extensions/";
+3:
+extension=php_gd2.dll;把extension前面的逗号去掉，如果没有php_gd2.dll，php_gd.dll也一样,保证确实存在这一文件c:/php/extensions/php_gd2.dll
+4:运行下面程序进行测试
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+Ob_end_flush(); 
+//注意,在此之前不能向浏览器输出任何信息,要注意是否设置了 auto_prepend_file. 
+header ("Content-type: image/png"); 
+$im = @imagecreate (200, 100) 
+     or die ("无法创建图像"); 
+$background_color = imagecolorallocate ($im, 0,0, 0); 
+$text_color = imagecolorallocate ($im, 230, 140, 150); 
+imagestring ($im, 3, 30, 50,   "A Simple Text String", $text_color); 
+imagepng ($im); 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+点击这里查看结果
+
+
+
+15:什么是UBB代码
+
+
+UBB代码是HTML的一个变种,是Ultimate Bulletin Board (国外一个BBS程序，国内也有不少地方使用这个程序)采用的一种特殊的TAG.
+即使禁止使用 HTML，你也可以用 UBBCode? 来实现.也许你更希望使用 UBBCode? 而不是 HTML, 即使论坛允许使用 HTML, 因为使用起来代码较少也更安全.
+
+Q3boy的UBB里面付有例子,可以直接运行测试
+
+
+16:我想修改MySQL的用户,密码
+
+首先要声明一点，大部分情况下，修改MySQL是需要有mysql里的root权限的， 
+所以一般用户无法更改密码，除非请求管理员.
+
+方法一 
+　　使用phpmyadmin，这是最简单的了，修改mysql库的user表， 
+　　不过别忘了使用PASSWORD函数。 
+
+方法二 
+　　使用mysqladmin，这是前面声明的一个特例。 
+　　mysqladmin -u root -p password mypasswd 
+　　输入这个命令后，需要输入root的原密码，然后root的密码将改为mypasswd。 
+　　把命令里的root改为你的用户名，你就可以改你自己的密码了。 
+　　当然如果你的mysqladmin连接不上mysql server，或者你没有办法执行mysqladmin， 
+　　那么这种方法就是无效的。 
+　　而且mysqladmin无法把密码清空。 
+
+下面的方法都在mysql提示符下使用，且必须有mysql的root权限： 
+　　方法三 
+　　mysql> INSERT INTO mysql.user (Host,User,Password) 
+　　VALUES('%','jeffrey',PASSWORD('biscuit')); 
+　　mysql> FLUSH PRIVILEGES 
+　　确切地说这是在增加一个用户，用户名为jeffrey，密码为biscuit。 
+　　在《mysql中文参考手册》里有这个例子，所以我也就写出来了。 
+　　注意要使用PASSWORD函数，然后还要使用FLUSH PRIVILEGES。 
+
+方法四 
+　　和方法三一样，只是使用了REPLACE语句 
+　　mysql> REPLACE INTO mysql.user (Host,User,Password) 
+　　VALUES('%','jeffrey',PASSWORD('biscuit')); 
+　　mysql> FLUSH PRIVILEGES 
+
+方法五 
+　　使用SET PASSWORD语句， 
+　　mysql> SET PASSWORD FOR jeffrey@"%" = PASSWORD('biscuit'); 
+　　你也必须使用PASSWORD()函数， 
+　　但是不需要使用FLUSH PRIVILEGES。 
+
+方法六 
+　　使用GRANT ... IDENTIFIED BY语句 
+　　mysql> GRANT USAGE ON *.* TO jeffrey@"%" IDENTIFIED BY 'biscuit'; 
+　　这里PASSWORD()函数是不必要的，也不需要使用FLUSH PRIVILEGES。 
+
+注意： PASSWORD() [不是]以在Unix口令加密的同样方法施行口令加密。 
+
+
+17:我想知道他是通过哪个网站连接到本页
+
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+//必须通过超级连接进入才有输出 
+Echo $_SERVER['HTTP_REFERER']; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+18:数据放入数据库和取出来显示在页面需要注意什么
+
+入库时
+$str=addslashes($str);
+$sql="insert into `tab` (`content`) values('$str')";
+出库时
+$str=stripslashes($str);
+显示时
+$str=htmlspecialchars(nl2br($str)) ; 
+
+
+
+
+
+19:如何读取当前地址栏信息
+
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$s="http://{$_SERVER['HTTP_HOST']}:{$_SERVER["SERVER_PORT"]}{$_SERVER['SCRIPT_NAME']}"; 
+$se=''; 
+foreach ($_GET as $key => $value) { 
+$se.=$key."=".$value."&"; 
+} 
+$se=Preg_Replace("/(.*)&$/","$1",$se); 
+$se?$se="?".$se:""; 
+echo    $s."?$se"; 
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+20:我点击后退按钮,为什么之前填写的东西不见
+
+这是因为你使用了session.
+解决办法:
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+session_cache_limiter('private, must-revalidate'); 
+session_start(); 
+........... 
+.......... 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+21:怎么在图片里显示IP地址
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+   Header("Content-type: image/png"); 
+   $img = ImageCreate(180,50); 
+   $ip = $_SERVER['REMOTE_ADDR']; 
+   ImageColorTransparent($img,$bgcolor); 
+   $bgColor = ImageColorAllocate($img, 0x2c,0x6D,0xAF); // 背景颜色 
+   $shadow = ImageColorAllocate($img, 250,0,0);     // 阴影颜色 
+   $textColor = ImageColorAllocate($img, oxff,oxff,oxff);        // 字体颜色 
+   ImageTTFText($img,10,0,78,30,$shadow,"d:/windows/fonts/Tahoma.ttf",$ip); //显示背景 
+   ImageTTFText($img,10,0,25,28,$textColor,"d:/windows/fonts/Tahoma.ttf","your ip is".$ip); // 显示IP 
+   ImagePng($img); 
+   imagecreatefrompng($img); 
+   ImageDestroy($img); 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+22:如何取得用户的真实IP
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+function iptype1 () { 
+if (getenv("HTTP_CLIENT_IP")) { 
+    return getenv("HTTP_CLIENT_IP"); 
+} 
+else { 
+    return "none"; 
+} 
+} 
+function iptype2 () { 
+if (getenv("HTTP_X_FORWARDED_FOR")) { 
+    return getenv("HTTP_X_FORWARDED_FOR"); 
+} 
+else { 
+    return "none"; 
+} 
+} 
+function iptype3 () { 
+if (getenv("REMOTE_ADDR")) { 
+    return getenv("REMOTE_ADDR"); 
+} 
+else { 
+    return "none"; 
+} 
+} 
+function ip() { 
+$ip1 = iptype1(); 
+   $ip2 = iptype2(); 
+$ip3 = iptype3(); 
+if (isset($ip1) && $ip1 != "none" && $ip1 != "unknown") { 
+    return $ip1; 
+} 
+elseif (isset($ip2) && $ip2 != "none" && $ip2 != "unknown") { 
+    return $ip2; 
+} 
+elseif (isset($ip3) && $ip3 != "none" && $ip3 != "unknown") { 
+    return $ip3; 
+} 
+   else { 
+   return "none"; 
+} 
+} 
+
+Echo ip(); 
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+23:如何从数据库读取三天内的所有记录
+
+首先表格里要有一个DATETIME字段记录时间,
+格式为'2003-7-15 16:50:00'
+
+SELECT * FROM `xltxlm` WHERE TO_DAYS(NOW()) - TO_DAYS(`date`) <= 3;
+
+
+24:如何远程链接Mysql数据库
+
+
+在增加用户的mysql表里有一个host字段，修改为"%",或者指定允许连接的ip地址,这样，你就可以远程调用了。
+
+$link=mysql_connect("192.168.1.80:3306","root","");
+
+
+25:正则到底怎么用
+
+点击这里
+正则表达式中的特殊字符
+
+
+26:用Apache后,主页出现乱码 
+
+
+方法一: 
+AddDefaultCharset ISO-8859-1 改为 AddDefaultCharset off 
+
+方法二: 
+AddDefaultCharset GB2312
+========================================================
+tip:
+大家贴代码时GB2312会被解释成??????
+
+改成这样就不会
+GB2312
+
+10:如何比较两个日期相差几天,(更简单的算法)
+
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+$Date_1="2003-7-15";//也可以是:$Date_1="2003-7-15 23:29:14"; 
+$Date_2="1982-10-1"; 
+$d1=strtotime($Date_1); 
+$d2=strtotime($Date_2); 
+$Days=round(($d1-$d2)/3600/24); 
+Echo    "偶已经奋斗了 $Days 天^_^"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+27:为什么单引号,双引号在接受页面变成('")
+
+
+解决方法:
+方法一:在php.ini中设置:magic_quotes_gpc = Off
+方法二: $str=stripcslashes($str)
+
+
+28:怎么让程序一直运行下去,而不是超过30秒就停止
+
+
+set_time_limit(60)//最长运行时间一分钟
+set_time_limit(0)//运行到程序自己结束,或手动停止
+
+
+29:计算当前在线人数
+
+例子一:用文本实现
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+//首先你要有读写文件的权限 
+//本程序可以直接运行,第一次报错,以后就可以 
+   $online_log = "count.dat"; //保存人数的文件, 
+   $timeout = 30;//30秒内没动作者,认为掉线 
+   $entries = file($online_log); 
+
+   $temp = array(); 
+
+   for ($i=0;$i<count($entries);$i++) { 
+    $entry = explode(",",trim($entries[$i])); 
+    if (($entry[0] != getenv('REMOTE_ADDR')) && ($entry[1] > time())) { 
+     array_push($temp,$entry[0].",".$entry[1]."n"); //取出其他浏览者的信息,并去掉超时者,保存进$temp 
+    } 
+   } 
+
+    array_push($temp,getenv('REMOTE_ADDR').",".(time() + ($timeout))."n"); //更新浏览者的时间 
+   $users_online = count($temp); //计算在线人数 
+
+   $entries = implode("",$temp); 
+   //写入文件 
+   $fp = fopen($online_log,"w"); 
+    flock($fp,LOCK_EX); //flock() 不能在NFS以及其他的一些网络文件系统中正常工作 
+    fputs($fp,$entries); 
+    flock($fp,LOCK_UN); 
+    fclose($fp); 
+
+    echo "当前有".$users_online."人在线"; 
+
+
+
+
+--------------------------------------------------------------------------------
+
+例子二:
+用数据库实现在线用户
+
+
+30:什么是模板,怎么用
+
+
+这里有几篇关于模板的文章
+
+我用的是phplib模板
+下面是其中几个函数的使用
+
+$T->Set_File("随便定义","模板文件.tpl"); 
+
+$T->Set_Block("在set_file中定义的","<!-- 来自模板 -->","随便定义"); 
+
+$T->Parse("在Set_Block中定义的","<!-- 来自模板 -->",true); 
+
+$T->Parse("随便输出结果","在Set_File中定义的"); 
+
+设置循环格式为:
+
+<!--(多于一个空格) BEGIN $handle(多于一个空格)-->
+
+如何将模板生成静态网页
+
+PHP代码:--------------------------------------------------------------------------------
+
+
+//这里使用phplib模板 
+     ............ 
+     ............ 
+     $tpl->parse("output","html"); 
+     $output = $tpl->get("output");// $output 为整个网页内容 
+
+
+     function wfile($file,$content,$mode='w') { 
+     $oldmask = umask(0); 
+     $fp = fopen($file, $mode); 
+     if (!$fp) return false; 
+     fwrite($fp,$content); 
+     fclose($fp); 
+     umask($oldmask); 
+     return true; 
+} 
+    // 写到文件里 
+     Wfile($FILE,$output); 
+     header("location:$FILE");//重定向到生成的网页 
+} 
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+phplib下载地址 smarty下载地址
+
+
+31:怎么用php解释字符
+
+比如:输入2+2*(1+2),自动输出8
+可以用eval函数
+
+PHP代码:--------------------------------------------------------------------------------
+
+<form method=post action="">
+<input type="text" name="str"><input type="submit">
+</form>
+
+$str=$_POST['str']; 
+eval("$o=$str;"); 
+Echo    "$o"; 

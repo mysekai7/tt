@@ -1,0 +1,12 @@
+<{if $categories}>
+<{strip}>
+<li>
+  <h2>分类</h2>
+  <ul>
+      <{foreach from=$categories item=val name=categories}>
+      <li><a href="<{$site_url}>category/<{$val->slug}>/"><{$val->name}></a> <small>(<{$val->count}>)</small></li>
+      <{/foreach}>
+  </ul>
+</li>
+<{/strip}>
+<{/if}>

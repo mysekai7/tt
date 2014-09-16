@@ -1,0 +1,14 @@
+2010-03-31 00:51:15	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-03-31 00:51:15	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-03-31 00:51:15	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-03-31 00:51:15	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-03-31 00:51:15	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-03-31 00:51:15	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object
+2010-03-31 00:55:19	Notice: AdminArticleController.class.php:34: Undefined index:  debug
+2010-03-31 01:00:00	Notice: Smarty.class.php:1093: Smarty error: html_options: extra attribute 'option' cannot be an array
+2010-03-31 01:45:59	Notice: AdminArticleController.class.php:21: Undefined index:  selectID
+2010-03-31 01:45:59	Notice: AdminArticleController.class.php:36: Undefined index:  debug
+2010-03-31 01:56:39	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt
+2010-03-31 01:58:32	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-03-31 01:58:32	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-31 01:58:39	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag

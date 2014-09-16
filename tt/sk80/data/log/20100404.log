@@ -1,0 +1,6 @@
+2010-04-04 18:26:44	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-04-04 18:26:44	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-04-04 18:27:05	Notice: AdminArticleController.class.php:36: Undefined index:  debug
+2010-04-04 18:27:09	Notice: %%A4^A41^A41A59B5%%post.html.php:9: Trying to get property of non-object
+2010-04-04 18:27:09	Notice: %%A4^A41^A41A59B5%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-04-04 18:27:23	Warning: index.php:21: Cannot modify header information - headers already sent

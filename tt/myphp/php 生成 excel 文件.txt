@@ -1,0 +1,36 @@
+?php
+header("Content-type:Applicationvnd.ms-execl");
+header("content-Disposition:filename=phpfans.net.xls");
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>php爱好着</title>
+</head>
+
+<body>
+<table width="600" border="1" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="4"><strong><a href="http://www.phpfans.net">php爱好着</a></strong><strong></strong></td>
+  </tr>
+  <tr>
+    <td width="121"><strong>代表人姓名</strong></td>
+    <td width="166">&nbsp;</td>
+    <td width="153"><strong>团队名称</strong></td>
+    <td width="150">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>现场联系电话：</strong></td>
+    <td>&nbsp;</td>
+    <td><strong>团队人数：</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>角色出处:</strong></td>
+    <td>&nbsp;</td>
+    <td><strong>E-MAIL：</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html> 

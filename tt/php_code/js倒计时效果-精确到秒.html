@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="Editplus4PHP" />
+    <meta name="keywords" content="Editplus4PHP" />
+    <meta name="description" content="Editplus4PHP" />
+    <meta name="author" content="Leo" />
+<!--
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+-->
+    <title>Example | xHTML1.0</title>
+</head>
+<body>
+    <div id="CountMsg">距2009年12月1日还有：<strong id="RemainD">XX</strong>天<strong id="RemainH">XX</strong>时<strong id="RemainM">XX</strong>分<strong id="RemainS">XX</strong>秒</div>
+<script language="JavaScript">
+<!-- //
+function GetRTime(){
+	var EndTime= new Date(2009,11,1,0,0); //截止时间:2007年6月10日0时0分
+	var NowTime = new Date();
+	var nMS =EndTime.getTime() - NowTime.getTime();
+	var nD =Math.floor(nMS/(1000 * 60 * 60 * 24));
+	var nH=Math.floor(nMS/(1000*60*60)) % 24;
+	var nM=Math.floor(nMS/(1000*60)) % 60;
+	var nS=Math.floor(nMS/1000) % 60;
+	if(nD>= 0){
+	 document.getElementById("RemainD").innerHTML=nD;
+	 document.getElementById("RemainH").innerHTML=nH;
+	 document.getElementById("RemainM").innerHTML=nM;
+	 document.getElementById("RemainS").innerHTML=nS;
+	}
+	else {
+	 
+	}
+	setTimeout("GetRTime()",1000);
+}
+ GetRTime();
+// -->
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+if(!-e $request_filename)
+{
+    rewrite ^/category/([a-z]+)/?([0-9]+)?/?$ /index.php?job=index&action=category&slug=$1&page=$2 last;
+    rewrite ^/tag/([^/]+)/?([0-9]+)?/?$ /index.php?job=index&action=tag&name=$1&page=$2 last;
+    rewrite ^/login/?$ /index.php?job=login last;
+    rewrite ^/post/([0-9]+).html$ /index.php?job=index&action=show&id=$1 last;
+}

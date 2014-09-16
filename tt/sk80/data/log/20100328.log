@@ -1,0 +1,16 @@
+2010-03-28 00:15:27	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-03-28 00:31:21	Notice: %%72^72B^72B5FBAE%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-03-28 01:28:14	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-28 02:52:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-03-28 02:52:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-03-28 02:52:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-03-28 02:52:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-03-28 02:52:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-03-28 02:52:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object
+2010-03-28 02:52:28	Notice: %%12^122^12225C47%%post.html.php:9: Trying to get property of non-object
+2010-03-28 02:52:28	Notice: %%12^122^12225C47%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-03-28 02:52:28	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt
+2010-03-28 05:00:03	Warning: clear_cache.php:227: file_put_contents(/home/wangchao/www/post/143.html): failed to open stream: Permission denied
+2010-03-28 05:00:03	Warning: clear_cache.php:227: file_put_contents(/home/wangchao/www/post/144.html): failed to open stream: Permission denied
+2010-03-28 16:49:18	Notice: %%35^358^3584A320%%post.html.php:9: Trying to get property of non-object
+2010-03-28 16:49:18	Notice: %%35^358^3584A320%%post.html.php:21: Undefined property: stdClass::$created_date

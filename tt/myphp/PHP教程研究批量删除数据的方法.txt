@@ -1,0 +1,21 @@
+SQL：$SQL="delete from `doing` where id in ('1,2,3,4')";
+
+数据用逗号隔开。
+
+表单：
+
+<form action="?action=doing" method="post">
+
+<input name="ID_Dele[]" type="checkbox" id="ID_Dele[]" value="1"/>
+
+<input name="ID_Dele[]" type="checkbox" id="ID_Dele[]" value="2"/>
+
+<input name="ID_Dele[]" type="checkbox" id="ID_Dele[]" value="3"/>
+
+<input name="ID_Dele[]" type="checkbox" id="ID_Dele[]" value="4"/>
+
+<input type="submit"/>
+
+</form>
+
+好$ID_Dele=$_POST['ID_Dele']将会是一个数组，虽然说PHP是弱类型的，但这里可没ASP弱。

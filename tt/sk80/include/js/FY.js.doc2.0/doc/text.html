@@ -1,0 +1,90 @@
+<html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<head>
+<title>$().text() - FY.JS文档</title>
+<link rel="stylesheet" href="./main.css" type="text/css" media="screen"/>
+<script type='text/javascript' src='./FY.js'></script>
+<script type='text/javascript' src='./main.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+code();
+});
+</script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    	<div id="search">
+		<input name="s" id="s"/><input type="submit" value="搜索" onclick="highlight(FY.val('s'));return false;"/></form>
+		</div>
+  	 $().text() - FY.JS文档          
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebarinner">
+              
+                <div class="dialog">
+FY.JS是轻量级的迷你JavaScirpt库体积只有2.0KB.
+
+
+				</div>
+            	         <div class="cat">
+            函数列表
+            </div> <p>
+
+			<ul>
+<li><a href="./index.html">文档主页</a></li>
+<li><a href="./var.html">$()</a></li>
+<li><a href="./ready.html">$().ready()</a></li>
+<li><a href="./click.html">$().click()</a></li>
+<li><a href="./html.html">$().html()</a></li>
+<li><a href="./val.html">$().val()</a></li>
+<li><b>$().text()</b></li>
+<li><a href="./show.html">$().show()</a></li>
+<li><a href="./hide.html">$().hide()</a></li>
+<li><a href="./ajax.html">$().ajax()</a></li>
+<li><a href="./setcookie.html">$().setcookie()</a></li>
+<li><a href="./getcookie.html">$().getcookie()</a></li>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="2279712">
+<input type="image" src="https://www.paypal.com/zh_XC/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="donate me!"></p>
+</form>
+
+<script type="text/javascript" src="http://js.tongji.linezing.com/1445230/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1445230/tongji.gif"/></a></noscript>
+</p>
+		 </ul>
+	</div>	
+        </div>
+        <div id="main">
+            <div class="maininner">
+<h3>$().text(值)</h3>
+<p>取得一个匹配元素的Text内容或者写入内容跟HTML不同的区别是HTML可以写入HTML代码。例如</p>
+<p>例子一:</p>
+<p><code class="code">$('test').text()</code> 取得id为test的内容,有返回值。返回值就是该ID的内容</p>
+<p>例子二:</p>
+<p><code class="code">$('test').text('麻利麻利哄')</code> 把id为test的内容更改为麻利麻利哄，没有返回值。</p>
+ 
+<p>演示:1</p>
+
+<p id="test">test标签为: 嘀嘀叭叭呜</p>
+		
+<p><input type="submit" onclick="alert($('test').text());" value="获得test标签的内容"/></p>
+
+<p>演示:2</p>
+
+<p>把: 演示1的 “test标签为: 嘀嘀叭叭呜” 内容改变为 麻利麻利哄</p>
+
+<p><input type="submit" onclick="$('test').text('<b>麻利麻利哄</b>');" value="更改test标签的内容"/></p>
+        </div>
+    </div>   
+</div>
+
+    <div id="footer">
+   &copy;2010 <a href="http://fengyin.name/" target="_blank">风吟</a> 版权所有. 本主机由胡戈戈合租赞助.合租地址: <a href="http://hugege.com/" target="_blank">http://hugege.com/</a>
+    </div>
+    </div>
+</body>
+</html>

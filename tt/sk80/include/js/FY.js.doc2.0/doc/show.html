@@ -1,0 +1,101 @@
+<html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<head>
+<title>$().show() - FY.JS文档</title>
+<link rel="stylesheet" href="./main.css" type="text/css" media="screen"/>
+<script type='text/javascript' src='./FY.js'></script>
+<script type='text/javascript' src='./main.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+code();
+});
+</script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    	<div id="search">
+		<input name="s" id="s"/><input type="submit" value="搜索" onclick="highlight(FY.val('s'));return false;"/></form>
+		</div>
+  		$().show() - FY.JS文档          
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebarinner">
+              
+                <div class="dialog">
+		FY.JS是轻量级的迷你JavaScirpt库体积只有2.0KB.
+
+
+				</div>
+            	         <div class="cat">
+            函数列表
+            </div> <p>
+
+			<ul>
+<li><a href="./index.html">文档主页</a></li>
+<li><a href="./var.html">$()</a></li>
+<li><a href="./ready.html">$().ready()</a></li>
+<li><a href="./click.html">$().click()</a></li>
+<li><a href="./html.html">$().html()</a></li>
+<li><a href="./val.html">$().val()</a></li>
+<li><a href="./text.html">$().text()</a></li>
+<li><b>$().show()</b></a></li>
+<li><a href="./hide.html">$().hide()</a></li>
+<li><a href="./ajax.html">$().ajax()</a></li>
+<li><a href="./setcookie.html">$().setcookie()</a></li>
+<li><a href="./getcookie.html">$().getcookie()</a></li>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="2279712">
+<input type="image" src="https://www.paypal.com/zh_XC/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="donate me!"></p>
+</form>
+
+<script type="text/javascript" src="http://js.tongji.linezing.com/1445230/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1445230/tongji.gif"/></a></noscript>
+</p>
+		 </ul>
+	</div>	
+        </div>
+        <div id="main">
+            <div class="maininner">
+<h3>$().show([可以写函数])</h3>
+<p>显示匹配元素。如果选择的元素是可见的，这个方法将不会改变任何东西。无论这个元素是通过hide()方法隐藏的还是在CSS里设置了display:none;，
+这个方法都将有效。</p>
+
+<p>例子一:</p>
+<p>
+<pre class="code">
+$('ab').show(functin(){
+alert('我已经出来啦~~');
+});
+</pre>
+<p>显示id为ab的元素。show()没有返回值但可以有callback(可选)</p>
+<p id='ab' style="display:none;">我是隐藏内容~~~</p>
+
+
+
+<p><input type="submit" onclick="$('ab').show(function(){alert('我已经出来了~~')});" value="显示ID为ab的隐藏内容"/></p>
+
+
+<p>例子二:</p>
+<p><code class="code">$('test').html('麻利麻利哄').show();</code> 先向id为test的元素写入麻利麻利哄,然后再显示。</p>
+</p>
+
+<p>实例:</p>
+<p id='test' style="display:none;"></p>
+
+<p><input type="submit" onclick="$('test').html('麻利麻利哄').show();" value="显示ID为test的隐藏内容"/></p>
+
+
+        </div>
+    </div>   
+</div>
+
+    <div id="footer">
+    &copy;2010 <a href="http://fengyin.name/" target="_blank">风吟</a> 版权所有. 本主机由胡戈戈合租赞助.合租地址: <a href="http://hugege.com/" target="_blank">http://hugege.com/</a>
+    </div>
+    </div>
+</body>
+</html>

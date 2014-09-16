@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>在 JET 中嵌入 jQuery 的示例 - JET</title>
+	<style>
+	.code{
+		border:1px solid #cccccc;
+	}
+	.neat{
+
+		width:50px;
+		height:20px;
+		overflow:hidden;
+		font-size:12px;
+		background:blue;
+	}
+
+	.ohmy{
+
+		width:600px;
+		height:260px;
+		overflow:hidden;
+		/*border:5px solid #cccccc;*/
+		font-size:36px;
+		background:blue;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="Content">
+		<div id="Title">
+			<h3>在 JET 中嵌入 jQuery 的示例</h3>
+		</div>
+		<p class="code">
+			$("p.neat").addClass("ohmy").show("slow");
+		</p>
+		<button id="Button_3" onclick="Playground.runCode()">运行代码</button>
+		<p class="neat">12353424342342342343243 34343243, dfjsfkls, 我是中文</p>
+	 
+	</div> 
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.jquery.js"></script>
+	<script type="text/javascript">
+		Jet().$package("Playground",function(J){
+			var $ = J.jQuery;
+			
+			this.runCode = function(){
+				$("p.neat").addClass("ohmy").show("slow");
+			};
+
+		});
+
+	</script>
+</body>
+</html>

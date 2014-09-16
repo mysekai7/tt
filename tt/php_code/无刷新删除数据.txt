@@ -1,0 +1,102 @@
+index.tpl :
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>所有留言</title>
+<link rel="stylesheet" type="text/css" href="style.css" media="all" />
+
+<script type="text/javascript" src="lib/jquery.js"></script>
+</head>
+<body>
+<!--{if $smarty.session.username}-->
+Welcome:<!--{$smarty.session.username}-->
+<a href="logout.php">退出</a>
+<!--{else}-->
+<a href="login.php">登录</a>
+<a href="reg.php">注册</a>
+<!--{/if}-->
+<a href="add.php">发表留言</a>
+<!--{foreach from=$gblist item=item}-->
+<table id="t<!--{$item.id}-->" width="700" border="0" cellspacing="0" cellpadding="0" class="tb">
+  <tr>
+    <td class="bg"><b>[<!--{$item.username}-->]</b> 发表于：<!--{$item.insert_time}--></td>
+  </tr>
+  <tr>
+    <td><!--{$item.content}-->
+	<br />
+<!--{if $item.user_file}-->
+	附件：<a target="_blank" href="uploads/<!--{$item.user_file}-->"><!--{$item.user_file}--></a>
+<!--{/if}-->
+</td>
+  </tr>
+  <tr>
+    <td align="right"><!--{if $item.user_id==$smarty.session.user_id}--><a href="add.php?id=<!--{$item.id}-->">修改</a> <a href="javascript:delItem('<!--{$item.id}-->')">删除</a><!--{/if}--></td>
+  </tr>
+</table>
+<!--{/foreach}-->
+<!--{$pagePanel}-->
+<script>
+function delItem (id) {
+	$.get('delete.php?id='+id,null,function (msg) {
+		if ('1'==msg) {
+			$('#t'+id).remove();
+		} else {
+			alert(msg);
+		}
+	
+	});
+}
+</script>
+</body>
+</html>
+
+delete.php :
+
+<?php
+require('common.php');
+// 查询出留言信息
+$q = $query->query('select * from gb_content where id='.intval($_GET['id']));
+$rs = $query->fetch_array($q);
+$error = array();
+if ($rs['user_id']!=intval($_SESSION['user_id'])) {// 判断user_id是否相同
+	$error = '该信息你不能删除，只能删除自己发布的';
+}
+if (!$error) {
+	$query->query('delete from gb_content where id='.intval($_GET['id']));//删除语句
+	if ($rs['user_file']) {//删除附件
+		@unlink('uploads/'.$rs['user_file']);
+	}
+	echo 1;//表示成功
+} else {
+	echo $error;
+}
+?>
+
+//---------------------------------
+首先本例基于留言本整理版修改。
+
+我们使用了jquery.js来实现ajax和dom删除
+首先加入<script type="text/javascript" src="lib/jquery.js"></script>
+给table加个 id="t<!--{$item.id}-->"
+
+写个js:
+<script>
+function delItem (id) {
+$.get('delete.php?id='+id,null,function (msg) {//ajax请求,请求后执行下面代码
+if ('1'==msg) {//返回1表示成功
+$('#t'+id).remove();//把id为txx 的表格删除
+} else {//否则弹出错误信息
+alert(msg);
+}
+
+});
+}
+</script>
+
+删除链接改成 href="javascript:delItem('<!--{$item.id}-->')"
+
+delete.php的修改就是把错误语句改成直接输出就行了。
+
+OK完成。

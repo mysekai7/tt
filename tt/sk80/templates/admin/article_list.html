@@ -1,0 +1,139 @@
+<{include file="admin/header.html"}>
+    <{strip}>
+          <div id="main">
+              <div id="content">
+                  <div class="clear">
+                      <h1 class="fl">文章</h1>
+                      <a class="fr post-button" href="index.php?job=admin_article&action=add">发布内容</a>
+                  </div>
+                  <form name="form1" method="post">
+                  <table class="index">
+                      <thead>
+                          <tr>
+                              <th class="title">Title</th>
+                              <th class="status">Status</th>
+                              <th class="modify" colspan="2">Modify</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <{foreach name=articles item=val from=$articles}>
+                          <tr>
+                              <td class="title <{if $val->status eq 'publish'}>published<{else}>draft<{/if}>">
+                                  <input class="mc" onClick="selectBox(this)" name="checked[]" value="<{$val->res}>" type="checkbox" />
+                                  <!--input type="hidden" name="post[<{$val->id}>][ID]" value="<{$val->id}>" />
+                                  <input type="hidden" name="post[<{$val->id}>][CID]" value="<{$val->cid}>" /-->
+                                  <a href="index.php?job=admin_article&action=edit&id=<{$val->id}>"><{$val->title}></a>
+                              </td>
+                              <td class="status"><{if $val->status eq 'publish'}>Published<{else}><font color="red">Draft</font><{/if}></td>
+                              <td class="remove"><a href="index.php?job=admin_article&action=del&id=<{$val->id}>&cid=<{$val->cid}>">Remove</a></td>
+                          </tr>
+                          <{foreachelse}>
+                          <tr>
+                              <td class="title published">暂无文章</td>
+                              <td class="status"></td>
+                              <td class="remove"></td>
+                          </tr>
+                          <{/foreach}>
+                      </tbody>
+                  </table>
+                  
+                  <div class="clear admin-btm">
+                      
+                      <p class="fl">
+                          <{if $page_nav}>
+                          <label class="b">选择:</label>
+                          <button class="mc button"  onclick="select('all'); return false;">全部</button>
+                          <button class="mc button"  onclick="select('none'); return false;">无</button>
+                          <label class="b">管理:</label>
+                          <button class="mc button" onclick="batchOperate('remove'); return false;">删除</button>
+                          <!--select class="mc" name="changestatus">
+                              <option value="">状态修改</option>
+                              <option value="publish">发布</option>
+                              <option value="draft">草稿</option>
+                          </select-->
+                          <select class="mv" name="newcid" onchange="batchOperate('move'); return false;">
+                              <option value="">转移到...</option>
+                              <{foreach from=$categories item=val name=category}>
+                              <option value="<{$val->id}>"><{$val->name}></option>
+                              <{/foreach}>
+                          </select>
+                          <span>&nbsp;</span>
+                          <{/if}>
+                          <label class="b">显示:</label>
+                          <select id="cats" onchange="showByCate(); return false;">
+                              <option value="0">显示全部</option>
+                              <{foreach from=$categories item=val name=category}>
+                              <option value="<{$val->id}>" <{if $val->id eq $cid}>selected<{/if}>><{$val->name}></option>
+                              <{/foreach}>
+                          </select>
+                      </p>
+                      <{if $page_nav}>
+                      <p id="pageNav" class="fr">
+                          <{$page_nav}>
+                      </p>
+                      <{/if}>
+                  </div>
+                 </form>
+              </div>
+          </div>
+    <{/strip}>
+
+<{include file="admin/footer.html"}>
+    <script type="text/javascript">
+        function selectBox(obj) {
+            if(obj.checked == true) {
+                var p = obj.parentNode.parentNode;
+                //alert(p.nodeName);
+                p.className = 'selected';
+            } else {
+                var p = obj.parentNode.parentNode;
+                //alert(p.nodeName);
+                p.className = '';
+            }
+        }
+
+        function checkedBox(){
+            var theNum = 0;
+            var checkbox = document.getElementsByName('checked[]');
+            for(var i=0; i<checkbox.length; i++) {
+                if(checkbox[i].checked) theNum++;
+            }
+            return theNum;
+        }
+
+        function select(type)
+        {
+            var checkbox = document.getElementsByName('checked[]');
+            for(var i=0; i<checkbox.length; i++) {
+                if(type == 'all'){
+                    checkbox[i].checked = true;
+                    selectBox(checkbox[i]);
+                } else {
+                    checkbox[i].checked = false;
+                    selectBox(checkbox[i]);
+                }
+            }
+        }
+
+        function batchOperate(type) {
+
+            if(checkedBox()){
+                if(confirm('你确认执行当前操作?')==true) {
+                    document.form1.action="index.php?job=admin_article&action=batch_"+type;
+                    document.form1.submit();
+                }
+                return false;
+            } else {
+                alert('请选择文章');
+            }
+            return false;
+        }
+
+        function showByCate()
+        {
+            var cat = document.getElementById('cats');
+            var url = 'index.php?job=admin_article&action=index&cid='+cat.value;
+            window.location.href = url;
+            return true;
+        }
+    </script>

@@ -1,0 +1,63 @@
+<{include file='default/header.html'}>
+<{strip}>
+            <div id="wrapper-inner">
+              <div id="content">
+                  
+                  <div id="latest-post" class="post">
+                      <h2 class="entry-title"><a href="<{$site_url}>post/<{$article->id}>.html"><{$article->title}></a></h2>
+                      <div class="entry-meta">
+                          <div class="date"><{$article->created_date|date_format:"%b %e, %Y %H:%M:%S"}></div>
+                          <!--div class="entry-date"><{$article->created_date|date_format:""}></div-->
+                          <div class="categories">
+                              <h3>Category</h3>
+                              <p><a href="<{$site_url}>category/<{$article->category_slug}>/"><{$article->category}></a></p>
+                          </div>
+                          <!--div class="comments"><a href="#">Comments</a></div-->
+                      </div>
+                      <div class="entry-content">
+                        <{$article->content}>
+                      </div>
+                      <{if $article->tags}>
+                      <div class="entry-tags">
+                          <strong>Tags:</strong>
+                          <{foreach from=$article->tags item=tag name=tag}>
+                            <a href="<{$site_url}>tag/<{$tag}>/"><{$tag}></a>
+                            <{if !$smarty.foreach.tag.last}>,<{/if}>
+                          <{/foreach}>
+                      </div>
+                      <{/if}>
+                  </div>
+                  <fieldset id="new-post">
+                      <legend>最新文章</legend>
+                      <ul>
+                          <{foreach from=$recent_post item=val name=recent_post}>
+                          <li><{$val->created_date|date_format}><a href="<{$site_url}>post/<{$val->id}>.html"><{$val->title}></a></li>
+                          <{/foreach}>
+                      </ul>
+                  </fieldset>
+              </div>
+              <div id="sidebar">
+                  <ul>
+                      <{include file="default/mod_about.html"}>
+                      <{include file="default/mod_search.html"}>
+                      <{include file="default/mod_category.html"}>
+                      <!--li>
+                          <h2>最新评论</h2>
+                          <ul>
+                              <li><a href="">最新评论asdasd</a></li>
+                          </ul>
+                      </li-->
+                      <{include file="default/mod_tags.html"}>
+                      <!--li>
+                          <h2>其他资源</h2>
+                          <ul>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                          </ul>
+                      </li-->
+                  </ul>
+              </div>
+<{/strip}>
+<{include file="default/footer.html"}>

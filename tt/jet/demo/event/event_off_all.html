@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Demo - JET</title>
+<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+
+<style>
+	#Content{
+		padding:5px;
+		background:#ffffcc;
+	}
+</style>
+</head>
+
+<body>
+	
+	
+	<div id="Content">
+		<p>事件感应区：</p>
+		<p>点击“绑定”，即可给此感应区绑定 2 个click事件，1 个mouseover事件</p>
+	
+	</div>
+	
+	<button id="A">绑定</button>
+	<button id="B">解绑fn1事件</button>
+	<button id="C">解绑所有onclick类型事件</button>
+	<button id="D">解绑所有类型事件</button>
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script>
+		Jet().$package(function(J){
+			var $=J.dom.id;
+			var $D=J.dom;
+			var $E=J.event;
+			
+			
+			var fn1=function(){
+				J.out("fn1");
+			};
+			var fn2=function(){
+				J.out("fn2");
+			};
+			var fn3=function(a,b,e){
+				J.out("fn3");
+			};
+			
+			var k_fn = function(e){
+				//s
+				if(e.keyCode == 83){
+					e.preventDefault();
+					J.out("key");
+				}
+				
+			}
+			
+
+			
+			
+
+			
+			$E.on($("A"),"click",function(e){
+				$E.on($("Content"),"click",fn1);
+				$E.on($("Content"),"click",fn2);
+				$E.on($("Content"),"mouseover",fn3);
+			});
+			
+			$E.on($("B"),"click",function(e){
+				$E.off($("Content"),"click",fn1);
+			});
+			
+			$E.on($("C"),"click",function(e){
+				$E.off($("Content"),"click");
+			});
+			
+			$E.on($("D"),"click",function(e){
+				$E.off($("Content"));
+			});
+			
+			//$E.on(document,"keydown",k_fn);
+
+
+
+
+		});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>resize</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+	.draggable1{  
+		position:absolute;  
+		left:100px;
+		top:100px;
+		width:300px;   
+		height:200px;  
+		background: red;
+		border:2px solid gray;
+	}
+	.draggable2{
+		display:none;
+		position:absolute;  
+		left:200px;
+		top:200px;
+		width:300px;   
+		height:200px;  
+		background: blue;  
+	}
+	#titleBar1{
+		background:yellow;
+	}
+	</style>
+</head>
+
+<body>
+	<button id="lock">lock</button>
+	<button id="unlock">unlock</button>
+	<div id="m1" class="draggable1">
+		<div id="titleBar1">title</div>
+	</div>  
+	<div id="m2" class="draggable2"></div>  
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.ui.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package(function(J){
+			var $D = J.dom,
+				$E = J.event;
+			var lockButton = $D.id("lock"),
+				unlockButton = $D.id("unlock");
+				
+			var p = new J.ui.Resize($D.id("m1"),$D.id("m1"));
+			
+			var onResize = function(o){
+				alert("widht:"+o.width+", height:"+o.height);
+			};
+			
+			$E.addObserver(p, "resize", onResize);
+			
+			$E.on(lockButton, "click", function(){
+				p.lock();
+			});
+			$E.on(unlockButton, "click", function(){
+				p.unlock();
+			});
+		});
+		
+	//]]>
+	</script>
+</body>
+</html>

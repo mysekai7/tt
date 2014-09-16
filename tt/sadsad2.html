@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+    <link rel="stylesheet" href="html5reset.css" type="text/css" />
+    <link rel="stylesheet" href="html5semanticmarkup.css" type="text/css" />
+    <!--[if lt ie 9]>
+        <script src="html5.js"></script>
+    <![endif]-->
+</head>
+ <body>
+  
+<script>
+
+var sentence = "This is one sentence. This is a sentence with a list of items:cherries, oranges, apples, bananas.";
+var val = sentence.split(/:/);
+alert(val[1].split(/\./)[0]);
+
+
+</script>
+
+
+
+
+ </body>
+</html>

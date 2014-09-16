@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>获取/设置宽度/高度</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+		#Content{
+			width:800px;
+			height:600px;
+		}
+		#ObjectA{
+			position:absolute;
+			left:100px;
+			top:200px;
+			margin:10px;
+			border:10px solid red;
+			padding:10px;
+			width:500px;
+			height:300px;
+			overflow:auto;
+			background:blue;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="Content">
+		<h1>获取/设置视窗范围的XY坐标 - getClientXY/setClientXY</h1>
+
+		<div class="optionButton">
+			<button id="Button_1" onclick="Position.getHeight()">getHeight</button>
+			<button id="Button_1" onclick="Position.getWidth()">getWidth</button>
+
+
+		</div>
+		<div>
+			<label>width:</label>
+			<input id="widthInput" type="text" value="100" size="8" />
+			<label>height:</label>
+			<input id="heightInput" type="text" value="100" size="8" />
+		
+		</div>
+		<div id="ObjectA">
+			<h3>ObjectA</h3>
+			<div>i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, i Tencent, </div>
+		
+		</div>
+	</div> 
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package("Position",function(J){
+			var $D = J.dom;
+			var ObjectA = $D.id("ObjectA"),
+				widthInput = $D.id("widthInput"),
+				heightInput = $D.id("heightInput");
+				
+			
+			this.getHeight = function(){
+				var height = [];
+				height.push("clientHeight: " + $D.getClientHeight(ObjectA));
+				height.push("offsetHeight: " + $D.getOffsetHeight(ObjectA));
+				height.push("scrollHeight: " + $D.getScrollHeight(ObjectA));
+				height.push("height: " + $D.getStyle(ObjectA, "height"));
+				alert(height.join(";\n"));
+			};
+			
+			this.getWidth = function(){
+				var width = [];
+				
+				width.push("window clientWidth: " + $D.getClientWidth());
+				
+				width.push("clientWidth: " + $D.getClientWidth(ObjectA));
+				width.push("offsetWidth: " + $D.getOffsetWidth(ObjectA));
+				width.push("scrollWidth: " + $D.getScrollWidth(ObjectA));
+				width.push("width: " + $D.getStyle(ObjectA, "width"));
+				alert(width.join(";\n"));
+			};
+
+
+		});
+	//]]>
+	</script>
+</body>
+</html>

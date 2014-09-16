@@ -1,0 +1,98 @@
+<html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<head>
+<title>$()  - FY.JS文档</title>
+<link rel="stylesheet" href="./main.css" type="text/css" media="screen"/>
+<script type='text/javascript' src='./FY.js'></script>
+<script type='text/javascript' src='./main.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+code();
+});
+</script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    	<div id="search">
+		<input name="s" id="s"/><input type="submit" value="搜索" onclick="highlight(FY.val('s'));return false;"/></form>
+		</div>
+  		$()  - FY.JS文档          
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebarinner">
+              
+                <div class="dialog">
+FY.JS是轻量级的迷你JavaScirpt库体积只有2.0KB.
+
+
+				</div>
+            	         <div class="cat">
+            函数列表
+            </div> <p>
+
+			<ul>
+<li><a href="./index.html">文档主页</a></li>
+<li><b>$()</b></li>
+<li><a href="./ready.html">$().ready()</a></li>
+<li><a href="./click.html">$().click()</a></li>
+<li><a href="./html.html">$().html()</a></li>
+<li><a href="./val.html">$().val()</a></li>
+<li><a href="./text.html">$().text()</a></li>
+<li><a href="./show.html">$().show()</a></li>
+<li><a href="./hide.html">$().hide()</a></li>
+<li><a href="./ajax.html">$().ajax()</a></li>
+<li><a href="./setcookie.html">$().setcookie()</a></li>
+<li><a href="./getcookie.html">$().getcookie()</a></li>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="2279712">
+<input type="image" src="https://www.paypal.com/zh_XC/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="donate me!"></p>
+</form>
+
+<script type="text/javascript" src="http://js.tongji.linezing.com/1445230/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1445230/tongji.gif"/></a></noscript>
+</p>
+		 </ul>
+	</div>	
+        </div>
+        <div id="main">
+            <div class="maininner">
+<h3>$()函数</h3>
+<p>
+<code class="code">$()</code>.函数是FY.JS最为核心的功能函数。
+</p>
+<p>
+此函数用于选择 ID 目前不支持Class，今后也不会支持。那么小的一个库无法遍历全部DOM树。事实上ID已经够用。
+</p>
+<p>
+由于不类似Jquery用“#”识别ID，用“.”选择Class因此也不需要 <code class="code">$('#test');</code> 只需要 <code class="code">$('test');</code>
+</p>
+<h3>$()函数 - 使用方式</h3>
+<p>
+<code class="code">
+$('选择的ID').XXX();
+</code>
+</p>
+<p>
+XXX为要操作的函数。支持的函数请看左侧列表。
+</p>
+<h3>$()函数 - 特别说明</h3>
+<p>
+在操作DOM时候必须包含在<code class="code">$().ready()</code>函数中，具体请看<code class="code">$().ready()</code>.
+</p>
+<p>
+除了用 <code class="code">$('test')</code> 作为ID选择器之外还可以用 <code class="code">_FY.('test')</code> 防止冲突. _FY() 等效于 $()
+</p>
+        </div>
+    </div>   
+</div>
+
+    <div id="footer">
+   &copy;2010 <a href="http://fengyin.name/" target="_blank">风吟</a> 版权所有. 本主机由胡戈戈合租赞助.合租地址: <a href="http://hugege.com/" target="_blank">http://hugege.com/</a>
+    </div>
+    </div>
+</body>
+</html>

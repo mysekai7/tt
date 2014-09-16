@@ -1,0 +1,50 @@
+# BEGIN Sablog-X
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /sk80
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [S=14]
+
+# 只带月份的归档
+#RewriteRule ^date/([0-9]{6})/?([0-9]+)?/?$ index.php?action=article&setdate=$1&page=$2 [QSA,L]
+
+# 无分类翻页
+#RewriteRule ^page/([0-9]+)?/?$ index.php?action=article&page=$1 [QSA,L]
+
+# 分类
+#RewriteRule ^category/([0-9]+)/?([0-9]+)?/?$ index.php?action=article&cid=$1&page=$2 [QSA,L]
+RewriteRule ^category/([a-z]+)/?([0-9]+)?/?$ index.php?job=index&action=category&slug=$1&page=$2 [QSA,L]
+
+# 归档、高级搜索
+#RewriteRule ^(archives|list|search|article|links)/?$ index.php?action=$1 [QSA,L]
+
+# 全部评论、标签列表、带分页
+#RewriteRule ^(comments|tagslist|article)/?([0-9]+)?/?$ index.php?action=$1&page=$2 [QSA,L]
+
+# tags
+RewriteRule ^tag/([^/]+)/?([0-9]+)?/?$ index.php?job=index&action=tag&name=$1&page=$2 [QSA,L]
+
+# admin
+RewriteRule login index.php?job=login [QSA,L]
+
+# 文章
+#RewriteRule ^archives/([0-9]+)/?([0-9]+)?/?$ index.php?action=show&id=$1&page=$2 [QSA,L]
+
+# RSS
+#RewriteRule ^rss/([0-9]+)?/?$ rss.php?cid=$1 [QSA,L]
+#RewriteRule ^rss/([^/]+)/?$ rss.php?url=$1 [QSA,L]
+
+# 用户
+#RewriteRule ^uid/([0-9]+)/?([0-9]+)?/?$ index.php?action=article&uid=$1&page=$2 [QSA,L]
+#RewriteRule ^user/([^/]+)/?([0-9]+)?/?$ index.php?action=article&user=$1&page=$2 [QSA,L]
+
+# 地图文件
+#RewriteRule sitemap.xml sitemap.php [QSA,L]
+
+# 自定义链接
+#RewriteRule ^([^/]+)/?([0-9]+)?/?$ index.php?action=show&alias=$1&page=$2 [QSA,L]
+
+</IfModule>
+# END Sablog-X

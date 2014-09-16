@@ -1,0 +1,12 @@
+2010-03-29 00:26:11	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-29 00:26:15	Notice: %%72^72B^72B5FBAE%%post.html.php:9: Trying to get property of non-object
+2010-03-29 00:26:15	Notice: %%72^72B^72B5FBAE%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-03-29 22:54:32	Notice: common.php:763: Object of class stdClass could not be converted to int
+2010-03-29 22:54:32	Warning: common.php:763: Division by zero
+2010-03-29 22:54:32	Notice: common.php:764: Object of class stdClass could not be converted to int
+2010-03-29 22:54:32	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-03-29 22:54:32	Notice: %%5D^5D5^5D549196%%mod_tags.html.php:10: Undefined index:  name
+2010-03-29 22:57:32	Error: IndexController.class.php:50: Object of class stdClass could not be converted to string
+2010-03-29 23:19:45	Notice: %%A4^A41^A41A59B5%%post.html.php:9: Trying to get property of non-object
+2010-03-29 23:19:45	Notice: %%A4^A41^A41A59B5%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-03-29 23:21:32	Warning: index.php:21: Cannot modify header information - headers already sent

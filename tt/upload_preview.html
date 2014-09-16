@@ -1,0 +1,39 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>preview</title>
+<style>
+#preview {
+    width: 270px;
+    height: 129px;
+}
+</style>
+<!--[if IE]>
+<style>
+#preview {
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+}
+</style>
+<![endif]-->
+</head>
+
+<body>
+<input id="file" type="file" />
+<div id="preview">
+    <img id="image" src="http://www.baidu.com/img/baidu_logo.gif" />
+</div>
+<script>
+document.getElementById("file").onchange = function() {
+    if ("Microsoft Internet Explorer" == navigator.appName) {
+        var preview = document.getElementById("preview");
+        preview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = this.value;
+        document.getElementById("image").style.display = "none";
+    } else if ("Netscape" == navigator.appName){
+        document.getElementById("image").src = this.files[0].getAsDataURL();
+    } else {
+        alert("Not Support!");
+    }
+}
+</script>
+</body>
+</html>

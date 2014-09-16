@@ -1,0 +1,124 @@
+/* 公共样式 */
+body , div , ul{
+	word-wrap:break-word; word-break:break-all; 
+}
+
+
+
+.btnBox{
+	padding-top:3px;
+	font-size: 9pt;
+	border: 1px solid #A7C8F1;
+	background-color: #ECF2FE;
+}
+
+.load{
+	width:165px;
+	height:54px;
+	background:url(loadBg.gif);
+	text-align:left;
+	padding:10px 0px 0px 20px;
+	margin:50px auto auto auto;	
+}
+
+body{	
+	background:#F5FBFF;
+	padding:6px;	
+	color: #ECF2FE;
+	text-align: center;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+#provFloor
+{
+	 text-align:left;
+	 color:#000;
+	 padding-left:5px;
+	 text-decoration: none;
+	 background:#fff;
+}
+
+#TownFloor{padding:5px 10px 5px 10px;
+	clear: both;
+	border:1px solid #ADAAAA;	
+	background:#fff;
+	text-align:left;
+	margin-top:5px;
+	}
+#provFloor a
+{	
+	font-size:13px;		
+	padding:2px;
+   line-height:22px;
+   text-align:left;
+   text-decoration: none;
+}
+#cityFloor
+{
+	padding:5px 10px 5px 10px;
+	clear: both;
+	border:1px solid #D0D0D0;	
+	background:#fff;
+	text-align:left;
+}
+#cityFloor a
+{
+ text-decoration: none;
+}
+#floor{
+	border:1px solid #D0D0D0;	
+	background: #fff;
+	height:206px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin-top:5px;
+}
+#floorHead
+{
+	margin: 0px 10px 0px 10px;
+	line-height:18px;
+	height:18px;
+	padding-top:5px;
+	border-bottom: 1px solid #ddd;
+}
+#floorHead a
+{	
+	padding:2px;
+	font-size: 12px	
+}
+#floorContent
+{
+	margin:5px 5px 5px 5px;
+}
+#floorContent a
+{
+	display: block;
+	float:left;
+	width:170px;
+	background: white  no-repeat 2px center;
+	text-align:left;
+	padding-left:5px;
+	padding-right:5px;
+	overflow:hidden;
+	text-decoration: none;
+}
+div
+{
+	color:#ADAAAA;
+}
+
+a.sellink:link,a.sellink:visited
+{
+	color:#fff;
+	background:#3B5998;
+	padding:2px;
+}
+#floorContent a:hover
+{
+	color:#fff;	
+	background: #ADAAAA no-repeat 2px center;
+}
+
+#noneFloor{ position:absolute;top:5px;left:35px;}
+#loading{background:url(loadBg.gif) no-repeat; width:165px;height:54px;margin-top:40px; text-align:left;padding-top:10px;padding-left:20px}

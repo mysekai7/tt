@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>new J.Class() - Demo - JET</title>
+
+	<link rel="stylesheet" href="../../source/assets/jet.reset.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style type="text/css">
+
+	.styleA{
+		padding:5px 0;
+		overflow:hidden;
+	}
+	.styleB{
+		padding:5px 0;
+	}
+	</style>
+</head>
+
+<body>
+
+
+
+	
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+
+	<script>
+	
+		Jet().$package(function(J){
+			var Panel = new J.Class({
+				init:function(name){
+					this.name = name;
+				},
+				showName:function(){
+					alert(this.name);
+				}
+			});
+			var p = new Panel("test name");
+			p.showName();
+		
+		});
+		
+		
+
+
+
+	</script>
+</body>
+</html>

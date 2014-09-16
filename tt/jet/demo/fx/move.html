@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>move 动画 - JET</title>
+	<style>
+		#box{
+			position:absolute;
+			top:200px;
+			width:100px;
+			background:blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		123
+	</div>
+	<div>
+	  <input id="start" type="button" value=" 开始 " />
+	  <input id="start2" type="button" value=" 开始2 " />
+	</div>
+	
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.fx.js"></script>
+	<script>
+		Jet().$package(function(J){
+			var $D = J.dom,
+				$E = J.event,
+				$T = J.fx.tween;
+			var box = $D.id("box");
+			var a = new J.fx.Animation(box, "left", -200, 0, $T.elastic.easeInOut);
+			var b = new J.fx.Animation(box, "left", 0, -200, $T.elastic.easeInOut);
+			////////////////////////////////////////////////////////
+
+			$E.on($D.id("start"),"click", function(){
+
+				a.start();
+			});
+			
+			$E.on($D.id("start2"),"click", function(){
+				b.start();
+			});
+			
+		});
+	</script>
+</body>
+</html>

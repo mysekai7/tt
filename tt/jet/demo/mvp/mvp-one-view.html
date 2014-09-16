@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MVC - Javascript</title>
+</head>
+
+<body>
+
+
+	<select id="selAnimal">
+		<option value="cat">cat</option>
+		<option value="fish">fish</option>
+		<option value="bird">bird</option>
+		<option value="other">other</option>
+	</select>
+
+	<p id="whatDoesThisAnimalDo"></p>
+	
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	
+		// model 层
+		Jet().$package("whatDoesAnimalDo.model", function(J){
+			var $E = J.event;
+			
+			// animal的数据
+			var animalDictionary = {
+					cat: "喵喵~~",
+					fish: "游来游去~~~",
+					bird: "飞翔~"
+				};
+			
+			// 当前的animal，也就是这个application的状态
+			var currentAnimal= null;
+			
+			// 数据模型负责业务逻辑和数据存储
+			this.setAnimal = function(animalName) {
+				currentAnimal = animalDictionary[animalName] ? animalName : null;
+				
+				// 触发自己的事件
+				$E.notifyObservers(this,"ModelChange", this.getAnimalAction());
+			};
+			
+			// 还需要响应视图对当前状态的查询
+			this.getAnimalAction = function() {
+				return currentAnimal ? currentAnimal + ": " + animalDictionary[currentAnimal] : "汪汪?";
+			};
+
+		});
+		
+		// view 层
+		Jet().$package("whatDoesAnimalDo.view", function(J){
+			var $E = J.event;
+			
+			// 用户输入触发onchange事件
+			this.init = function() {
+				document.getElementById('selAnimal').onchange = J.bind(function(){
+					// 触发自己的事件
+					$E.notifyObservers(this, "ViewChange", document.getElementById('selAnimal').value);
+				},this);
+			};
+
+			// 视图更新显示的方法，其中视图会向model查询当前的状态，并将其显示给用户
+			this.update = function(data) {
+				document.getElementById('whatDoesThisAnimalDo').innerHTML = data;
+			};
+
+		});
+		
+		
+		
+		// presenter 层
+		Jet().$package("whatDoesAnimalDo.presenter", function(J){
+			var $E = J.event;
+
+			// 选择视图
+			this.init = function() {
+				$E.addObserver(whatDoesAnimalDo.model, "ModelChange", J.bind(this.onModelChange,this));
+				$E.addObserver(whatDoesAnimalDo.view, "ViewChange", J.bind(this.onViewChange,this));
+				whatDoesAnimalDo.view.init();
+			};
+			
+			// 将用户的操作映射到模型的更新上
+			this.onViewChange = function(animalName) {
+				whatDoesAnimalDo.model.setAnimal(animalName);
+			};
+			
+			// 将模型的更新映射到View视图上
+			this.onModelChange = function(data) {
+				whatDoesAnimalDo.view.update(data);
+			};
+
+			//this.init();
+
+		});
+		
+		whatDoesAnimalDo.presenter.init();
+
+	</script>
+</body>
+</html>

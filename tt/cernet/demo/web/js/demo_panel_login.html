@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>个人门户</title>
+<link href="/css/grzx.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/httpRequest.js"></script>
+<script type="text/javascript">
+function test() {
+	var o = new httpRequest();
+	o.serialize('fm');
+	o.request('test_ajax.php',{method:'post',onSuccess:'s'});
+}
+function s(res) {
+	alert(res);
+}
+</script>
+</head>
+<body>
+<form id="fm" method="post">
+<input type="text" name="test1" value="数据值1" />
+<input type="text" name="test2" value="数据值2" />
+<input type="button" name="button" value="提交" onclick="test()" />
+</form>
+
+</body></html>

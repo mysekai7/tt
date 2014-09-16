@@ -1,0 +1,23 @@
+{* include file="header.htm" *}
+<!--内容文件-->
+<FORM METHOD=POST ACTION="?action=do">
+<table cellspacing=0 cellpadding=5 border=0 >
+			  <tr>
+				<td bgcolor=#CCCCFF><A HREF="index.php">框架测试</a> -> 成功提示</td>
+			  </tr>
+			</table>
+			<hr noshade color=dddddd size=1>
+<table cellspacing="3">
+			  <tr>
+				<td >成功号:<br><font color="green">{*$iNumber*}</font><br></td>
+			  </tr>
+			  <tr>
+				<td >成功信息:<br><font color="green">{*$sMessage*}</font></td>
+			  </tr>
+			  <tr>
+				<td ><br><A HREF="{*$sReturnUrl*}"><b>返回</b></A></td>
+			  </tr>
+			</table>
+</FORM>
+<!--包含尾文件-->
+{* include file="footer.htm" *}

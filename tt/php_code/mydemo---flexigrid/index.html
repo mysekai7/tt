@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Flexigrid</title>
+        <link rel="stylesheet" type="text/css" href="grid/css/flexigrid/flexigrid.css"/>
+        <link rel="stylesheet" type="text/css" href="css/niceforms-default.css"/>
+        <script type="text/javascript" src="grid/lib/jquery.js"></script>
+        <script type="text/javascript" src="grid/flexigrid.pack.js"></script>
+        <script type="text/javascript" src="jquery.blockUI.js"></script>
+        <script type="text/javascript" src="js/nicejforms.js"></script>
+        <style>
+            a {
+                text-decoration: none;
+                font: 12px Arial, Helvetica, sans-serif, "宋体";
+                color: #FF6600;
+            }
+            
+            a:hover {
+                color: #FFCC00;
+            }
+			.warpbox{display:none;}
+            #innerbox{margin:20px 40px;}
+            .inputdiv {
+                background-color: #f7f7f7;
+                border: 1px solid #CCCCCC;
+            }
+            
+            .bborderx {
+                width: 700px;
+                margin: 80px auto;
+            }
+            .showMsg{
+            	padding:20px;
+            }
+            
+            #innerbox {
+                text-align:left;
+            }
+            
+            .flexigrid div.fbutton .add {
+                background: url(grid/css/images/add.png) no-repeat center left;
+            }
+            
+            .flexigrid div.fbutton .delete {
+                background: url(grid/css/images/close.png) no-repeat center left;
+            }
+        </style>
+    </head>
+    <body>
+    <!--  
+    本程序存在bug， 且有未完善的功能， 仅做网友交流使用。
+
+    制作：CSSRAIN.CN - 一揪就出来。
+	
+	估计BUG产生处写有注释。如有解决，请联系 QQ:21021717
+
+    http://www.cssrain.cn
+
+    -->
+<div class="warpbox">
+            <div id="innerbox">
+                <br/>
+                <form action="add.php" method="post" class="niceform" id="fromCss">
+                    <label for="qq_group">
+                        群号:
+                    </label>
+                    <br/>
+                    <input type="text" id="qq_group" name="qq_group" size="18"/>
+                    <br/>
+                    <label for="textinput">
+                        网名:
+                    </label>
+                    <br/>
+                    <input type="text" id="name" name="name" size="18"/>
+                    <br/>
+                    <br/>
+                    <label for="textinput">
+                        QQ号:
+                    </label>
+                    <br/>
+                    <input type="text" id="qq" name="qq" size="18"/>
+                    <br/>
+                    <br/>
+                    <label>
+                        性别:
+                    </label>
+                    <br/>
+                    <input type="radio" name="sex" id="sex" value="男" checked="checked"/>
+                    <label for="sex">
+                        男
+                    </label>
+                    <br/>
+                    <input type="radio" name="sex" id="sex" value="女"/>
+                    <label for="sex">
+                        女
+                    </label>
+                    <br/>
+                    <br/>
+                    <label for="textinput">
+                        联系电话:
+                    </label>
+                    <br/>
+                    <input type="text" id="tel" name="tel" size="12"/>
+                    <br/>
+                    <br/>
+                    <input id="yes" type="button" value="提交"/> <input name="按钮" type="button" id="no" value="取消"/>
+                    <br/>
+                </form>
+            </div>
+		</div>
+        
+        
+        <div class="bborderx">
+            <table id="flex1" style="display:none">
+            </table>
+            <br />
+            <p style="text-align:center;">欢迎交流！QQ:21021717 -- <a href="http://www.cssrain.cn" target="_blank">CSSRAIN.CN</a>  ---  <a href="mailto:comesoft@qq.com" target="_blank">一揪就出来</a></p>
+    </div>
+        <script type="text/javascript">
+        	$.NiceJForms.build()
+            $("#flex1").flexigrid({
+                url: 'post.php',
+                dataType: 'json',
+                colModel: [{
+                    display: '编号',
+                    name: 'id',
+                    width: 60,
+                    sortable: true,
+                    align: 'center'
+                }, {
+                    display: '群号',
+                    name: 'qq_group',
+                    width: 120,
+                    sortable: true,
+                    align: 'left'
+                }, {
+                    display: '网名',
+                    name: 'name',
+                    width: 120,
+                    sortable: true,
+                    align: 'left'
+                }, {
+                    display: 'QQ号',
+                    name: 'qq',
+                    width: 120,
+                    sortable: true,
+                    align: 'left'
+                }, {
+                    display: '性别',
+                    name: 'sex',
+                    width: 120,
+                    sortable: true,
+                    align: 'left',
+                    hide: true
+                }, {
+                    display: '联系电话',
+                    name: 'tel',
+                    width: 120,
+                    sortable: true,
+                    align: 'left'
+                }],
+                buttons: [{
+                    name: '增加',
+                    bclass: 'add',
+                    onpress: test
+                }, {
+                    name: '删除',
+                    bclass: 'delete',
+                    onpress: test
+                }, {
+                    separator: true
+                }],
+                searchitems: [{
+                    display: '网名',
+                    name: 'name',
+                    isdefault: true
+                }, {
+                    display: 'QQ号',
+                    name: 'qq'
+                }],
+                sortname: "id",
+                sortorder: "desc",
+                usepager: true,
+                title: 'CSSRAIN群友管理',
+                useRp: true,
+                rp: 10,
+                showTableToggleBtn: true,
+                width: 700,
+                height: 250
+            });
+            function test(com, grid){
+                if (com == '删除') {
+                    if ($(".trSelected").length > 0) {
+                        if (confirm('是否删除 ' + $('.trSelected', grid).length + ' 条记录吗?')) {
+                            var id = "";
+                            for (var i = 0; i < $('.trSelected', grid).length; i++) {
+                                id += "id=" + $('.trSelected', grid).find(".sorted").eq(i).text() + "&";
+                            }
+							$.blockUI({ message: '<div class="showMsg">请稍等....<img src="loading.gif" /></div>' });
+							
+							$.get("del.php?time=" + Math.random() + "&" + id, function(data, status, Request){
+                                $(".showMsg").html(data);
+                                //alert(status);
+                                //alert(Request);
+                            })
+                        }
+                    }
+                    else {
+                        alert("请选择某行删除！");
+                    }
+                }
+                else 
+                    if (com == '增加') {
+						//$.blockUI({ message: $(this).load("loadFrom.html #innerbox")});
+                        $.blockUI({ message: $("#innerbox") });
+						$('#yes').click(function() { 
+			            $.blockUI({ message: "<div class='showMsg'>数据添加中，请稍后...</div> "}); 
+			 				
+							var msg = $("#innerbox input[type=text],#innerbox input[type=radio]").serialize(); 
+				            $.ajax({
+								 type:  "POST",
+								 url:   "add.php",
+								 data:  msg,
+								 success: function(data){ $(".showMsg").html(data); } 
+							}); 
+				        }); 
+			 
+			        $('#no').click(function() { 
+			            $.unblockUI(); 
+			            return false; 
+			        }); 
+					
+                    }
+            }
+			$(".closeAdd").click(function(){
+				$.unblockUI();
+			})
+			$(".return").click(function(){
+				$(".pReload").trigger("click");
+				return false;
+			})
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,8 @@
+	本程序存在bug， 且有未完善的功能， 仅做网友交流使用。
+
+	制作：CSSRAIN.CN - 一揪就出来。
+
+	http://www.cssrain.cn
+
+
+	cssrain.sql为数据库文件！

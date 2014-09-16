@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="alert"></div>
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.http.js"></script>
+	<script type="text/javascript">
+
+		Jet().$package(function(J){
+			
+			var sf = function(o){
+				alert(o.responseText);
+				//J.out(o.uri);
+				//J.out(o.arguments);
+			}
+			var config = {
+				onSuccess:sf,
+				arguments:99
+				
+			};
+			var http=J.http.ajax("server_data.txt", config);
+			//http.abort();
+
+
+			/*
+			var sf2=function(o){
+				//J.out(o.responseText);
+				J.out(o.uri);
+				J.out(o.arguments);
+			}
+			var config2={
+				onSuccess:sf2,
+				arguments:11
+				
+			};
+			var http2=J.Http.ajax("server_data.txt", config2);
+			*/
+
+		});
+
+
+	</script>
+</body>
+
+</html>

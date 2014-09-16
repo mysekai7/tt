@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE> PHPSea Framework 1.0</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+a {color:blue;font-size: 9pt;text-decoration:none; }
+a:hover {color:blue;text-decoration:underline overline;}
+td{FONT-SIZE: 9pt; color:#333333; font-family:宋体}
+body{FONT-SIZE: 9pt; color:#333333; font-family:宋体}
+.msgDiv {
+	border: 1px solid #999999;
+	background-color: #99cc00;
+	padding: 10px;
+	vertical-align: middle;
+}
+-->
+</style>
+<script type="text/javascript" src="/js_new/common.js"></script>
+<script type="text/javascript" src="/js_new/lib/passport.js"></script>
+<script type="text/javascript">
+var passport = new passport();
+passport.msg = {'login':'通行证 | {**}，已登录！<img border="0" src="/images/letter.gif"> | <a href="#" onclick="passport.logout()">退出</a>',
+			    'logout':'&nbsp;&nbsp; 用户名 <input type="text" name="email">&nbsp;&nbsp;密&nbsp;&nbsp;码 <input type="text" name="passwd">&nbsp;&nbsp;<input type="hidden" name="subcode" value="1101"><input type="submit" name="_login" value=" 登 录 " class="button" id="_login" onClick="passport.doListen()" />',
+				'error':''}
+passport.msgContainer = 'loginDiv';
+</script>
+</HEAD>
+<BODY onload="passport.isLogin()">
+
+<table cellspacing=0 cellpadding=5 border=0 >
+  <tr>
+    <td width="134" bgcolor=#CCCCFF>PHPSea Framework 1.0
+    </td>
+  </tr>
+</table>
+<br/>
+<table cellspacing=0 cellpadding=5 border=0 >
+  <tr>
+	<td bgcolor=#CCCCFF><A HREF="index.php">框架测试</a> -> <a href="demo_ajax.html">Ajax调用</a></td>
+  </tr>
+</table>
+<hr color=dddddd size=1>
+			<table width="600" cellspacing="3">
+			  <form method="get" id='loginform' action="http://login.1cm.mobi/interface/sublogin.php" target="sublogin">
+				<tr>
+				<td ><!--<a href="demo_ajax3.html">非刷新登录</a><br><br>-->
+				 <div id="loginDiv">
+					&nbsp;&nbsp; 用户名 <input type="text" name="email">&nbsp;&nbsp;
+					密&nbsp;&nbsp;码 <input type="text" name="passwd">&nbsp;&nbsp; 
+					<input type="hidden" name="subcode" value="1101">
+					<input type="submit" name="_login" value=" 登 录 " class="button" id='_login' onClick="passport.doListen()" />
+				 </div>
+				 <!-- 个人中心 退出登录-->
+				 <!-- http://reg.svn.dev.eol.cn/interface/sublogin.php?ispanel=2   信息提示：重新登陆-->
+				</td>
+			  </tr>
+			  </form>
+			  <form id='logoutform' method="post" action="http://login.1cm.mobi/interface/sublogout.php" target="sublogin">
+			  <tr>
+				<td >&nbsp;</td>
+			  </tr></form>
+			</table>
+<iframe id="sublogin" name="sublogin" style="display:none;"></iframe>
+<table cellspacing=0 cellpadding=5 border=0 >
+  <tr>
+    <td bgcolor=#CCCCFF>开发说明
+    </td>
+  </tr>
+</table>
+<hr noshade color=dddddd size=1>
+&nbsp;<b>PSF1.0 For PHP5</b> &nbsp;
+</BODY>
+</HTML>

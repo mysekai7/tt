@@ -1,0 +1,299 @@
+PHP4函数手册 array里的算是看完咯， 明天在看看最新的手册。。。。
+
+array_values($arr) array
+返回数组所有元素
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array("a", "b", "c"); 
+   3. $arr = array_flip($arr);        //反转数组的下标和值现在的$arr = array(0, 1, 2); 
+   4. $arr = array_values($arr);      //返回数组$arr中的所有元素 
+   5. print_r($arr);                  //结果： array(0, 1, 2); 
+   6. ?> 
+7.
+
+
+
+array_walk($arr, $func, [$data]) bool
+使用用户自定义的函数遍历所有的元素，返回true/false
+注意：此函数只处理数组的第一维
+$func是一个函数名
+默认会传入两个参数 第一个 $arr的值， 第二个$arr的下标， 一对一对的传哦
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a', 'b', 'c'); 
+   3. array_walk($arr, 'test');       //这里第二个参数test就是函数名 
+   4. function test(&$val, $key)      //这里第一个参数加上引用， 那么修改$val就等于修改$arr中的元素 
+   5. { 
+   6.     $val = 'x_' . $val;         //这里给他加一个前缀 
+   7. } 
+   8. print_r($arr);                  //输出结果 array('x_a', 'x_b', 'x_c'); 
+   9. //这里如果把$arr改成 $arr = array('a', 'b', 'c', array(1, 2, 3));  打印结果将是 array('x_a', 'x_b', 'x_c', 'x_Array'); 
+  10. ?> 
+11.
+
+
+现在传入第三那个参数$data, 如果有传入第三个参数，那么第三个参数将传给第二个参数定义的函数当中的第三个参数
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. array_walk($arr, 'test', 'x_'); 
+   3. function test(&$val, $key, $prefix) 
+   4. { 
+   5.     $val = $prefix . $val;          //其实这里的$prefix就是上面的x_ 
+   6. } 
+   7. print_r($arr);                      //输出结果和上面一样 array('x_a', 'x_b', 'x_c'); 
+   8. ?> 
+9.
+
+
+
+arsort($arr) bool
+对数组$arr进行倒序排列并保留下标和值的关系，如果排序成功返回true 否则返回 false
+此函数只处理数组的第一维
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a' => 'a', 'b' => 'b', 'c' => 'c'); 
+   3. arsort($arr); 
+   4. print_r($arr);      //打印结果： array('c' => 'c', 'b' => 'b', 'a' => 'a'); 如果有数字那么数字会在字符前面 
+   5. ?> 
+6.
+
+
+asort($arr) bool
+对数组$arr进行正序排列也就是a-z这样排列， 返回值和上面一样
+此函数也保留下标和值的关系
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a' => 'a', 'b' => 'b', 'c' => 'c'); 
+   3. asort($arr); 
+   4. print_r($arr);      //结果没变， 就是原那数组 
+   5. $arr = array('c' => 'c', 'b' => 'b', 'a' => 'a'); 
+   6. asort($arr); 
+   7. print_r($arr);      //结果：array('a' => 'a', 'b' => 'b', 'c' => 'c'); 
+   8. ?> 
+9.
+
+
+compact($varname, ...., $varname) array
+接受n个$varname并将$varname当做下标$varname的值当做值创建一个数组$varname可以为数组
+解释不清楚， 看例子
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $a   = "变量a"; 
+   3. $b   = "变量b"; 
+   4. $arr = compact('a', 'b');   //这里传入 a b 分别为上面定义的变量名称 
+   5. print_r($arr);              //打印结果为 array('a' => '变量a', 'b' => '变量b'); 
+   6. //还可以把变量名称当做数组传入 
+   7. $vars = array('a', 'b'); 
+   8. $arr  = compact($vars); 
+   9. print_r($arr);              //结果和上面一样， 其实这个函数就是做extract的相反操作 
+  10. ?> 
+11.
+
+
+extract($arr, $type, $prefix) int
+将数组$arr的下标当做变量名， 值当做变量的值
+$arr  目标数组
+$type 这个是遇过遇到相同下标使用什么方式处理， 值是PHP已经定义了的常量
+EXTR_OVERWRITE      如果相同， 那么就覆盖前面的那个变量， 默认就是这个
+EXTR_SKIP           如果相同， 不覆盖前面那个变量
+EXTR_PREFIX_SAME    如果相同， 那么使用第三个参数$prefix加到变量名前
+EXTR_PREFIX_ALL     把所有变量名称都加上$prefix当做前缀
+注意在$type为EXTR_PREFIX_SAME或EXTR_PREFIX_ALL时才需要传入参数$prefix， 不然传了也没用。。。
+例子
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a' => '变量a', 'b' => '变量b'); 
+   3. extract($arr, EXTR_OVERWRITE);      //如果有相同，那么覆盖 
+   4. echo $a;    //输出结果将是 '变量a' 
+   5. echo $b;    //结果： '变量b' 
+   6. $arr = array('a' => '变量a', 'b' => '变量b', 'a' => '第二个变量a');  //这里有两个元素下标都为a 
+   7. extract($arr); 
+   8. echo $a; //输出结果是： '第二个变量a' 很明显已经覆盖了 '变量a' 因为默认第二个参数是 EXTR_OVERWRITE 
+   9. ?> 
+10.
+
+
+
+count($arr) int
+统计数组中的元素的数目
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a', 'b'); 
+   3. echo count($arr);   //很明显结果为2 
+   4. ?> 
+5.
+
+
+
+current($arr) mixed
+返回数组中当前指针所指的元素,此函数别名 pos
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a', 'b', 'c'); 
+   3. echo current($arr);         //结果为 'a' 
+   4. echo next($arr);            //指针向下一个移动，所以现在指针所指的是b 输出结果当然为 'b' 
+   5. echo current($arr);         //结果又是b 因为当前指针就在b这哦 
+   6. echo end($arr)              //指针移动到数组最后， 并返回结果， 所以结果为c 
+   7. echo prev($arr);            //指针向上一个移动， 结果b 
+   8. echo key($arr);             //返回指针所指元素的下标 因为上面指针到了b那么所有 结果为1 因为b的下标就是1 
+   9. echo reset($arr);           //重置指针都数组开头 结果a 
+  10. ?> 
+11.
+
+
+
+each($arr) array
+重数组$arr中返回一对 key/value也就是 下标/值
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a' => 1, 'b' => 2, 'c' => c); 
+   3. $res = each($arr); 
+   4. print_r($res);  //结果为 array('0' => 'a', 'key' => 'a', 1 => 1, 'value' => 1) 
+   5. //返回结果 0 和 key 都代表 下标   1 和 value 代表值 
+   6. //没使用一次each数组内部指针就会向下移动一次， 如果已经是数组末端， 将返回false 
+   7. $res = each($arr); 
+   8. print_r($res); //结果就会变成 array('0' => 'b', 'key' => 'b', 1 => 2, 'value' => 2) 
+   9. ?> 
+10.
+
+
+list($val, .. , [$val]) void 无返回值
+把数组中的值赋给一些变量$val
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('颜色', '字母A', '字母B'); 
+   3. list($color, $a, $b) = $arr;    //注意这里list的参数$val 位置是和数组中的位置对应， 重左到右 
+   4. echo $color; //结果 '颜色' 
+   5. echo $a;     //结果 '字母A' 
+   6. list($color, , $b)   = $arr;    //这样空一个 
+   7. echo $color; //结果 '颜色' 
+   8. echo $a;     //结果 一样都没有， 因为就没给a赋值哦， 哪里也空出来咯 
+   9. echo $b;     //结果 '字母B' 
+  10. //list each 一起用 
+  11. $arr = array('颜色', '字母A', '字母B'); 
+  12. while(list($key, $val) = each($arr)) { 
+  13.     echo '下标：' . $key; 
+  14.     echo '----值：'    . $val; 
+  15.     echo '<br>'; 
+  16. } 
+  17. //输出结果为 
+  18. //下标：0----值：颜色 
+  19. //下标：1----值：字母A 
+  20. //下标：2----值：字母B 
+  21. ?> 
+22.
+
+
+
+krsort($arr, [$type]) bool
+对数组$arr按照其下标进行倒序排列
+还有一个ksort();  这个是按下标进行升序排列
+$type 是排序方式
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array('a' => 1, 'b' => 2, 'c' => 3); 
+   3. krsort($arr); 
+   4. print_r($arr);  //打印结果： array('c' => 3, 'b' => 2, 'a' => 1); 
+   5. ?> 
+6.
+
+
+
+range($go, $end, [$setup)   array
+这个有点不好解释
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = range(1, 10); 
+   3. print_r($arr);      //结果array(1, 2, 3, 4, .., 10); 
+   4. $arr = range(1, 10, 2); //这里指定第三个参数， 也就是步长 
+   5. print_r($arr);      //结果array(1, 3, 5, 7, 9); 
+   6. $arr = range('a', 'z'); 
+   7. print_r($arr);      //结果 array('a', 'b', 'c', ..., 'z'); 
+   8. ?> 
+9.
+
+
+sort($arr);
+将数组重a-z进行排序
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array("lemon","orange","banana","apple"); 
+   3. sort($arr); 
+   4. print_r($arr);  //结果array('apple', 'banana', 'lemon', 'orange'); 
+   5. //还有个z-a进行排序的函数rsort 
+   6. ?> 
+7.
+
+
+shuffle($arr) bool
+将数组$arr进行乱排序， 也就是随机排序
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = range(1, 10); 
+   3. shuffle($arr); 
+   4. print_r($arr);  //结果是什么我也不知道， 因为是随机的 
+   5. ?> 
+6.
+
+
+
+usort($arr, $func) bool
+使用你自己定义的函数对$arr进行排序$func是自定义函数
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. $arr = array(1, 5, 8 ,2 ,0 ,3); 
+   3. usort($arr, 'test'); 
+   4. function test($a, $b) { 
+   5.     return $a == $b ? 0 : $a < $b ? 1 : -1; 
+   6. } 
+   7. print_r($arr);  //打印结果 Array ( [0] => 8 [1] => 5 [2] => 3 [3] => 2 [4] => 1 [5] => 0 ) 
+   8. // 这函数没弄懂哦。。 不知道参数$a , $b 代表的是什么？ 看手册也没看懂， 如果这么简单的排序用ksort就行咯rsort 
+   9. // 这样的函数还有两个 uksort,和uasort都没弄懂， 郁闷。。。 
+  10. ?> 
+11.
+
+
+
+总结一下
+复制代码 - PHP100.com
+
+   1. <?php 
+   2. array_values()      //返回数组中所有元素 
+   3. array_walk()        //使用自定义函数遍历数组都一个单元 
+   4. arsort();           //保留数组下标于值的关系进行倒序排列 
+   5. asort()             //保留数组下标于值的关系进行正序排列 
+   6. compact()           //将变量导入到数组中， 以变量名为下标， 值为值 
+   7. extract()           //将数组导入到变量， 下标为变量名， 值为值 
+   8. count()             //统计数组有多少个元素 
+   9. current()           //当前指针所指元素 
+  10. next()              //指针向下移动 
+  11. prev()              //指针向上移动 
+  12. end()               //指针移动到数组末尾 
+  13. reset()             //指针移动到数组开头 
+  14. key()               //返回当前指针所指元素的下标 
+  15. each()              //返回一对 key/value 
+  16. list()              //将数组导入到变量中 
+  17. krsort()            //按照下标进行倒序排列 
+  18. ksort()             //按照下标进行升序排列 
+  19. range()             //创建数组 
+  20. sort()              //按值重小到大排列 
+  21. rsort()             //按值重大到些排列 
+  22. shuffle()           //随机排列 
+  23. usort()             //......无语这个函数， Google去咯 
+  24. ?> 

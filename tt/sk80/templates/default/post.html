@@ -1,0 +1,70 @@
+<{strip}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="blog.sk80.com" />
+    <meta name="keywords" content="<{$post->title}>:<{$post->category}>,<{foreach from=$post->tags item=tag name=tag_keyword}><{$tag}> <{/foreach}>" />
+    <meta name="description" content="<{$post->title}>,<{$next->title}>,<{$previous->title}>" />
+    <meta name="author" content="4kychao" />
+    <link rel="stylesheet" type="text/css" href="<{$tpl_front}>style.css" />
+    <title><{$post->title}></title>
+  </head>
+  <body>
+      <div id="wrapper">
+          <div id="header">
+              <div id="header-inner">
+                  <p class="sitename">blog.sk80.com</p>
+                  <div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div>
+                  <{include file="default/mod_menu.html"}>
+              </div>
+          </div>
+          <div id="wrapper-inner">
+            <p id="topic-path">
+                <a href="/" rel="nofollow">Home</a>
+                &gt;
+                <a href="<{$site_url}>category/<{$post->category_slug}>/"><{$post->category}></a>
+                &gt;
+                <strong class="current"><{$post->title}></strong>
+            </p>
+            <ul id="flip1" class="flip">
+                <{if $next}>
+                <li class="newer"><a title="<{$next->title}>" href="<{$site_url}>post/<{$next->id}>.html" rel="nofollow">Newer</a></li>
+                <{/if}>
+                <{if $previous}>
+                <li class="older"><a title="<{$previous->title}>" href="<{$site_url}>post/<{$previous->id}>.html" rel="nofollow">Older</a></li>
+                <{/if}>
+            </ul>
+              <div id="detail">
+                  <div class="post">
+                      <h1><{$post->title}></h1>
+                      <ul class="info">
+                          <li class="date"><{$post->created_date|date_format:"%Y年 %m月%e日  %H:%M"}></li>
+                          <li class="category"><a href="<{$site_url}>category/<{$post->category_slug}>/"><{$post->category}></a></li>
+                      </ul>
+                      <div class="textbody">
+                        <{$post->content}>
+                      </div>
+                      <{if $post->tags}>
+                      <div class="entry-tags">
+                          <strong>Tags:</strong>
+                          <{foreach from=$post->tags item=tag name=tag}>
+                            <a href="<{$site_url}>tag/<{$tag}>/"><{$tag}></a>
+                            <{if !$smarty.foreach.tag.last}>,<{/if}>
+                          <{/foreach}>
+                      </div>
+                      <{/if}>
+                  </div>
+                  <ul id="flip2" class="flip">
+                      <{if $next}>
+                      <li>Newer:<a href="<{$site_url}>post/<{$next->id}>.html"><{$next->title}></a></li>
+                      <{/if}>
+                      <{if $previous}>
+                      <li>Older:<a href="<{$site_url}>post/<{$previous->id}>.html"><{$previous->title}></a></li>
+                      <{/if}>
+                  </ul>
+
+              </div>
+
+<{/strip}>
+<{include file="default/footer.html"}>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Editplus4PHP" />
+    <meta name="keywords" content="Editplus4PHP" />
+    <meta name="description" content="Editplus4PHP" />
+    <meta name="author" content="Leo" />
+<!--
+    <script type="text/javascript" src="js/common.js"></script>
+    
+    <link rel="shortcut icon" href="images/favicon.ico" />
+-->
+    <link rel="stylesheet" type="text/css" href="<{$tpl_front}>style.css" />
+    <title><{$post->title}></title>
+  </head>
+  <body>
+    <div id="header">
+        <div id="head">
+            <span class="sitename">blog.sk80.com</span>
+            <p class="sitedesc">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</p>
+        </div>
+    </div>
+    <div id="main">
+        <div id="content" class="detail">
+            <p id="topic-path">
+                <a href="/" rel="nofollow">Home</a>
+                &gt;
+                <a href="<{$site_url}>category/<{$post->category_slug}>/"><{$post->category}></a>
+                &gt;
+                <strong class="current"><{$post->title}></strong>
+            </p>
+            <ul id="flip1" class="flip">
+                <{if $next}>
+                <li class="newer"><a title="<{$next->title}>" href="<{$site_url}>post/<{$next->id}>.html" rel="nofollow">Newer</a></li>
+                <{/if}>
+                <{if $previous}>
+                <li class="older"><a title="<{$previous->title}>" href="<{$site_url}>post/<{$previous->id}>.html" rel="nofollow">Older</a></li>
+                <{/if}>
+            </ul>
+            <h1><{$post->title}></h1>
+            <div class="entry">
+                <ul class="info">
+                    <li class="date"><{$post->created_date|date_format:"%b %e, %Y %H:%M"}></li>
+                    <li class="category"><a href="<{$site_url}>category/<{$post->category_slug}>/"><{$post->category}></a></li>
+                </ul>
+                <div class="textbody">
+                    <{$post->content}>
+                </div>
+                <ul id="flip2" class="flip">
+                    <{if $next}>
+                    <li>Newer:<a href="<{$site_url}>post/<{$next->id}>.html"><{$next->title}></a></li>
+                    <{/if}>
+                    <{if $previous}>
+                    <li>Older:<a href="<{$site_url}>post/<{$previous->id}>.html"><{$previous->title}></a></li>
+                    <{/if}>
+                </ul>
+            </div>
+        </div>
+        <div id="utilities" class="utilities_side">
+            <dl class="navi">
+                <dt>Categories</dt>
+                <dd>
+                    <ul class="category">
+                      <{foreach from=$categories item=val name=categories}>
+                      <li><a href="<{$val->url}>"><{$val->name}></a> <small>(<{$val->count}>)</small></li>
+                      <{/foreach}>
+                    </ul>
+                </dd>
+                <dt>Archives</dt>
+                <dd>
+                    <ul class="archives">
+                        <li></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="other1 others">
+                <dt>Search</dt>
+                <dd>
+
+                </dd>
+                <dt>Feeds</dt>
+                <dd>
+
+                </dd>
+                <dt>E-mail address</dt>
+                <dd>
+
+                </dd>
+                <dd class="linkInfo"></dd>
+            </dl>
+            <dl class="other1 others">
+                <dt>Search</dt>
+                <dd>
+
+                </dd>
+                <dt>Feeds</dt>
+                <dd>
+
+                </dd>
+                <dt>E-mail address</dt>
+                <dd>
+
+                </dd>
+                <dd class="linkInfo"></dd>
+            </dl>
+
+        </div>
+        <p class="return">
+            <a href="#header">Return to page top</a>
+        </p>
+    </div>
+    <div id="footer">
+        <ul class="support">
+            <li>Powered by sk80.com</li>
+        </ul>
+        <address>Copyright &copy; sk80 blog All Rights Reserved.</address>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JET 微内核Demo</title>
+<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+
+	<div id="content">
+		<div id="example">
+			<h3>JET 微内核Demo</h3>
+			<div class="exampleContainer"> 
+				<button id="Button_1" onclick="fn1()">创建JET1.0</button> 
+				<button id="Button_2" onclick="fn2()">创建JET2.0</button> 
+				<button id="Button_2" onclick="fn3()">创建JET3.0</button> 
+				<button id="Button_3" onclick="fn4()">创建JET默认版本</button> 
+
+			</div>
+		</div> 
+
+	</div> 
+
+
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script>
+	
+		var fn1 = function(){
+			var J = new Jet("1.0");
+			alert(J.version);
+		}
+		
+		var fn2 = function(){
+			var J = new Jet("2.0");
+			alert(J.version);
+		}
+		
+		var fn3 = function(){
+			var J = new Jet("3.0");
+			alert(J.version);
+		}
+		
+		var fn4 = function(){
+			var J = new Jet();
+			alert(J.version);
+		}
+
+		
+
+	</script>
+</body>
+</html>

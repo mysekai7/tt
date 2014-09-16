@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+body {
+	font-size: 12px;
+}
+.mainContent {
+	margin: 3px;
+	padding:5px;
+	
+}
+.mainContent a {
+	display: block;
+	float:left;
+	width:140px;
+/*	background: white  no-repeat 2px center;  */
+	text-align:left;
+	padding-left:5px;
+	padding-right:5px;
+	overflow:hidden;
+	line-height:20px;
+	text-decoration: none;
+}
+.mainContent a:hover
+{
+	color:#fff;	
+	background: #ADAAAA no-repeat 2px center;
+}
+</style>
+<script type="text/javascript" src="/js/select/panel.js"></script>
+<script type="text/javascript" src="demo_panel.js"></script>
+<title></title>
+</head>
+<body>
+
+<!--城市----------------------------------------------->
+<form method=post action=""  name="" id="" >
+<p>
+省市&nbsp;&nbsp;&nbsp;&nbsp;（一级&nbsp;&nbsp;调用js&nbsp;&nbsp;单选）
+<hr />
+<input name="" id="_city1" value="" type="text" readonly >
+<input name="" id="_city1_text" style="width: 220px;" value="" readonly type="text">
+<img src="panel.gif" id="pop_city" style="cursor: pointer;" width="15" align="absmiddle" height="16" hspace="4"
+onclick="initObj(this,'city','省市',1,0,0,['0.js','11.js'],'_city1');" 
+>
+</p>
+<p>
+省市&nbsp;&nbsp;&nbsp;&nbsp;（二级&nbsp;&nbsp;调用js&nbsp;&nbsp;复选）
+<hr />
+<input name="" id="_city2" value="" type="text" readonly >
+<input name="" id="_city2_text" style="width: 220px;" value="" readonly type="text">
+<img src="panel.gif" id="pop_city" style="cursor: pointer;" width="15" align="absmiddle" height="16" hspace="4"
+onclick="initObj(this,'city','省市',2,1,0,['0.js','11.js'],'_city2');" 
+>
+</p>
+
+<!--专业----------------------------------------------->
+<p>
+专业&nbsp;&nbsp;&nbsp;&nbsp;（三级&nbsp;&nbsp;调用js&nbsp;&nbsp;单选）
+<hr />
+<input name="" id="_speciality1" value="" type="text" readonly >
+<input type="text" id="_speciality1_text" name="speciality_text" value="" readonly style="width: 220px;">
+<img src="panel.gif" id="pop_speciality" width="15" height="16" border="0" alt=""  align="absmiddle" hspace="4"  style="cursor: pointer;" 
+onclick="initObj(this,'speciality','专业',3,0,0,['0.js','110000.js','110100.js'],'_speciality1');">
+
+</p>
+
+<p>
+专业&nbsp;&nbsp;&nbsp;&nbsp;（三级&nbsp;&nbsp;调用js&nbsp;&nbsp;复选）
+<hr />
+<input name="" id="_speciality2" value="" type="text" readonly >
+<input type="text" id="_speciality2_text" name="speciality_text" value="" readonly style="width: 220px;">
+<img src="panel.gif" id="pop_speciality" width="15" height="16" border="0" alt=""  align="absmiddle" hspace="4"  style="cursor: pointer;" 
+onclick="initObj(this,'speciality','专业',3,1,0,['0.js','110000.js','110100.js'],'_speciality2');">
+
+</p>
+
+<!--行业----------------------------------------------->
+<!--
+<form method=post action=""  name="" id="" >
+<p>
+行业
+<hr />
+<input name="" id="_trade" value="" type="text" readonly >
+<input name="" id="_trade_text" style="width: 220px;" value="" readonly="readonly" type="text">
+<img src="select/panel.gif" id="pop_trade" 
+onclick="initObj(this,'trade','行业',2,1,0,['/0.js','/1100.js'],'_trade',['/ajax/js.php','Demo:submitTrade'],'callFunc');" 
+style="cursor: pointer;" width="15" align="absmiddle" height="16" hspace="4">
+</p>
+</form>
+-->
+
+<p>
+省市&nbsp;&nbsp;&nbsp;&nbsp;（二级&nbsp;&nbsp;调用php&nbsp;&nbsp;单选）
+<hr />
+<input name="" id="_city3" value="" type="text" readonly >
+<input name="" id="_city3_text" style="width: 220px;" value="" readonly type="text">
+<img src="panel.gif" id="pop_city" style="cursor: pointer;" width="15" align="absmiddle" height="16" hspace="4"
+onclick="initObj(this,'city','省市',2,0,1,['Demo:listProvince','Demo:listCity&id=11'],'_city3','Demo:submitTrade','callFunc');" 
+>
+</p>
+
+<div id="_bgDiv" name="_bgDiv" style="position: absolute; left: 370px; top: 210px; width: 500px; z-index: 30; display: none;">
+  
+  <table id="_bgTab" name="_bgTab" style="position: absolute; left: 0px; top: 0px; width: 495px; z-index: 20;" bgcolor="#999999" border="0" cellpadding="0" cellspacing="1">
+    <tbody><tr>
+      <td bgcolor="#ffffff"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr>
+            <td bgcolor="#ebecee" height="22"><img src="select/panel1.gif" width="20" align="absmiddle" height="20" hspace="7"> <strong><span id="codeTitle"></span> </strong> </td>
+            <td class="link" width="50" align="center" bgcolor="#ebecee"><strong>[</strong> <a href="javascript:object.hideDiv();">关闭</a> <strong>]</strong> </td>
+          </tr>
+        </tbody></table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding:3px;">
+          <tbody><tr>
+            <td id="divContent"></td>
+          </tr>
+        </tbody></table>
+        <div id="smt" style="display:none">
+		<div id="tent" style="margin:3px; border: 1px dashed #000; background-color:#ebecee; padding:3px; line-height:18px; overflow: auto; display:block;"></div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr>
+		  	<td align="left">
+			<input type="checkbox" id="checkAll" onclick="object.panel.checkAll(this)" />&nbsp;全选</td>
+            <td align="right"><input type="button" value="确定" onclick="object.doSelect()" />&nbsp;</td>
+          </tr>
+        </tbody></table>
+		</div>
+		
+	  </td>
+    </tr>
+  </tbody></table>
+</div>
+
+</body>
+</html>

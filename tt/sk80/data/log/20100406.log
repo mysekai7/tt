@@ -1,0 +1,73 @@
+2010-04-06 00:11:43	Notice: AdminArticleController.class.php:26: Undefined index:  cid
+2010-04-06 00:11:44	Notice: AdminArticleController.class.php:41: Undefined index:  debug
+2010-04-06 00:11:44	Notice: %%32^32D^32DBDDB7%%article_list.html.php:20: Undefined index:  cid
+2010-04-06 13:31:32	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-04-06 13:31:33	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-04-06 13:50:17	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt
+2010-04-06 14:04:14	Notice: AdminArticleController.class.php:43: Undefined index:  debug
+2010-04-06 15:15:29	Notice: AdminArticleController.class.php:241: Trying to get property of non-object
+2010-04-06 15:15:29	Notice: AdminArticleController.class.php:242: Trying to get property of non-object
+2010-04-06 15:15:29	Notice: AdminArticleController.class.php:245: Trying to get property of non-object
+2010-04-06 15:15:47	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-04-06 15:20:11	Notice: AdminArticleController.class.php:243: Trying to get property of non-object
+2010-04-06 15:21:13	Notice: AdminArticleController.class.php:244: Trying to get property of non-object
+2010-04-06 15:22:52	Notice: AdminArticleController.class.php:246: Trying to get property of non-object
+2010-04-06 15:23:34	Notice: AdminArticleController.class.php:244: Undefined variable: va
+2010-04-06 15:36:36	Notice: AdminArticleController.class.php:44: Undefined index:  debug
+2010-04-06 15:42:08	Notice: AdminArticleController.class.php:51: Undefined index:  debug
+2010-04-06 15:51:53	Notice: AdminArticleController.class.php:251: unserialize() [<a href='function.unserialize'>function.unserialize</a>]: Error at offset 0 of 668 bytes
+2010-04-06 15:51:53	Notice: AdminArticleController.class.php:251: unserialize() [<a href='function.unserialize'>function.unserialize</a>]: Error at offset 0 of 604 bytes
+2010-04-06 15:56:02	Notice: AdminArticleController.class.php:252: Undefined property: stdClass::$CID
+2010-04-06 15:56:02	Notice: AdminArticleController.class.php:253: Undefined property: stdClass::$ID
+2010-04-06 15:56:02	Notice: AdminArticleController.class.php:256: Undefined property: stdClass::$CID
+2010-04-06 15:59:46	Notice: AdminArticleController.class.php:253: Undefined property: stdClass::$CID
+2010-04-06 15:59:46	Notice: AdminArticleController.class.php:254: Undefined property: stdClass::$ID
+2010-04-06 17:00:56	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-04-06 17:00:56	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-04-06 17:00:56	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-04-06 17:00:56	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-04-06 17:00:56	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-04-06 17:00:56	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object
+2010-04-06 22:50:59	Warning: Smarty.class.php:1093: Smarty error: unable to read resource: "caomao/post.html"
+2010-04-06 23:02:38	Notice: %%5B^5B2^5B2E9221%%index.html.php:35: Trying to get property of non-object
+2010-04-06 23:02:38	Notice: %%5B^5B2^5B2E9221%%index.html.php:36: Trying to get property of non-object
+2010-04-06 23:02:38	Notice: %%5B^5B2^5B2E9221%%index.html.php:39: Trying to get property of non-object
+2010-04-06 23:02:38	Notice: %%5B^5B2^5B2E9221%%index.html.php:42: Trying to get property of non-object
+2010-04-06 23:02:38	Notice: %%5B^5B2^5B2E9221%%index.html.php:43: Trying to get property of non-object
+2010-04-06 23:02:38	Notice: %%5B^5B2^5B2E9221%%index.html.php:47: Trying to get property of non-object
+2010-04-06 23:16:14	Error: IndexController.class.php:79: Creating default object from empty value
+2010-04-06 23:16:14	Notice: IndexController.class.php:81: Undefined index:  17
+2010-04-06 23:16:14	Notice: IndexController.class.php:81: Trying to get property of non-object
+2010-04-06 23:16:14	Notice: IndexController.class.php:82: Undefined index:  17
+2010-04-06 23:16:14	Notice: IndexController.class.php:82: Trying to get property of non-object
+2010-04-06 23:16:14	Notice: IndexController.class.php:99: Undefined variable: article
+2010-04-06 23:16:14	Notice: IndexController.class.php:99: Trying to get property of non-object
+2010-04-06 23:16:14	Notice: IndexController.class.php:99: Undefined index:  
+2010-04-06 23:16:14	Error: IndexController.class.php:99: Creating default object from empty value
+2010-04-06 23:16:14	Notice: IndexController.class.php:100: Undefined property: stdClass::$cid
+2010-04-06 23:16:14	Notice: IndexController.class.php:100: Undefined index:  
+2010-04-06 23:16:14	Notice: IndexController.class.php:100: Trying to get property of non-object
+2010-04-06 23:16:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:35: Undefined property: stdClass::$id
+2010-04-06 23:16:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:36: Undefined property: stdClass::$title
+2010-04-06 23:16:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:39: Undefined property: stdClass::$created_date
+2010-04-06 23:16:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:47: Undefined property: stdClass::$content
+2010-04-06 23:16:34	Notice: IndexController.class.php:100: Undefined variable: article
+2010-04-06 23:16:34	Error: IndexController.class.php:100: Creating default object from empty value
+2010-04-06 23:16:34	Notice: IndexController.class.php:101: Undefined property: stdClass::$cid
+2010-04-06 23:16:34	Notice: IndexController.class.php:101: Undefined index:  
+2010-04-06 23:16:34	Notice: IndexController.class.php:101: Trying to get property of non-object
+2010-04-06 23:18:03	Notice: IndexController.class.php:80: Undefined index:  17
+2010-04-06 23:18:03	Notice: IndexController.class.php:80: Trying to get property of non-object
+2010-04-06 23:42:12	Notice: IndexController.class.php:80: Undefined property: stdClass::$cid
+2010-04-06 23:42:12	Notice: IndexController.class.php:81: Undefined property: stdClass::$cid
+2010-04-06 23:42:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:35: Undefined index:  article
+2010-04-06 23:42:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:36: Undefined index:  article
+2010-04-06 23:42:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:39: Undefined index:  article
+2010-04-06 23:42:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:42: Undefined index:  article
+2010-04-06 23:42:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:43: Undefined index:  article
+2010-04-06 23:42:14	Notice: %%5B^5B2^5B2E9221%%index.html.php:47: Undefined index:  article
+2010-04-06 23:52:50	Notice: IndexController.class.php:74: Undefined variable: args
+2010-04-06 23:52:50	Notice: IndexController.class.php:76: Undefined variable: args
+2010-04-06 23:52:50	Notice: IndexController.class.php:85: Undefined variable: articles
+2010-04-06 23:52:50	Notice: IndexController.class.php:121: Undefined variable: articles
+2010-04-06 23:57:00	Notice: %%5B^5B2^5B2E9221%%index.html.php:45: Undefined index:  category_url

@@ -1,0 +1,112 @@
+<html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<head>
+<title>$(document).click()  - FY.JS文档</title>
+<link rel="stylesheet" href="./main.css" type="text/css" media="screen"/>
+<script type='text/javascript' src='./FY.js'></script>
+<script type='text/javascript' src='./main.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+$('test').click(function(){
+alert('风吟猪');
+//这里可以写函数以及代码
+})
+code();
+});
+</script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    	<div id="search">
+		<input name="s" id="s"/><input type="submit" value="搜索" onclick="highlight(FY.val('s'));return false;"/></form>
+		</div>
+  		$(document).click()  - FY.JS文档          
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebarinner">
+              
+                <div class="dialog">
+FY.JS是轻量级的迷你JavaScirpt库体积只有2.0KB.
+
+
+				</div>
+            	         <div class="cat">
+            函数列表
+            </div> <p>
+
+			<ul>
+<li><a href="./index.html">文档主页</a></li>
+<li><a href="./var.html">$()</a></li>
+<li><a href="./ready.html">$().ready()</a></li>
+<li><b>$().click()</b></li>
+<li><a href="./html.html">$().html()</a></li>
+<li><a href="./val.html">$().val()</a></li>
+<li><a href="./text.html">$().text()</a></li>
+<li><a href="./show.html">$().show()</a></li>
+<li><a href="./hide.html">$().hide()</a></li>
+<li><a href="./ajax.html">$().ajax()</a></li>
+<li><a href="./setcookie.html">$().setcookie()</a></li>
+<li><a href="./getcookie.html">$().getcookie()</a></li>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="2279712">
+<input type="image" src="https://www.paypal.com/zh_XC/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="donate me!"></p>
+</form>
+
+<script type="text/javascript" src="http://js.tongji.linezing.com/1445230/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1445230/tongji.gif"/></a></noscript>
+</p>
+		 </ul>
+	</div>	
+        </div>
+        <div id="main">
+            <div class="maininner">
+<h3>$(document).click()函数</h3>
+<p>
+<code class="code">$(document).click()</code>.函数是FY.JS的绑定函数。
+</p>
+<p>
+此函数用于给选择ID绑定函数在单击时触发目前不支持Class，今后也不会支持。
+</p>
+<p>
+此函数适用于XHTML跟JS的逻辑分离。
+
+</p><p>
+<h3>$(document).click()函数 - 使用方式</h3>
+<p>
+<pre class="code">
+
+$(document).ready(function(){
+/*
+如果要把js代码写在head区域那么必须包裹在ready函数里面.
+否则click将不会执行.
+*/
+$('test').click(function(){
+alert('风吟猪');
+//这里可以写函数以及代码
+})
+})
+
+</pre>
+<p><code class="code">&#60;a href="###" id='test'>点我弹出风吟猪&#60;/a></code></p> 
+</p>
+<p>
+那么，点击 id 为 test 的链接就可以为 test添加事件了.这是onclick的替代函数.
+<p>本文当ajax提交的例子也是使用click函数的。
+</p>
+
+<h3>$(document).click()函数 演示</h3>
+<p><a href="###" id='test'>点我弹出风吟猪</a></p>
+        </div>
+    </div>   
+</div>
+
+    <div id="footer">
+     &copy;2010 <a href="http://fengyin.name/" target="_blank">风吟</a> 版权所有. 本主机由胡戈戈合租赞助.合租地址: <a href="http://hugege.com/" target="_blank">http://hugege.com/</a>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>All Needs File Management System</title>
+<style type="text/css">
+@import url('anfms.css');
+</style>
+<script type="text/javascript" src="ajax.js"></script>
+</head>
+
+<body>
+<div class="main">
+  <div class="header">
+    <h1>欢迎使用ANFMS</h1>
+    <p><span>v0.1.0 alpha</span></p>
+  </div>
+  <div class="button_list">
+    <div class="button"><a href="javascript:void(0);" onclick="javascript:file_list('/');document.getElementById('file_list').style.display='block';document.getElementById('file_list_close').style.display='block';document.getElementById('fade').style.display='block'">文件列表</a></div>
+    <div class="button"><a href="javascript:void(0);" onclick="javascript:file_list('/');document.getElementById('file_make').style.display='block';document.getElementById('file_list_close').style.display='block';document.getElementById('fade').style.display='block'">创建文件</a></div>
+    <div class="button"><a href="javascript:void(0);" onclick="document.getElementById('file_content_input').style.display='block';document.getElementById('file_list_close').style.display='block';document.getElementById('fade').style.display='block'">写入内容</a></div>
+    <div class="button"><a href="javascript:void(0);" onclick="document.getElementById('file_get_content').style.display='block';document.getElementById('file_list_close').style.display='block';document.getElementById('fade').style.display='block'">读取内容</a></div>
+  </div>
+  <div class="footer">
+     <p>
+     &copy;2009-2010 Uniter.com.cn Powered by Uniter Team<br />
+     Supported by IE7+ Firefox Opera
+     </p>     
+  </div>
+  
+  <div class="file_list_close" id="file_list_close">
+    <a href="javascript:void(0);" onclick="document.getElementById('file_list').style.display='none';document.getElementById('file_content_input').style.display='none';document.getElementById('file_get_content').style.display='none';document.getElementById('file_list_close').style.display='none';document.getElementById('fade').style.display='none';location.reload()">X</a>
+  </div>
+  <div class="file_list" id="file_list"></div>
+  <div class="file_list" id="file_content_input">
+    <div id="input_box" class="file_content_input_form">
+    <form id="form" name="form" method="post" action="">
+        <label>文件名
+           <span class="small">例如:abc.txt</span>
+       </label>
+       <input type="text" name="input_name" id="input_name" />
+       <label>内容值
+            <span class="small">添加文件内容</span>
+       </label>
+       <textarea name="input_content" id="input_content"></textarea>
+       <button type="button" onclick="javascript:file_content_input('input_name='+document.getElementById('input_name').value+'&input_content='+document.getElementById('input_content').value);">确定</button>
+       <div class="spacer"></div>
+    </form>
+    </div>
+  </div>
+  <div class="file_list" id="file_get_content">
+    <div id="input_box" class="file_content_input_form">
+    <form id="get_form" name="get_form" method="post" action="">
+        <label>文件名
+           <span class="small">例如:abc.txt</span>
+       </label>
+       <input type="text" name="input_name" id="input_name" />       
+       <button type="button" onclick="javascript:file_get_content('input_name='+document.get_form.input_name.value);">确定</button>
+       <div class="spacer"></div>
+    </form>
+    </div>
+  </div>
+  <div class="file_list" id="file_make">
+    <div id="input_box" class="file_content_input_form">
+    <form id="make_form" name="make_form" method="post" action="">
+        <label>文件夹
+           <span class="small">例如:abc</span>
+       </label>
+       <input type="text" name="input_name" id="input_name" />       
+       <button type="button" onclick="javascript:file_make('input_name='+document.make_form.input_name.value);">确定</button>
+       <div class="spacer"></div>
+    </form>
+    </div>
+  </div>
+  <div id="fade" class="black_overlay"></div> 
+</div>
+</body>
+</html>

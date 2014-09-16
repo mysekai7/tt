@@ -1,0 +1,60 @@
+<{include file='default/header.html'}>
+<{strip}>
+            <div id="wrapper-inner">
+              <div id="content">
+                  <div id="new-post">
+                      <{if $tag}>
+                      <h1 class="search-title">你正在浏览的是关键词  <strong>{ <{$tag}> }</strong> 的日志归档.</h1>
+                      <{else}>
+                      <h1 class="search-title">你正在浏览的是分类 <strong>{ <{$category}> }</strong> 的日志归档.</h1>
+                      <{/if}>
+                      <ul>
+                          <{foreach from=$post_list item=val name=post_list}>
+                          <li><span class="fr"><{$val->created_date|date_format:"[%m-%e]"}></span><a href="<{$site_url}>post/<{$val->id}>.html"><{$val->title}></a></li>
+                          <{foreachelse}>
+                          <p>Nothing</p>
+                          <{/foreach}>
+                      </ul>
+                      <{if $page_nav}>
+                      <p id="page-nav"><{$page_nav}></p>
+                      <{/if}>
+                  </div>
+              </div>
+                <div id="utilities" class="utilities_side">
+                    <dl class="navi">
+                        <dt>文章分类</dt>
+                        <dd>
+                            <ul class="category">
+                                <{foreach from=$categories item=val name=categories}>
+                                <li <{if $val->pid neq '0'}>class="child"<{/if}>>
+                                    <a href="<{$val->url}>"><{$val->name}></a><small>(<{$val->count}>)</small>
+                                </li>
+                                <{/foreach}>
+                            </ul>
+                        </dd>
+                        <!--dt>文章归档</dt>
+                        <dd>
+                            <ul class="archives">
+
+                            </ul>
+                        </dd-->
+                    </dl>
+                    <!--dl class="other1 others">
+                        <dt>搜索</dt>
+                        <dd>
+
+                        </dd>
+                        <dt>Feeds</dt>
+                        <dd>
+
+                        </dd>
+                        <dt>E-mail address</dt>
+                        <dd>
+
+                        </dd>
+                        <dd class="linkInfo"></dd>
+                    </dl-->
+
+                </div>
+<{/strip}>
+<{include file="default/footer.html"}>

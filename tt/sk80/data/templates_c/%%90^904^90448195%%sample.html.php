@@ -1,0 +1,131 @@
+<?php /* Smarty version 2.6.10, created on 2010-02-28 09:56:38
+         compiled from default/sample.html */ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Editplus4PHP" />
+    <meta name="keywords" content="Editplus4PHP" />
+    <meta name="description" content="Editplus4PHP" />
+    <meta name="author" content="Leo" />
+<!--
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+-->
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->_tpl_vars['tpl_front']; ?>
+style.css" />
+    <title></title>
+  </head>
+  <body>
+      <div id="wrapper">
+          <div id="header">
+              <div id="header-inner">
+                  <h1>4kychao's blog</h1>
+                  <div class="description">Safirul Alredha on web, WordPress, K2, Apple, …</div>
+                  <div class="menu">
+                      <ul>
+                          <li class="current_page"><a href="#">Blog</a></li>
+                          <li><a href="#">About</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div id="wrapper-inner">
+              <div id="content">
+                  <div class="date">08 Jun 2009</div>
+                  <div id="latest-post" class="post">
+                      <h2 class="entry-title"><a href="#">江南绿洲Malaysia PlayStation®Store</a></h2>
+                      <div class="entry-meta">
+                          <div class="entry-date">11:57 am</div>
+                          <div class="categories">
+                              <h3>Categories</h3>
+                              <p><a href="#">PHP</a></p>
+                          </div>
+                          <div class="comments"><a href="#">comments</a></div>
+                      </div>
+                      <div class="entry-content">
+                          <p>
+
+
+Does anyone know the easiest way for WordPress [gallery] to force x number of columns display without tampering the core or manually set the columns value to the shortcode?
+
+I could only figure out 2 possible ways:
+
+   1. function / code duplication
+   2. Regular expression
+
+If you use [gallery] shortcode without setting the columns value, the default is set to 3. Some WordPress theme can either fit 3 or more column per row or less. Below is an example to force [gallery] columns to 2 to any post or page that uses [gallery] shortcode:
+
+function gallery_columns($content){
+	$columns = 2;
+	$pattern = array(
+		'/(\[gallery(.*?)columns="([0-9])"(.*?)\])/ie',
+		'/(\[gallery\])/ie',
+		'/(\[gallery(.*?)\])/ie'
+	);
+	$replace = 'stripslashes(strstr("\1", "columns=\"$columns\"") ? "\1" : "[gallery \2 \4 columns=\"$columns\"]")';
+
+	return preg_replace($pattern, $replace, $content);
+}
+
+add_filter('the_content', 'gallery_columns');
+
+$columns can be set to any numeric value. If [gallery] columns is set to 0, no row breaks will be included.
+
+There are probably some hidden drawbacks to the method above. Feel free to share if you have any other solution.
+
+                          </p>
+                      </div>
+                  </div>
+                  <fieldset id="new-post">
+                      <legend>Recent Post</legend>
+                      <ul>
+                          <li><a href="#">MySQL 慢查询分析mysqldumpslowMySQL 慢查询分析mysqldumpslowMySQL 慢查询分析mysqldumpslow</a></li>
+                          <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                          <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                          <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                          <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                          <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                      </ul>
+                  </fieldset>
+              </div>
+              <div id="sidebar">
+                  <ul>
+                      <li>
+                          <h2>Category</h2>
+                      </li>
+                      <li>
+                          <form id="searchform" action="">
+                            <h2>Search</h2>
+                            <input type="text" />
+                            <input type="submit" value="GO" />
+                          </form>
+                      </li>
+                      <li>
+                          <h2>Meta</h2>
+                          <ul>
+                              <li><a href="#">Log in</a></li>
+                              <li><a href="#">Log in</a></li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h2>Other Resources</h2>
+                          <ul>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">MySQL 慢查询分析mysqldumpslow</a></li>
+                              <li><a href="#">Log in</a></li>
+                              <li><a href="#">Log in</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+              <div id="footer">
+                  <p>#simpleblog</p>
+              </div>
+          </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+body {
+	font-size: 12px;
+	margin: 0px;
+	padding:10px;
+}
+.mainContent {
+	margin: 3px;
+	padding:5px;
+	
+}
+.mainContent a {
+	display: block;
+	float:left;
+	width:140px;
+/*	background: white  no-repeat 2px center;  */
+	text-align:left;
+	padding-left:5px;
+	padding-right:5px;
+	overflow:hidden;
+	line-height:20px;
+	text-decoration: none;
+}
+.mainContent a:hover
+{
+	color:#fff;	
+	background: #ADAAAA no-repeat 2px center;
+}
+.success {
+	width: 200px; 
+	border:1px dashed #000;
+	background-color:#11cc22;
+	padding: 15px 0px 0px 15px;
+}
+.loading {
+	width: 200px; 
+	height: 30px;
+	border:1px dashed #000;
+	background-color:#00ccdd;
+	padding: 15px 0px 0px 15px;
+}
+</style>
+<script type="text/javascript" src="/js_new/common.js"></script>
+<script type="text/javascript" src="/js_new/lib/application.js"></script>
+<title></title>
+</head>
+<body>
+
+<!--城市----------------------------------------------->
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+<p>
+省市
+<hr />
+<form id="_fm">
+<input name="" id="_city1_text" style="width: 220px;" value="" type="text">
+<input type="button" value="提 交" onclick="jsApp.get('Demo:listProvince')" />
+</form>
+<div id="appdiv" style="display:none;"></div>
+</p>
+
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+
+html{
+    _background:url(./jet.fix);  /* 阻止闪动 in IE6 */
+}
+
+/* 控制台 */
+.consoleBox{
+	display:none;
+	position:fixed;
+    _position: absolute;
+    _top:expression(documentElement.scrollTop+documentElement.clientHeight-this.offsetHeight);
+    _left:expression(documentElement.scrollLeft+documentElement.clientWidth-this.offsetWidth);
+	right: 30px;
+	bottom: 30px;
+	z-index: 65535;
+	
+	border: 2px solid #fff;
+	padding: 2px;
+	width: 300px;
+	border-radius: 3px;
+	
+	background: #000;
+	opacity: 0.75;
+	filter: Alpha(opacity:75);
+
+	font-family: 'Courier New', Consolas, 'LucidaConsole', Monaco, monospace;
+	font-size: 12px;
+	color: #fff;
+}
+
+/* 控制台标题栏 */
+.consoleBoxHead{
+	height:16px;
+	background: #666;
+	overflow:hidden;
+}
+.consoleBoxHead .title{
+	margin:0;
+	padding: 0 0 0 3px;
+	height:16px;
+	line-height:16px;
+	font-family: Verdana;
+}
+.consoleBoxHead .consoleCloseButton{
+	float:right;
+	margin-top:-5px;
+	_margin-top:-5px;
+	border:0px solid #666;
+	width:20px;
+	height:20px;
+	line-height:13px;
+	background: transparent;
+	
+	color:#fff;
+	font-family: Verdana;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+/* 控制台信息输出列表 */
+ul.consoleOutput{
+	margin:2px 0 0 0;
+	padding:0;
+	height:260px;
+	overflow-y:auto;
+	list-style:none;
+}
+ul.consoleOutput li{
+	margin:0;
+	padding:3px;
+	border-bottom:1px solid #333333;
+	line-height:150%;
+}
+.consoleOutput .log_icon{
+	width:13px;
+	height:13px;
+	background:#fff;
+	overflow:hidden;
+	margin-right:5px;
+	float:left;
+	margin-top:2px;
+	font-weight:bold;
+	text-align:center;
+	font-size:12px;
+	color:#8B8B8B;
+	line-height:135%;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+
+/* 控制台信息类型图标 */
+.log_error_type{}
+.log_error_type .log_icon{
+	background:#FF0000;
+	color:#660000;
+}
+.log_warning_type{}
+.log_warning_type .log_icon{
+	background:#FFFF00;
+	color:#8C7E00;
+}
+.log_debug_type{}
+.log_debug_type .log_icon{
+	background:#33CC00;
+	color:#006600;
+}
+.log_info_type{}
+.log_info_type .log_icon{
+	background:#0066FF;
+	color:#000066
+}
+.log_profile_type{}
+
+/* 控制台输入框 */
+#JetConsole .consoleInputBox{
+	font-family: Verdana;
+	font-size:12px;
+
+	border-top:1px solid #aaa;
+	width:100%;
+	color:#CCFF00;
+	padding:2px 0 2px 0;
+}
+#JetConsole  input.consoleInput{
+	border:0px solid #666;
+	background:#000;
+	color:#CCFF00;
+	font-family: 'Courier New', Consolas, 'LucidaConsole', Monaco, monospace;
+	font-size:12px;
+	width:280px;
+	margin-left:4px;
+}

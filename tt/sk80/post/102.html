@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="一个Mysql自动备份脚本:Mysql,MySQL 备份 " /><meta name="description" content="一个Mysql自动备份脚本,MySQL安装与配置,SQL 语法参考" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>一个Mysql自动备份脚本</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/mysql/">Mysql</a>&gt;<strong class="current">一个Mysql自动备份脚本</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="MySQL安装与配置" href="http://sk2.com/post/103.html" rel="nofollow">Newer</a></li><li class="older"><a title="SQL 语法参考" href="http://sk2.com/post/101.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>一个Mysql自动备份脚本</h1><ul class="info"><li class="date">2010年 03月20日  17:56</li><li class="category"><a href="http://sk2.com/category/mysql/">Mysql</a></li></ul><div class="textbody"><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">#!/bin/bash
+#This is a ShellScript For Auto DB Backup
+#Powered by aspbiz@163.com
+#2004-09
+&nbsp;
+#Setting
+DBName=mysql
+DBUser=root
+DBPasswd=
+BackupPath=/root/
+LogFile=/root/db.log
+DBPath=/var/lib/mysql/
+#BackupMethod=mysqldump
+#BackupMethod=mysqlhotcopy
+#BackupMethod=tar
+#Setting End
+&nbsp;
+&nbsp;
+NewFile=&quot;$BackupPath&quot;db$(date +%y%m%d).tgz
+DumpFile=&quot;$BackupPath&quot;db$(date +%y%m%d)
+OldFile=&quot;$BackupPath&quot;db$(date +%y%m%d --date='5 days ago').tgz
+&nbsp;
+echo &quot;-------------------------------------------&quot; &gt;&gt; $LogFile
+echo $(date +&quot;%y-%m-%d %H:%M:%S&quot;) &gt;&gt; $LogFile
+echo &quot;--------------------------&quot; &gt;&gt; $LogFile
+#Delete Old File
+if [ -f $OldFile ]
+then
+rm -f $OldFile &gt;;&gt;; $LogFile 2&gt;;&amp;1
+echo &quot;[$OldFile]Delete Old File Success!&quot; &gt;&gt; $LogFile
+else
+echo &quot;[$OldFile]No Old Backup File!&quot; &gt;&gt; $LogFile
+fi
+&nbsp;
+if [ -f $NewFile ]
+then
+echo &quot;[$NewFile]The Backup File is exists,Can't Backup!&quot; &gt;&gt; $LogFile
+else
+case $BackupMethod in
+mysqldump)
+if [ -z $DBPasswd ]
+then
+mysqldump -u $DBUser --opt $DBName &gt; $DumpFile
+else
+mysqldump -u $DBUser -p$DBPasswd --opt $DBName &gt;; $DumpFile
+fi
+tar czvf $NewFile $DumpFile &gt;&gt; $LogFile 2&gt;&amp;1
+echo &quot;[$NewFile]Backup Success!&quot; &gt;&gt; $LogFile
+rm -rf $DumpFile
+;
+mysqlhotcopy)
+rm -rf $DumpFile
+mkdir $DumpFile
+if [ -z $DBPasswd ]
+then
+mysqlhotcopy -u $DBUser $DBName $DumpFile &gt;;&gt;; $LogFile 2&gt;&amp;1
+else
+mysqlhotcopy -u $DBUser -p $DBPasswd $DBName $DumpFile &gt;&gt;$LogFile 2&gt;&amp;1
+fi
+tar czvf $NewFile $DumpFile &gt;&gt; $LogFile 2&gt;;&amp;1
+echo &quot;[$NewFile]Backup Success!&quot; &gt;&gt; $LogFile
+rm -rf $DumpFile
+;;
+*)
+/etc/init.d/mysqld stop &gt;;/dev/null 2&gt;&amp;1
+tar czvf $NewFile $DBPath$DBName &gt;&gt; $LogFile 2&gt;&amp;1
+/etc/init.d/mysqld start &gt; /dev/null 2&gt;&amp;1
+echo &quot;[$NewFile]Backup Success!&quot; &gt;&gt; $LogFile
+;
+esac
+fi
+&nbsp;
+echo &quot;-------------------------------------------&quot; &gt;&gt; $LogFile</pre></div><br /></div><div class="entry-tags"><strong>Tags:</strong><a href="http://sk2.com/tag/MySQL/">MySQL</a>,<a href="http://sk2.com/tag/备份/">备份</a></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/103.html">MySQL安装与配置</a></li><li>Older:<a href="http://sk2.com/post/101.html">SQL 语法参考</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

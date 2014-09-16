@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="mysql安装笔记:Mysql,MySQL 安装 " /><meta name="description" content="mysql安装笔记,又是MYSQL的问题!,linux下安装MySQL" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>mysql安装笔记</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/mysql/">Mysql</a>&gt;<strong class="current">mysql安装笔记</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="又是MYSQL的问题!" href="http://sk2.com/post/100.html" rel="nofollow">Newer</a></li><li class="older"><a title="linux下安装MySQL" href="http://sk2.com/post/98.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>mysql安装笔记</h1><ul class="info"><li class="date">2010年 03月20日  16:49</li><li class="category"><a href="http://sk2.com/category/mysql/">Mysql</a></li></ul><div class="textbody">●安装mysql<br /><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">tar zxvf mysql-4.0.14.tar.gz -C /setup
+cd /setup/mysql-4.0.14
+groupadd mysql
+useradd mysql -g mysql -M -s /bin/false
+./configure --prefix=/web/mysql \ 指定安装目录
+            --without-debug \去除debug模式
+            --with-extra-charsets=gb2312 \添加gb2312中文字符支持
+            --enable-assembler \使用一些字符函数的汇编版本
+            --without-isam \去掉isam表类型支持 现在很少用了 isam表是一种依赖平台的表
+            --without-innodb \去掉innodb表支持 innodb是一种支持事务处理的表,适合企业级应用
+            --with-pthread \强制使用pthread库(posix线程库)
+            --enable-thread-safe-client \以线程方式编译客户端
+            --with-client-ldflags=-all-static \
+            --with-mysqld-ldflags=-all-static \以纯静态方式编译服务端和客户端
+            --with-raid \激活raid支持
+&nbsp;
+make
+make install             
+scripts/mysql_install_db \生成mysql用户数据库和表文件
+cp support-files/my-medium.cnf /etc/my.cnf \copy配置文件,有large,medium,small三个环境下的,根据机器性能选择,如果负荷比较大,可修改里面的一些变量的内存使用值
+cp support-files/mysql.server /etc/init.d/mysqld  \copy启动的mysqld文件
+chmod 700 /etc/init.d/mysqld
+cd /web
+chmod 750 mysql -R
+chgrp mysql mysql -R
+chown mysql mysql/var -R
+cd /web/mysql/libexec
+cp mysqld mysqld.old
+strip mysqld
+chkconfig --add mysqld
+chkconfig --level 345 mysqld on
+service mysqld start
+netstat -atln
+看看有没有3306的端口打开,如果mysqld不能启动,看看/web/mysql/var下的出错日志,一般都是目录权限没有设置好的问题
+ln -s /web/mysql/bin/mysql /sbin/mysql
+ln -s /web/mysql/bin/mysqladmin /sbin/mysqladmin
+mysqladmin -uroot password &quot;youpassword&quot; #设置root帐户的密码
+mysql -uroot -p
+# 输入你设置的密码
+mysql&gt;use mysql;
+mysql&gt;delete from user where password=&quot;&quot;; #删除用于本机匿名连接的空密码帐号
+mysql&gt;flush privileges;
+mysql&gt;quit</pre></div><br />●安装DBI和DBD for mysql 用于提供<span href="http://bbs.chinaunix.net/tag.php?name=perl" class="t_tag">perl</span>访问mysql数据库的接口规范,请确认你已经安装了perl,一般默认系统都装上了<br /><br /><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">cd /setup
+tar zxvf DBD-mysql-2.9002.tar.gz -C /setup
+tar zxvf DBI-1.38.tar.gz -C /setup
+cd DBI-1.38
+perl Makefile.PL
+make
+make test
+make install</pre></div><br />因为有的perl程序中perl的路径是/usr/local/bin/perl,而红帽系统默认是/usr/bin/perl,所以最好做一个连接,保证兼容性<br /><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">ln -s /usr/bin/perl /usr/local/bin/perl
+cd ../DBD-mysql-2.9002</pre></div><br />生成安装配置文件需要在perl Makefile.PL后添加一些参数,比较麻烦,我们可以通过添加一个到/web/mysql/bin/mysql_config这个程序的连接解决问题<br />系统会自动寻找这个<span href="http://bbs.chinaunix.net/tag.php?name=%C3%FC%C1%EE" class="t_tag">命令</span>生成安装所需要的数据库参数<br /><p><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">ln -s /web/mysql/bin/mysql_config  /sbin/mysql_config
+perl Makefile.PL
+make
+make instll (这里make test我总是运行一半就出错，但是安装后是可以运行mysql目录下的测试脚本,不知道3.x的mysql如何)</pre></div><br /></p><p>现在你可以运行测试脚本了,不过速度很慢,挂在后台好了</p><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">perl /web/mysql/sql-bench/run-all-tests --user=root --password=&quot;youpassword&quot;</pre></div><br /><br /><br />附:<br />●mysql常见的一些有用的选项和命令<br />mysqld -----开启日志支持<br />--log <br />--log-update<br />--log-long-formart<br />●mysql<br />grant all on database.* to user identified by "password" 新建一user用户,赋予其database数据库的所有权限<br />revoke all on database from user 移除user用户在database数据库上的所有权限<br />mysql -uroot -p --one-database databasename &lt; file.sql 从file.sql文件导入sql语句到databasename这个数据库里<br />●mysqladmin<br />mysqladmin flush-logs 命令mysqld重新打开一个新的日志文件,就是清空老日志文件,相当于轮回了<br />●mysqldump <br />--add-drop-table 导出sql语句时添加droptable if exists语句<br />--quick 快速导出<br />--opt&nbsp;&nbsp;优化选项(推荐)<br />●myisamchk<br />检查表选项<br />--extend-check 扩展检查<br />--medium-check 速度比较折中的一个检查选项<br />修复表选项<br />--recover 修复表文件<br />--safe-recover 安全修复表文件,比--recover要慢<br />修饰修复表项<br />--force 强制清除上次的临时文件<br />--quick 只根据素引文件的内容进行修复<br />●mysql的<span href="http://bbs.chinaunix.net/tag.php?name=%B9%DC%C0%ED" class="t_tag">管理</span><br />可以使用<span href="http://bbs.chinaunix.net/tag.php?name=php" class="t_tag">php</span>myadmin(需要php的环境支持)和mysqlcc(linux图形界面支持,WINDOWS系统支持)</div><div class="entry-tags"><strong>Tags:</strong><a href="http://sk2.com/tag/MySQL/">MySQL</a>,<a href="http://sk2.com/tag/安装/">安装</a></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/100.html">又是MYSQL的问题!</a></li><li>Older:<a href="http://sk2.com/post/98.html">linux下安装MySQL</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

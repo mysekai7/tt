@@ -1,0 +1,496 @@
+PHP常用代码
+1、连接MYSQL数据库代码
+<?php
+$connec=mysql_connect("localhost","root","root") or die("不能连接数据库服务器： ".mysql_error()); 
+mysql_select_db("liuyanben",$connec) or die ("不能选择数据库: ".mysql_error()); 
+mysql_query("set names 'gbk'");
+?>
+2、读取数据库，并实现循环输出
+<?php
+$sql="select * from liuyan order by ly_id desc";
+$conn=mysql_query($sql,$connec);
+while($rs=mysql_fetch_array($conn)){ 
+?>
+循环的内容.........
+<?php 
+}
+?>
+3、如何实现分页，包括两个函数，两个调用
+1）两个函数
+<?
+//分页函数
+function genpage(&$sql,$page_size=2)
+{
+      global $prepage,$nextpage,$pages,$sums; //out param
+      $page = $_GET["page"];
+      $eachpage = $page_size;
+      $pagesql = strstr($sql," from ");
+      $pagesql = "select count(*) as ids ".$pagesql;
+      $conn = mysql_query($pagesql) or die(mysql_error());
+      if($rs = mysql_fetch_array($conn)) $sums = $rs[0];
+      $pages = ceil(($sums-0.5)/$eachpage)-1;
+      $pages = $pages>=0?$pages:0;
+      $prepage = ($page>0)?$page-1:0;
+      $nextpage = ($page<$pages)?$page+1:$pages; 
+      $startpos = $page*$eachpage;
+    $sql .=" limit $startpos,$eachpage ";
+}
+//显示分页
+function showpage()
+{
+    global $page,$pages,$prepage,$nextpage,$queryString; //param from genpage function
+    $shownum =10/2;
+    $startpage = ($page>=$shownum)?$page-$shownum:0;
+    $endpage = ($page+$shownum<=$pages)?$page+$shownum:$pages;
+   
+    echo "共".($pages+1)."页: "; 
+    if($page>0)echo "<a href=$PHP_SELF?page=0$queryString>首页</a>";
+    if($startpage>0)
+        echo " ... <b><a href=$PHP_SELF?page=".($page-$shownum*2)."$queryString>?</a></b>";
+    for($i=$startpage;$i<=$endpage;$i++)
+    {
+        if($i==$page)    echo " <b>[".($i+1)."]</b> ";
+        else        echo " <a href=$PHP_SELF?page=$i$queryString>".($i+1)."</a> ";
+    }
+    if($endpage<$pages)
+        echo "<b><a href=$PHP_SELF?page=".($page+$shownum*2)."$queryString>?</a></b> ... ";
+    if($page<$pages)
+        echo "<a href=$PHP_SELF?page=$pages$queryString>尾页</a>";
+}
+//显示带分类的分页
+function showpage1()
+{
+$fenlei=$_GET["fenleiid"];
+    global $page,$pages,$prepage,$nextpage,$queryString; //param from genpage function
+    $shownum =10/2;
+    $startpage = ($page>=$shownum)?$page-$shownum:0;
+    $endpage = ($page+$shownum<=$pages)?$page+$shownum:$pages;
+   
+    echo "共".($pages+1)."页: "; 
+    if($page>0)echo "<a href=$PHP_SELF?fenleiid=$fenlei&page=0$queryString>首页</a>";
+    if($startpage>0)
+        echo " ... <b><a href=$PHP_SELF?fenleiid=$fenlei&page=".($page-$shownum*2)."$queryString>?</a></b>";
+    for($i=$startpage;$i<=$endpage;$i++)
+    {
+        if($i==$page)    echo " <b>[".($i+1)."]</b> ";
+        else        echo " <a href=$PHP_SELF?fenleiid=$fenlei&page=$i$queryString>".($i+1)."</a> ";
+    }
+    if($endpage<$pages)
+        echo "<b><a href=$PHP_SELF?fenleiid=$fenlei&page=".($page+$shownum*2)."$queryString>?</a></b> ... ";
+    if($page<$pages)
+        echo "<a href=$PHP_SELF?fenleiid=$fenlei&page=$pages$queryString>尾页</a>";
+}
+?>
+2）两个调用
+第一个
+<?php
+$sql="select * from liuyan order by ly_id desc";
+genpage($sql); //只需要正常代码加上这一行就ok。
+$conn=mysql_query($sql,$connec);
+while($rs=mysql_fetch_array($conn)){ 
+?>
+第二个
+<?php 
+}
+?> 
+<?php 
+showpage(); //显示页
+?>
+<?php
+mysql_close();
+    
+?>
+4、服务器端包含
+<?php require_once('conn.php'); ?>
+5、如何将一条记录写入数据库，然后提示并跳转页面
+<?php 
+$ly_title=$_POST["ly_title"];
+$ly_content=$_POST["ly_content"];
+$ly_time=$_POST["ly_time"];
+$ly_author=$_POST["ly_author"];
+$ly_email=$_POST["ly_email"];
+$sql="insert into liuyan(ly_title,ly_content,ly_time,ly_author,ly_email) values('".$ly_title."','".$ly_content."','".$ly_time."','".$ly_author."','".$ly_email."')";
+mysql_query($sql,$connec);
+echo("<script type='text/javascript'> alert('添加成功！');location.href='index.php';</script>");
+?>
+6、弹出对话框，并发生页面跳转
+<?php 
+echo("<script type='text/javascript'> alert('添加成功！');location.href='index.php';</script>");
+?>
+7、信息查看页面（有条件读取数据库）
+1)有条件读取数据库
+<?php
+$sql="select * from liuyan where ly_id=$_GET[id]";
+$conn=mysql_query($sql,$connec);
+$rs=mysql_fetch_array($conn);
+?>
+2）将某个字段输出
+<?=$rs[ly_title]?>
+3）关闭数据库
+<?php
+mysql_close();   
+?>
+8、对数据库中某一条记录进行更新操作，并作提示跳转
+<?php 
+$ly_title=$_POST["ly_title"];
+$ly_content=$_POST["ly_content"];
+$ly_time=$_POST["ly_time"];
+$ly_author=$_POST["ly_author"];
+$ly_email=$_POST["ly_email"];
+$sql="update liuyan set ly_title='$ly_title',ly_content='$ly_content',ly_time='$ly_time',ly_author='$ly_author',ly_email='$ly_email' where ly_id=$_GET[id]";
+mysql_query($sql,$connec);
+echo("<script type='text/javascript'> alert('更新成功！');location.href='../index.php';</script>");
+?>
+9、如何删除数据库中的一条记录
+<?php
+$sql="delete from liuyan where ly_id=$_GET[id]";
+mysql_query($sql,$connec);
+echo("<script type='text/javascript'> alert('删除成功！');location.href='../index.php';</script>");
+?>
+10、如何进行会员登录验证
+<?php 
+session_start();
+$username=$_POST["username"];
+$password=$_POST["password"];
+$sql="select * from admin where username='".$username."' && password='".$password."'";
+$result=mysql_query($sql,$connec);
+if($row=mysql_fetch_array($result)){
+session_register("admin");
+$admin=$username;
+echo("<script type='text/javascript'> alert('登录成功！');location.href='admin.php';</script>");}
+else
+{
+echo("<script type='text/javascript'> alert('你输入的用户名或密码错误，请重新输入！');location.href='login.php';</script>");
+}
+mysql_close();
+?>
+11、如何对SESSION进行检验（后台检查页面的制作）
+<?php 
+session_start();
+if(!isset($_SESSION["admin"])){
+header("location:login.php");
+exit;
+}
+?>
+12、验证用户名及密码是否填写（javascript）
+<SCRIPT language=javascript>
+<!--
+function confirmlogin()
+{
+if (document.frmmain.username.value.length<4 || document.frmmain.username.value=="")
+{
+     document.frmmain.username.focus();
+     document.frmmain.username.select;
+     window.alert("请输入你的用户名!");
+     return false;
+}
+if (document.frmmain.password.value.length<4)
+{
+     document.frmmain.password.focus();
+     document.frmmain.password.select;
+     window.alert("请输入你的密码!");
+     return false; 
+}
+    return true;
+}
+//-->
+</SCRIPT>
+13、在PHP中调用编辑器的方法
+1）将编辑器文件夹放置后台管理文件夹内。
+2）利用以下语句进行引入操作。
+<input name="content" type="hidden" value=''>
+<IFRAME ID="eWebEditor1" src="eWebEditorPHP38/ewebeditor.htm?id=content&style=coolblue" frameborder="0" scrolling="no" width="550" height="350"></IFRAME>
+注：eWebEditorPHP38编辑器文件夹的名称。
+    id=content中content为上面隐藏域的名称
+14、循环输出（能够实现分列）
+   1）首先插入一行一列表格
+<?php
+$i=1;
+?>   
+<table>
+   <tr>
+    <?php
+while($rs=mysql_fetch_array($conn)){ 
+?>      
+   <td>
+    被循环的其它表格和输出
+   </td>
+   <?php 
+      if ($i % 2==0) {
+   echo "</tr><tr>";
+   }
+   $i++;
+    }
+   ?> 
+   </tr>
+</table>
+15、给下拉列表框绑定数据(并且在修改时默认选中)
+<select name="fenleiid">
+<?php
+$sql="select * from fenleibiao";
+$conn=mysql_query($sql,$connec);
+while($rs1=mysql_fetch_array($conn)){ 
+?>
+   
+<option value="<?=$rs1["fenleiid"]?>" 
+<? 
+if ($rs["fenleiid"]==$rs1["fenleiid"]){ 
+echo "selected" ;
+}
+?>>
+<?=$rs1["flname"]?>
+</option>
+        <?php> 
+}
+?>
+          </select>
+16、获取字符长度函数
+strlen($c)>12
+17、定义一个字符截取函数
+用法：<?=substrgb($rs["title"],10)?>
+function substrgb($in,$num){
+   $pos=0;
+   $out="";
+   while($c=substr($in,$pos,1)){
+    if($c=="\n") break;
+    if(ord($c)>128){
+     $out.=$c;
+     $pos++;
+     $c=substr($in,$pos,1);
+  
+   $out.=$c;
+    }else{
+     $out.=$c;
+    }
+    $pos++;
+    if($pos>=$num) break;
+   }
+   if($out!=$in) $out = $out . "...";
+   return $out;
+}
+18、判断是否是数字
+!is_numeric(qq)
+19、PHP技术中获取当前日期
+$ptime=date("y-m-d");
+20、用户注册时所使用的PHP验证程序
+if ($admin=="" or (strlen($admin)>16) or (strlen($admin)<2)) {
+     echo "<SCRIPT language=JavaScript>alert('请输入用户名(不能大于16小于2)');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+}
+if ($password=="" or strlen($password)>16 or strlen($password)<6) {
+     echo "<SCRIPT language=JavaScript>alert('密码长度为6-16个字符');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+if ($password=="") {
+     echo "<SCRIPT language=JavaScript>alert('确认密码不能为空');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}else{
+if ($password!=$password1) {
+     echo "<SCRIPT language=JavaScript>alert('密码和确认密码不一致');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+}
+if ($wt="") {
+     echo "<SCRIPT language=JavaScript>alert('密码问题不能为空');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+if ($da="") {
+     echo "<SCRIPT language=JavaScript>alert('问题答案不能为空');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+if ($qq!="") {
+if (!is_numeric($qq)) { 
+     echo "<SCRIPT language=JavaScript>alert('QQ号码必须是数字');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+}
+if ($youbian=="" or strlen($youbian)!=6) {
+     echo "<SCRIPT language=JavaScript>alert('请正确输入邮编');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+if ($youbian!="") {
+if (!is_numeric($youbian)) { 
+     echo "<SCRIPT language=JavaScript>alert('邮编必须是数字');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+}
+if ($dizhi="") {
+     echo "<SCRIPT language=JavaScript>alert('住址不能为空');";
+     echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+     
+}
+if ($mail=="") {
+echo "<SCRIPT language=JavaScript>alert('E-mail不能为空！');";
+echo "this.location.href='vbscript:history.back()';</SCRIPT>";
+} 
+if ($textarea=="") {
+echo "<SCRIPT language=JavaScript>alert('个人说明不能为空！');";
+echo "this.location.href='vbscript:history.back()';</SCRIPT>";
+}
+if ($textarea=="" or strlen(textarea)>150) {
+   echo "<SCRIPT language=JavaScript>alert('个人说明为150个字符');";
+   echo"this.location.href='vbscript:history.back()';</SCRIPT>";
+   
+}
+
+24、对输出的内容进行判断，从而输出其它结果
+<?php
+   if ($rs["active"]==1) {
+   echo "<font color='#ff0000'>激活</font>";
+   }else{
+   echo "禁用";
+   }
+   
+   ?>
+25.字符截取函数
+<?=substr("$rs[zixun_biaoti]",0,28
+       )?>
+26.男女问题或单选带选择的
+<input type="radio" name="hy_zhuangtai" value="男" <?php if ($rs["hy_zhungtai"]==="男") { echo "checked";}?>>
+              男 
+<input type="radio" name="hy_zhuangtai" value="女" <?php if ($rs["hy_zhuangtai"]==="女") { echo "checked";}?>>
+              女
+27.单选不带单选框的
+<?php if ($rs['hy_zhuangtai']=='锁定'){?>
+                      <a href="Userzt.php?action=yes&id=<?php echo $rs['hy_id'];?>">锁定</a>
+       
+                      <?php }
+   else{
+   ?><a href="Userzt.php?id=<?php echo $rs['hy_id'];?>&action=no">解锁</a>
+   <?php }?>
+它的 save页是
+<?php require_once('../../conn.php'); ?>
+<?php 
+$hy_id=$_GET['id'];
+$action=$_GET['action'];
+if ($action=='yes'){
+$sql="update hybiao set hy_zhuangtai='锁定' where hy_id='$id'";
+$query=mysql_query($sql,$connec);
+echo("<script type='text/javascript'>location.href='UserManage.php';</script>");
+}
+else{
+$sql="update hybiao set hy_zhuangtai='正常' where hy_id='$id'";
+$query=mysql_query($sql,$connec);
+echo("<script type='text/javascript'>location.href='UserManage.php';</script>");
+}
+mysql_close();
+?>
+28.如果文字过长,则将过长的部分变成省略号显示 
+<DIV STYLE="width: 120px; height: 50px; border: 0px solid blue;overflow: hidden; text-overflow:ellipsis"> 
+<NOBR>就是比如有一行文字，很长，表格内一行显示不下.</NOBR> 
+</DIV> 
+29.
+禁止复制，鼠标拖动选取
+<body ondragstart=window.event.returnValue=false oncontextmenu=window.event.returnValue=false onselectstart=event.returnValue=false>
+30.大 中 小 文字的变化
+<script type="text/javascript">
+function doZoom(size)
+{document.getElementById('zoom').style.fontSize=size+'px';}
+</script>
+<span id="zoom">需要指定大小的文字</span>
+<a href="javascript:doZoom(16)">大</a> <a href="javascript:doZoom(14)">中</a> <a href="javascript:doZoom(12)">小</a> 
+30.
+添加到收藏夹和设为首页
+<a href=# onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.makewing.com/lanren/');">设为首页</a>
+<a href="javascript:window.external.AddFavorite('http://www.makewing.com/lanren/','懒人图库')">收藏本站</a>
+31.
+记录并显示网页的最后修改时间 
+<script language=JavaScript> 
+document.write("最后更新时间: " + document.lastModified + "") 
+</script> 
+32.
+节日倒计时
+<Script Language="JavaScript"> 
+　　 var timedate= new Date("October 1,2002"); 
+　　 var times= "国庆节"; 
+　　 var now = new Date(); 
+　　 var date = timedate.getTime() - now.getTime(); 
+　　 var time = Math.floor(date / (1000 * 60 * 60 * 24)); 
+　　 if (time >= 0) 
+　　 document.write( "现在离"+times+"还有: "+time +"天")
+</Script> 
+33.
+打开窗口即最大化
+<script language="JavaScript"> 
+<!-- Begin 
+self.moveTo(0,0) 
+self.resizeTo(screen.availWidth,screen.availHeight) 
+// End --> 
+</script> 
+34.
+加入背景音乐
+<bgsound src="mid/windblue[1].mid" loop="-1"> 只适用于IE
+<embed src="music.mid" autostart="true" loop="true" hidden="true"> 对Netscape ,IE 都适用 
+35.
+滚动
+<marquee direction=up height=146 onmouseout=start() onmouseover=stop() scrollAmount=2>
+滚动信息
+</marquee> 
+36.
+防止点击空链接时，页面往往重置到页首端
+代码“javascript:void(null)”代替原来的“#”标记
+37.
+不能点右键，不用CTRL+A，不能复制作!
+<body oncontextmenu="window.event.returnValue=false" 
+onkeypress="window.event.returnValue=false" 
+onkeydown="window.event.returnValue=false" 
+onkeyup="window.event.returnValue=false" 
+ondragstart="window.event.returnValue=false" 
+onselectstart="event.returnValue=false"> 
+</body> 
+37.
+随机变换背景图象（一个可以刷新心情的特效） 
+<Script Language="JavaScript"> 
+　　 image = new Array(4); //定义image为图片数量的数组 
+　　 image [0] = 'tu0.gif' //背景图象的路径 
+　　 image [1] = 'tu1.gif' 
+　　 image [2] = 'tu2.gif' 
+　　 image [3] = 'tu3.gif' 
+　　 image [4] = 'tu4.gif' 
+　　 number = Math.floor(Math.random() * image.length); 
+　　 document.write("<BODY BACKGROUND="+image[number]+">"); 
+</Script> 
+38.
+划过链接 手型鼠标
+style="cursor:hand" 
+39.
+如何关闭层
+<div id="Layer1"></div>
+<a href="#" onClick="Layer1.style.display='none'">关闭层</a> 
+40.
+<a href=javascript:close()>[关闭窗口]</a>
+41.
+凹陷文字背景为灰色
+<div style="width:300px;padding:20px;overflow:hidden;word-wrap:break-word;word-break:break:all; font-size:12px; line-height:18px; background-color:#eeeeee;">
+<font disabled>
+怎么样，我凹下去了吧？<br>
+你不想试试吗？<br>
+<a href="www.lenvo.cnhttp://www.lenvo.cn/">www.lenvo.cn</a></font>
+</div> 
+42.
+给表格做链接 
+<table width="100%" onclick="window.open('http://www.makewing.com/', '_blank')" style="CURSOR:hand">
+<tr>
+<td height="100" bgcolor="f4f4f4"> </td>
+</tr>
+</table>
+43.
+后退&关闭窗口
+后退：javascript:history.back(1)
+关闭：javascript:window.close(); 
+44.
+如果文字过长,则将过长的部分变成省略号显示 
+<DIV STYLE="width: 120px; height: 50px; border: 0px solid blue;overflow: hidden; text-overflow:ellipsis"> 
+<NOBR>就是比如有一行文字，很长，表格内一行显示不下.</NOBR> 
+</DIV> 
+45.
+禁止复制，鼠标拖动选取
+<body ondragstart=window.event.returnValue=false oncontextmenu=window.event.returnValue=false onselectstart=event.returnValue=false>

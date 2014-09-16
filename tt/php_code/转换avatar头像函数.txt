@@ -1,0 +1,24 @@
+/**
+ * »ñÈ¡ avatar Í·Ïñ
+ *
+ * @param string $email
+ * @param integer $size
+ * @return string
+ */
+function getAvatar($email, $size = '24')
+{
+	if (!is_numeric($size))
+	{
+		$size = '24';
+	}
+	if (!empty($email))
+	{
+		$out = 'http://www.gravatar.com/avatar/' . md5(strtolower($email)) . '?s=' . $size;
+		$avatar = "<img src='{$out}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' alt='{$email}' /> " . $email;
+	}
+	else
+	{
+		$avatar = $email;
+	}
+	return $avatar;
+}

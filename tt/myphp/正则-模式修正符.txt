@@ -1,0 +1,13 @@
+i    如果设定此修正符，模式中的字符将同时匹配大小写字母
+s    如果设定了此修正符，模式中的圆点元字符（.）匹配所有的字符，包括换行符。没有此设定的话，则不包括换行符。这和 Perl 的 /s 修正符是等效的。排除字符类例如 [^a] 总是匹配换行符的，无论是否设定了此修正符。
+
+
+
+preg_grep — 返回与模式匹配的数组单元
+preg_last_error — Returns the error code of the last PCRE regex execution
+preg_match_all — 进行全局正则表达式匹配
+preg_match — 进行正则表达式匹配
+preg_quote — 转义正则表达式字符
+preg_replace_callback — 用回调函数执行正则表达式的搜索和替换
+preg_replace — 执行正则表达式的搜索和替换
+preg_split — 用正则表达式分割字符串

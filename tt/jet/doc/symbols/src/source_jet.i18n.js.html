@@ -1,0 +1,249 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**	
+<span class='line'>  2</span>  * JET (Javascript Extension Tools) 
+<span class='line'>  3</span>  * Copyright (c) 2009, KDV.cn, All rights reserved.
+<span class='line'>  4</span>  * Code licensed under the BSD License:
+<span class='line'>  5</span>  * http://developer.kdv.cn/jet/license.txt
+<span class='line'>  6</span>  *
+<span class='line'>  7</span>  * @fileOverview Jet!
+<span class='line'>  8</span>  * @version	1.0
+<span class='line'>  9</span>  * @author	Kinvix(&lt;a href="mailto:Kinvix@gmail.com">Kinvix@gmail.com&lt;/a>)
+<span class='line'> 10</span>  * @description 
+<span class='line'> 11</span>  * 
+<span class='line'> 12</span>  */</span><span class="WHIT">
+<span class='line'> 13</span> 
+<span class='line'> 14</span> </span><span class="COMM">/**	
+<span class='line'> 15</span>  * @description
+<span class='line'> 16</span>  * Package: jet.i18n
+<span class='line'> 17</span>  *
+<span class='line'> 18</span>  * Need package:
+<span class='line'> 19</span>  * jet.core.js
+<span class='line'> 20</span>  * 
+<span class='line'> 21</span>  */</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="COMM">/**
+<span class='line'> 24</span>  * 5.[Javascript core]: i18n 国际化扩展
+<span class='line'> 25</span>  */</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="NAME">Jet</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">$package</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">J</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 29</span> 	 * i18n 名字空间
+<span class='line'> 30</span> 	 * 
+<span class='line'> 31</span> 	 * @namespace
+<span class='line'> 32</span> 	 * @name i18n
+<span class='line'> 33</span> 	 */</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="NAME">J.i18n</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">J.i18n</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">J.extend</span><span class="PUNC">(</span><span class="NAME">J.i18n</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 39</span> 	 * @lends i18n
+<span class='line'> 40</span> 	 * 
+<span class='line'> 41</span> 	 */</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'> 45</span> 		 * 引用所有语言包的对象
+<span class='line'> 46</span> 		 * 
+<span class='line'> 47</span> 		 * @memberOf i18n
+<span class='line'> 48</span> 		 * @name langs
+<span class='line'> 49</span> 		 * @type {Object}
+<span class='line'> 50</span> 		 * 
+<span class='line'> 51</span> 		 */</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">		</span><span class="NAME">langs</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">			</span><span class="STRN">"en-us"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">				</span><span class="NAME">number</span><span class="PUNC">:</span><span class="STRN">"ddd,ddd.dd"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">				</span><span class="NAME">currency</span><span class="PUNC">:</span><span class="STRN">"$ddd,ddd.dd"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">				</span><span class="NAME">date</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"MM/dd/yyyy"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">				</span><span class="NAME">longDate</span><span class="PUNC">:</span><span class="STRN">"yyyy year MM month dd day"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">				</span><span class="NAME">time</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"hh:mm:ss"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">				</span><span class="NAME">text</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">					</span><span class="NAME">helloWorld</span><span class="PUNC">:</span><span class="STRN">"Hello Word!"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">					</span><span class="NAME">test</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"test"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">					</span><span class="NAME">about</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Jet Lib, Developer: Jetyu!"</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">				</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 67</span> 
+<span class='line'> 68</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'> 69</span> 		 * 当前语言
+<span class='line'> 70</span> 		 * 
+<span class='line'> 71</span>     	 * @memberOf i18n
+<span class='line'> 72</span> 		 * @name currentLang
+<span class='line'> 73</span> 		 * @type {Object}
+<span class='line'> 74</span> 		 */</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">		</span><span class="NAME">currentLang</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'> 78</span> 		 * 添加语言包对象
+<span class='line'> 79</span> 		 * 
+<span class='line'> 80</span> 		 * @param {Object} langObj 要添加的语言包对象
+<span class='line'> 81</span> 		 * 
+<span class='line'> 82</span> 		 * @example
+<span class='line'> 83</span> 		 * Jet().$package(function(J){
+<span class='line'> 84</span> 		 * 	// 添加一个名字为"zh-cn"中文语言包
+<span class='line'> 85</span> 		 * 	J.i18n.add({
+<span class='line'> 86</span> 		 * 		"zh-cn":{
+<span class='line'> 87</span> 		 * 			// 数字
+<span class='line'> 88</span> 		 * 			number:"ddd,ddd.dd",
+<span class='line'> 89</span> 		 * 			// 货币
+<span class='line'> 90</span> 		 * 			currency:"￥ddd,ddd.dd元",
+<span class='line'> 91</span> 		 * 			// 日期
+<span class='line'> 92</span> 		 * 			date: "yyyy-MM-dd",
+<span class='line'> 93</span> 		 * 			// 长日期
+<span class='line'> 94</span> 		 * 			longDate:"yyyy年MM月dd日",
+<span class='line'> 95</span> 		 * 			// 时间
+<span class='line'> 96</span> 		 * 			time: "hh小时mm分ss秒",
+<span class='line'> 97</span> 		 * 			// 文本
+<span class='line'> 98</span> 		 * 			text: {
+<span class='line'> 99</span> 		 * 				helloWorld:"你好,世界!",
+<span class='line'>100</span> 		 * 				test: "测试",
+<span class='line'>101</span> 		 * 				onlyDefaultHas: "只有默认语言才有的...",
+<span class='line'>102</span> 		 * 				about: "Jet 框架, 开发者: 于涛!"
+<span class='line'>103</span> 		 * 			}	
+<span class='line'>104</span> 		 * 		}
+<span class='line'>105</span> 		 * 	});
+<span class='line'>106</span> 		 * };
+<span class='line'>107</span> 		 */</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">		</span><span class="NAME">add</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">langObj</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">J.extend</span><span class="PUNC">(</span><span class="NAME">J.i18n.langs</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">langObj</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>113</span>     	 * 设置默认语言
+<span class='line'>114</span> 		 * 
+<span class='line'>115</span> 		 * @param {String} lang 语言包的名称
+<span class='line'>116</span> 		 * 
+<span class='line'>117</span> 		 * @example
+<span class='line'>118</span> 		 * Jet().$package(function(J){
+<span class='line'>119</span> 		 * 	// 将名字为"zh-cn"语言包设置为默认
+<span class='line'>120</span> 		 * 	J.i18n.setDefault("zh-cn");
+<span class='line'>121</span> 		 * };
+<span class='line'>122</span> 		 */</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">		</span><span class="NAME">setDefault</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">lang</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">			</span><span class="NAME">this.defaultLang</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">J.i18n.langs</span><span class="PUNC">[</span><span class="NAME">lang</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.defaultLang</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>129</span>     	 * 设置为当前语言
+<span class='line'>130</span> 		 * 
+<span class='line'>131</span> 		 * @param {String} lang 语言包的名称
+<span class='line'>132</span> 		 * @param {Boolean} isSetDefault 是否同时设置为默认的语言
+<span class='line'>133</span> 		 * 
+<span class='line'>134</span> 		 * @example
+<span class='line'>135</span> 		 * Jet().$package(function(J){
+<span class='line'>136</span> 		 * 	// 将名字为"zh-cn"语言包设置为当前语言
+<span class='line'>137</span> 		 * 	J.i18n.set("zh-cn");
+<span class='line'>138</span> 		 * };
+<span class='line'>139</span> 		 */</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">		</span><span class="NAME">set</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">lang</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">isSetDefault</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">			</span><span class="NAME">this.currentLang</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">J.i18n.langs</span><span class="PUNC">[</span><span class="NAME">lang</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.defaultLang</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">				</span><span class="NAME">this.defaultLang</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.currentLang</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">			</span><span class="NAME">this.text</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.text</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">J.extend</span><span class="PUNC">(</span><span class="NAME">this.text</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.defaultLang</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.currentLang.text</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>150</span>     	 * 按当前语言输出数字
+<span class='line'>151</span>     	 * 
+<span class='line'>152</span> 		 * @param {Mixed} 数字
+<span class='line'>153</span> 		 * @returns {String} 返回按当前语言输出的数字的字符串形式
+<span class='line'>154</span> 		 */</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">		</span><span class="NAME">number</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>156</span> 
+<span class='line'>157</span> </span><span class="WHIT">	        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="REGX">/[^0-9\.]/</span><span class="PUNC">.</span><span class="NAME">test</span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">	        	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"invalid value"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">	        </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s.replace</span><span class="PUNC">(</span><span class="REGX">/^(\d*)$/</span><span class="PUNC">,</span><span class="STRN">"$1."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">	        </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">+</span><span class="STRN">"00"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/(\d*\.\d\d)\d*/</span><span class="PUNC">,</span><span class="STRN">"$1"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">	        </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s.replace</span><span class="PUNC">(</span><span class="STRN">"."</span><span class="PUNC">,</span><span class="STRN">","</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">	        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">re</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="REGX">/(\d)(\d{3},)/</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">	        </span><span class="KEYW">while</span><span class="PUNC">(</span><span class="NAME">re.test</span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">	        	</span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s.replace</span><span class="PUNC">(</span><span class="NAME">re</span><span class="PUNC">,</span><span class="STRN">"$1,$2"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">	        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">	        </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s.replace</span><span class="PUNC">(</span><span class="REGX">/,(\d\d)$/</span><span class="PUNC">,</span><span class="STRN">".$1"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">	        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">s.replace</span><span class="PUNC">(</span><span class="REGX">/^\./</span><span class="PUNC">,</span><span class="STRN">"0."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>172</span>     	 * 按当前语言输出日期
+<span class='line'>173</span>     	 * 
+<span class='line'>174</span> 		 * @param {Mixed} 日期
+<span class='line'>175</span> 		 * @returns {String} 返回按当前语言输出的日期字符串
+<span class='line'>176</span> 		 * 
+<span class='line'>177</span> 		 * @example
+<span class='line'>178</span> 		 * Jet().$package(function(J){
+<span class='line'>179</span> 		 * var d = new Date();
+<span class='line'>180</span> 		 * 	// 安当前语言的格式输出时间字符串
+<span class='line'>181</span> 		 * 	J.out(J.i18n.date(d));
+<span class='line'>182</span> 		 * };
+<span class='line'>183</span> 		 * 
+<span class='line'>184</span> 		 */</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">		</span><span class="NAME">date</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">J.formatDate</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">J.i18n.currentLang.date</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>190</span>     	 * 按当前语言输出长日期
+<span class='line'>191</span>     	 * 
+<span class='line'>192</span> 		 * @param {Mixed} 长日期
+<span class='line'>193</span> 		 * @returns {String} 返回按当前语言输出的长日期字符串
+<span class='line'>194</span> 		 */</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">		</span><span class="NAME">longDate</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">J.formatDate</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">J.i18n.currentLang.longDate</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>200</span>     	 * 按当前语言输出时间
+<span class='line'>201</span>     	 * 
+<span class='line'>202</span> 		 * @param {Mixed} 时间
+<span class='line'>203</span> 		 * @returns {String} 返回按当前语言输出的时间字符串
+<span class='line'>204</span> 		 */</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">		</span><span class="NAME">time</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">time</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">J.formatDate</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">J.i18n.currentLang.time</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>210</span>     	 * @ignore
+<span class='line'>211</span> 		 * @lends i18n
+<span class='line'>212</span> 		 */</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">		</span><span class="NAME">toString</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">	</span><span class="COMM">//将第一个设为默认</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">p</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">J.i18n.langs</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">		</span><span class="NAME">J.i18n.set</span><span class="PUNC">(</span><span class="NAME">p</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">		</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>225</span> 
+<span class='line'>226</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> 
+<span class='line'>228</span> 
+<span class='line'>229</span> 
+<span class='line'>230</span> 
+<span class='line'>231</span> 
+<span class='line'>232</span> 
+<span class='line'>233</span> 
+<span class='line'>234</span> 
+<span class='line'>235</span> 
+<span class='line'>236</span> 
+<span class='line'>237</span> 
+<span class='line'>238</span> 
+<span class='line'>239</span> 
+<span class='line'>240</span> 
+<span class='line'>241</span> 
+<span class='line'>242</span> </span></pre></body></html>

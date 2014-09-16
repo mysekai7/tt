@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>获取/设置getScrollLeft - getScrollLeft/setScrollLeft</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+		#Content{
+			width:800px;
+			height:600px;
+		}
+		#ObjectA{
+			width:100px;
+			height:100px;
+			overflow:auto;
+			background:blue;
+			border:2px solid green;
+		}
+		
+		#ObjectB{
+			width:1000px;
+			height:1000px;
+			background:red;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="Content">
+		<h1>获取/设置getScrollLeft - getScrollLeft/setScrollLeft</h1>
+
+		<div class="optionButton">
+			<button id="Button_1" onclick="Position.getScrollLeft()">获取getScrollLeft</button>
+			<button id="Button_2" onclick="Position.getScrollTop()">获取getScrollTop</button>
+
+		</div>
+		<div>
+			<label>X:</label>
+			<input id="xInput" type="text" value="100" size="8" />
+			<label>Y:</label>
+			<input id="yInput" type="text" value="100" size="8" />
+		
+		</div>
+		<div id="ObjectA">
+			<div id="ObjectB"></div>
+		</div>
+		
+		
+		<div class="optionButton">
+			<button id="Button_3" onclick="Document.getScrollLeft()">获取文档的getScrollLeft</button>
+			<button id="Button_4" onclick="Document.getScrollTop()">获取文档的getScrollTop</button>
+
+		</div>
+	</div> 
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package("Position",function(J){
+			var $D = J.dom;
+			var ObjectA = $D.id("ObjectA"),
+				xInput = $D.id("xInput"),
+				yInput = $D.id("yInput");
+				
+			
+			this.getScrollLeft = function(){
+				alert($D.getScrollLeft(ObjectA));
+			};
+			this.getScrollTop = function(){
+				alert($D.getScrollTop(ObjectA));
+			};
+
+		});
+		
+		
+		Jet().$package("Document",function(J){
+			var $D = J.dom;
+			var ObjectA = $D.id("ObjectA"),
+				xInput = $D.id("xInput"),
+				yInput = $D.id("yInput");
+				
+			
+			this.getScrollLeft = function(){
+				alert($D.getScrollLeft());
+			};
+			this.getScrollTop = function(){
+				alert($D.getScrollTop());
+			};
+
+		});
+	//]]>
+	</script>
+</body>
+</html>

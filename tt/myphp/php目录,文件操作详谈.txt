@@ -1,0 +1,229 @@
+php目录,文件操作详谈
+
+一、引论
+
+在任何计算机设备中,文件是都是必须的对象,而在web编程中,文件的操作一直是web程序员的头疼的地方,而,文件的操作在cms系统中这是必须的,非常有用的,我们经常遇到生成文件目录,文件(夹)编辑等操作,现在我把PHP中的这些函数做一详细总结并实例示范如何使用.,关于对应的函数详细介绍,请查阅php手册.此处只总结重点.和需要注意的地方.(这在php手册是没有的.)
+
+二、目录操作
+
+首先介绍的是一个从目录读取的函数,opendir(),readdir(),closedir(),使用的时候是先打开文件句柄,而后迭代列出:
+
+<?PHP
+$base_dir = "filelist/";
+$fso  = opendir($base_dir);
+echo $base_dir."<hr/>"  ;
+while($flist=readdir($fso)){
+echo $flist."<br/>" ;
+}
+closedir($fso)
+?>
+
+这是讲返回文件目录下面的文件已经目录的程序(0文件将返回false).
+
+有时候需要知道目录的信息,可以使用dirname($path)和basename($path),分别返回路径的目录部分和文件名名称部分,可用disk_free_space($path)返回看空间空余空间.
+
+创建命令:
+
+mkdir($path,0777)
+
+,0777是权限码,在非window下可用umask()函数设置.
+
+rmdir($path)
+
+将删除路径在$path的文件.
+
+dir -- directory 类也是操作文件目录的重要类,有3个方法,read,rewind,close,这是一个仿面向对象的类,它先使用的是打开文件句柄,然后用指针的方式读取的.,这里看PHP手册:
+
+<?PHP
+$d = dir("/etc/PHP5");
+echo "Handle: " . $d->handle . "\n";
+echo "Path: " . $d->path . "\n";
+while (false !== ($entry = $d->read())) {
+   echo $entry."\n";
+}
+$d->close();
+?>
+
+输出:
+
+Handle: Resource id #2
+Path: /etc/PHP5
+.
+..
+apache
+CGI
+cli
+
+文件的属性也非常重要,文件属性包括创建时间,最后修改时间,所有者,文件组,类型,大小等.
+
+下面我们重点谈文件操作.
+
+
+三、文件操作
+
+● 读文件
+
+首先是一个文件看能不能读取(权限问题),或者存在不,我们可以用is_readable函数获取信息.:
+
+<?PHP
+$file = 'dirlist.PHP';
+if (is_readable($file) == false) {
+        die('文件不存在或者无法读取');
+} else {
+        echo '存在';
+}
+?>
+
+判断文件存在的函数还有file_exists(下面演示),但是这个显然无is_readable全面.,当一个文件存在的话可以用
+
+<?PHP
+$file = "filelist.PHP";
+if (file_exists($file) == false) {
+        die('文件不存在');
+}
+$data = file_get_contents($file);
+echo HTMLentities($data);
+?>
+
+但是file_get_contents函数在较低版本上不支持,可以先创建文件的一个句柄,然后用指针读取全部:
+
+        $fso = fopen($cacheFile, 'r');
+        $data = fread($fso, filesize($cacheFile));
+        fclose($fso);
+
+还有一种方式,可以读取二进制的文件:
+
+$data = implode('', file($file));
+
+● 写文件
+
+和读取文件的方式一样,先看看是不是能写:
+
+<?PHP
+
+$file = 'dirlist.PHP';
+if (is_writable($file) == false) {
+        die("我是鸡毛,我不能");
+}
+?>
+
+能写了的话可以使用file_put_contents函数写入:
+
+<?PHP
+$file = 'dirlist.PHP';
+if (is_writable($file) == false) {
+        die('我是鸡毛,我不能');
+}
+$data = '我是可鄙,我想要';
+file_put_contents ($file, $data);
+?>
+
+file_put_contents函数在PHP5中新引进的函数(不知道存在的话用function_exists函数先判断一下)低版本的php无法使用,可以使用如下方式:
+
+$f = fopen($file, 'w');
+fwrite($f, $data);
+fclose($f);
+
+替换之.
+
+写文件的时候有时候需要锁定,然后写:
+
+function cache_page($pageurl,$pagedata){
+if(!$fso=fopen($pageurl,'w')){
+  $this->warns('无法打开缓存文件.');//trigger_error
+  return false;
+}
+if(!flock($fso,LOCK_EX)){//LOCK_NB,排它型锁定
+  $this->warns('无法锁定缓存文件.');//trigger_error
+  return false;
+}
+if(!fwrite($fso,$pagedata)){//写入字节流,serialize写入其他格式
+  $this->warns('无法写入缓存文件.');//trigger_error
+  return false;
+}
+flock($fso,LOCK_UN);//释放锁定
+fclose($fso);
+return true;
+}
+
+● 复制,删除文件
+
+PHP删除文件非常easy,用unlink函数简单操作:
+
+<?PHP
+$file = 'dirlist.PHP';
+$result = @unlink ($file);
+if ($result == false) {
+        echo '蚊子赶走了';
+} else {
+        echo '无法赶走';
+}
+?>
+
+即可.
+
+复制文件也很容易:
+
+<?PHP
+$file = 'yang.txt';
+$newfile = 'ji.txt'; # 这个文件父文件夹必须能写
+if (file_exists($file) == false) {
+        die ('小样没上线,无法复制');
+}
+$result = copy($file, $newfile);
+if ($result == false) {
+        echo '复制记忆ok';
+}
+?>
+
+可以使用rename()函数重命名一个文件夹.其他操作都是这几个函数组合一下就能实现的.
+
+● 获取文件属性
+
+我说几个常见的函数:
+获取最近修改时间:
+
+<?PHP
+$file = 'test.txt';
+echo date('r', filemtime($file));
+?>
+
+返回的说unix的时间戳,这在缓存技术常用.
+
+相关的还有获取上次被访问的时间fileatime(),filectime()当文件的权限，所有者，所有组或其它 inode 中的元数据被更新时间,fileowner()函数返回文件所有者
+
+$owner = posix_getpwuid(fileowner($file));
+
+(非window系统),ileperms()获取文件的权限,
+
+<?PHP
+$file = 'dirlist.PHP';
+$perms = substr(sprintf('%o', fileperms($file)), -4);
+echo $perms;
+?>
+
+filesize()返回文件大小的字节数:
+
+
+<?PHP
+
+// 输出类似：somefile.txt: 1024 bytes
+
+$filename = 'somefile.txt';
+echo $filename . ': ' . filesize($filename) . ' bytes';
+
+?>
+
+获取文件的全部信息有个返回数组的函数stat()函数:
+
+<?PHP
+$file = 'dirlist.PHP';
+$perms = stat($file);
+var_dump($perms);
+?>
+
+那个键对应什么可以查阅详细资料,此处不再展开.
+
+四、结束语
+
+上面我简要的总结了一下几个文件操作,如果您熟练掌握以上列出的函数,已经在操作的时候没什么大的问题,PHP文件操作的函数变化比较快,现在已经非常强大了,文件这部分也是学习php非常重要的一部分,希望不要忽略.

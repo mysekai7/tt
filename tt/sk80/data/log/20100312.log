@@ -1,0 +1,4 @@
+2010-03-12 03:40:12	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-12 05:00:01	Notice: %%12^122^12225C47%%post.html.php:9: Trying to get property of non-object
+2010-03-12 05:00:01	Notice: %%12^122^12225C47%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-03-12 09:32:07	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag

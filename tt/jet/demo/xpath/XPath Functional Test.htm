@@ -1,0 +1,838 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0096)http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>XPath Functional Test</TITLE>
+  
+  <META http-equiv="Content-Style-Type" content="text/css">
+  <META http-equiv="Content-Script-Type" content="text/javascript">
+
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/logger.js"></SCRIPT>
+  <!--LOCAL_DATA_HERE-->
+
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/config.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/uai.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/lexer.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/ctx.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/baseExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/binaryExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/unaryExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/unionExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/pathExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/filterExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/stepExpr.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/nodeType.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/nameTest.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/variableReference.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/literal.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/number.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/functionCall.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/nodeSet.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./XPath Functional Test_files/api.js"></SCRIPT>
+  <STYLE type="text/css">
+body {
+    font-family: monospace;
+}
+iframe {
+    width: 1px;
+    height: 1px;
+    visibility: hidden;
+}
+table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+td, th {
+    border: 3px solid white;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 8px;
+    color: #61666D;
+}
+td a {
+    color: #6166AA;
+}
+td {
+    font-size: 11px;
+    background: #C8CBD0;
+}
+th {
+    font-size: 12px;
+    background: #BBBBBB;
+}
+td a {
+    
+}
+
+td.error,
+td.ng{
+    background: #F36F6F;
+    color: #F3F1F1;
+}
+td.ok {
+    background: #AAF3AA;
+}
+
+td.heavy {
+    background: #F3E3AA;
+}
+
+span#counter {
+    font-size: 70%;
+}
+
+span#counter .counter-ok {
+    color: green;
+}
+
+span#counter .counter-ng {
+    color: red;
+}
+
+span.local-counter {
+    font-size: 80%;
+}
+
+span.local-counter .local-counter-ok {
+    color: green;
+}
+
+span.local-counter .local-counter-ng {
+    color: red;
+}
+
+h2 {
+    margin-top: 2em;
+    margin-bottom: 0.2em;
+}
+
+pre {
+    font-size: 80%;
+    padding: 1em;
+    line-height: 1.5;
+    color: #444;
+    border: 2px solid #AAA;
+}
+  </STYLE>
+ </HEAD><BODY>
+  <H1><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?">XPath Functional Test</A> <SPAN id="counter"><SPAN class="counter-ok">359</SPAN> / <SPAN>359</SPAN></SPAN></H1>
+  <DIV id="testLog"><DIV id="test-0000"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0000">Preceding and Folloing Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">28</SPAN> / <SPAN>28</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0001" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div&gt;
+   &lt;p class=&quot;1&quot;&gt;&lt;/p&gt;
+   &lt;ul&gt;
+    &lt;li id=&quot;t1&quot;&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;li id=&quot;t2&quot;&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+   &lt;p class=&quot;2&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+   &lt;p class=&quot;3&quot;&gt;&lt;/p&gt;
+   &lt;ul&gt;
+    &lt;li id=&quot;t3&quot;&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;li id=&quot;t4&quot;&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+   &lt;p class=&quot;4&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>id(&quot;t1&quot;)/following::*</TD><TD>li li#t2 p.2 div p.3 ul li#t3 li li#t4 p.4</TD><TD class="ok">ok</TD><TD>9</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0000">only this case</A></TD></TR><TR><TD>id(&quot;t2&quot;)/following::*</TD><TD>p.2 div p.3 ul li#t3 li li#t4 p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0001">only this case</A></TD></TR><TR><TD>id(&quot;t3&quot;)/following::*</TD><TD>li li#t4 p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0002">only this case</A></TD></TR><TR><TD>id(&quot;t4&quot;)/following::*</TD><TD>p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0003">only this case</A></TD></TR><TR><TD>id(&quot;t3 t4&quot;)/following::*</TD><TD>li li#t4 p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0004">only this case</A></TD></TR><TR><TD>id(&quot;t2 t3 t4&quot;)/following::*</TD><TD>p.2 div p.3 ul li#t3 li li#t4 p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0005">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2 t3 t4&quot;)/following::*</TD><TD>li li#t2 p.2 div p.3 ul li#t3 li li#t4 p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0006">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2 t3 t4&quot;)/preceding::*</TD><TD>head title div p.1 ul li#t1 li li#t2 p.2 p.3 li#t3 li</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0007">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2 t3&quot;)/preceding::*</TD><TD>head title div p.1 ul li#t1 li li#t2 p.2 p.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0008">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2&quot;)/preceding::*</TD><TD>head title p.1 li#t1 li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0009">only this case</A></TD></TR><TR><TD>id(&quot;t1&quot;)/preceding::*</TD><TD>head title p.1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0010">only this case</A></TD></TR><TR><TD>id(&quot;t2&quot;)/preceding::*</TD><TD>head title p.1 li#t1 li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0011">only this case</A></TD></TR><TR><TD>id(&quot;t3&quot;)/preceding::*</TD><TD>head title div p.1 ul li#t1 li li#t2 p.2 p.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0012">only this case</A></TD></TR><TR><TD>id(&quot;t4&quot;)/preceding::*</TD><TD>head title div p.1 ul li#t1 li li#t2 p.2 p.3 li#t3 li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0013">only this case</A></TD></TR><TR><TD>id(&quot;t1&quot;)/following::*[1]</TD><TD>li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0014">only this case</A></TD></TR><TR><TD>id(&quot;t2&quot;)/following::*[1]</TD><TD>p.2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0015">only this case</A></TD></TR><TR><TD>id(&quot;t3&quot;)/following::*[1]</TD><TD>li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0016">only this case</A></TD></TR><TR><TD>id(&quot;t4&quot;)/following::*[1]</TD><TD>p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0017">only this case</A></TD></TR><TR><TD>id(&quot;t3 t4&quot;)/following::*[1]</TD><TD>li p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0018">only this case</A></TD></TR><TR><TD>id(&quot;t2 t3 t4&quot;)/following::*[1]</TD><TD>p.2 li p.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0019">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2 t3 t4&quot;)/following::*[1]</TD><TD>li p.2 li p.4</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0020">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2 t3 t4&quot;)/preceding::*[1]</TD><TD>p.1 li p.3 li</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0021">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2 t3&quot;)/preceding::*[1]</TD><TD>p.1 li p.3</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0022">only this case</A></TD></TR><TR><TD>id(&quot;t1 t2&quot;)/preceding::*[1]</TD><TD>p.1 li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0023">only this case</A></TD></TR><TR><TD>id(&quot;t1&quot;)/preceding::*[1]</TD><TD>p.1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0024">only this case</A></TD></TR><TR><TD>id(&quot;t2&quot;)/preceding::*[1]</TD><TD>li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0025">only this case</A></TD></TR><TR><TD>id(&quot;t3&quot;)/preceding::*[1]</TD><TD>p.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0026">only this case</A></TD></TR><TR><TD>id(&quot;t4&quot;)/preceding::*[1]</TD><TD>li</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0000-0027">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0001"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0001">Simple Value Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">73</SPAN> / <SPAN>73</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0000" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0002" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div&gt;
+   &lt;span id=&quot;a&quot;&gt;hoge&lt;/span&gt;
+   &lt;span id=&quot;b&quot;&gt;3&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;ol id=&quot;numbers&quot;&gt;
+   &lt;li&gt;1&lt;/li&gt;
+   &lt;li&gt;2&lt;/li&gt;
+   &lt;li&gt;3&lt;/li&gt;
+   &lt;li&gt;4&lt;/li&gt;
+   &lt;li&gt;5&lt;/li&gt;
+  &lt;/ol&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>local-name(/html)</TD><TD>value(&quot;html&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0000">only this case</A></TD></TR><TR><TD>count(/)</TD><TD>value(1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0001">only this case</A></TD></TR><TR><TD>count(//li)</TD><TD>value(5)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0002">only this case</A></TD></TR><TR><TD>boolean(id(&#39;b&#39;))</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0003">only this case</A></TD></TR><TR><TD>boolean(/..)</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0004">only this case</A></TD></TR><TR><TD>boolean(0)</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0005">only this case</A></TD></TR><TR><TD>boolean(NaN)</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0006">only this case</A></TD></TR><TR><TD>boolean(1)</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0007">only this case</A></TD></TR><TR><TD>boolean(-1)</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0008">only this case</A></TD></TR><TR><TD>boolean(&quot;&quot;)</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0009">only this case</A></TD></TR><TR><TD>boolean(&quot;Nice boat.&quot;)</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0010">only this case</A></TD></TR><TR><TD>not(true())</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0011">only this case</A></TD></TR><TR><TD>true() and true()</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0012">only this case</A></TD></TR><TR><TD>true() or  false()</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0013">only this case</A></TD></TR><TR><TD>number(id(&#39;b&#39;))</TD><TD>value(3)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0014">only this case</A></TD></TR><TR><TD>number(&quot;1&quot;)</TD><TD>value(1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0015">only this case</A></TD></TR><TR><TD>number(&quot;-1&quot;)</TD><TD>value(-1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0016">only this case</A></TD></TR><TR><TD>number(&quot; 1&quot;)</TD><TD>value(1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0017">only this case</A></TD></TR><TR><TD>number(&quot; -1&quot;)</TD><TD>value(-1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0018">only this case</A></TD></TR><TR><TD>number(true())</TD><TD>value(1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0019">only this case</A></TD></TR><TR><TD>number(false())</TD><TD>value(0)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0020">only this case</A></TD></TR><TR><TD>sum(id(&quot;numbers&quot;)/li)</TD><TD>value(15)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0021">only this case</A></TD></TR><TR><TD>1 + 1</TD><TD>value(2)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0022">only this case</A></TD></TR><TR><TD>1+1</TD><TD>value(2)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0023">only this case</A></TD></TR><TR><TD>1 - 1</TD><TD>value(0)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0024">only this case</A></TD></TR><TR><TD>1-1</TD><TD>value(0)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0025">only this case</A></TD></TR><TR><TD>string(html - html)</TD><TD>value(&quot;NaN&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0026">only this case</A></TD></TR><TR><TD>html-html</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0027">only this case</A></TD></TR><TR><TD>normalize-space(string())</TD><TD>value(&quot;Title hoge 3 1 2 3 4 5&quot;):gecko:opera:applewebkit value(&quot;Titlehoge 3 1 2 3 4 5&quot;):ie</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0028">only this case</A></TD></TR><TR><TD>normalize-space(string(.))</TD><TD>value(&quot;Title hoge 3 1 2 3 4 5&quot;):gecko:opera:applewebkit value(&quot;Titlehoge 3 1 2 3 4 5&quot;):ie</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0029">only this case</A></TD></TR><TR><TD>normalize-space(string(/))</TD><TD>value(&quot;Title hoge 3 1 2 3 4 5&quot;):gecko:opera:applewebkit value(&quot;Titlehoge 3 1 2 3 4 5&quot;):ie</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0030">only this case</A></TD></TR><TR><TD>normalize-space(string(/html))</TD><TD>value(&quot;Title hoge 3 1 2 3 4 5&quot;):gecko:opera:applewebkit value(&quot;Titlehoge 3 1 2 3 4 5&quot;):ie</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0031">only this case</A></TD></TR><TR><TD>normalize-space(string(//div))</TD><TD>value(&#39;hoge 3&#39;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0032">only this case</A></TD></TR><TR><TD>string(//*//*//*)</TD><TD>value(&quot;Title&quot;)</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0033">only this case</A></TD></TR><TR><TD>string(/..)</TD><TD>value(&quot;&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0034">only this case</A></TD></TR><TR><TD>string(number(&#39;Nice boat.&#39;))</TD><TD>value(&quot;NaN&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0035">only this case</A></TD></TR><TR><TD>string(1 div 0)</TD><TD>value(&quot;Infinity&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0036">only this case</A></TD></TR><TR><TD>string(1 div -0)</TD><TD>value(&quot;-Infinity&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0037">only this case</A></TD></TR><TR><TD>string(0)</TD><TD>value(&quot;0&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0038">only this case</A></TD></TR><TR><TD>string(-0)</TD><TD>value(&quot;0&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0039">only this case</A></TD></TR><TR><TD>string(1)</TD><TD>value(&quot;1&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0040">only this case</A></TD></TR><TR><TD>string(-1)</TD><TD>value(&quot;-1&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0041">only this case</A></TD></TR><TR><TD>string(true())</TD><TD>value(&quot;true&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0042">only this case</A></TD></TR><TR><TD>string(false())</TD><TD>value(&quot;false&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0043">only this case</A></TD></TR><TR><TD>string-length(&quot;&quot;)</TD><TD>value(0)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0044">only this case</A></TD></TR><TR><TD>string-length(&quot;a&quot;)</TD><TD>value(1)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0045">only this case</A></TD></TR><TR><TD>contains(&quot;abcdefg&quot;, &quot;def&quot;)</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0046">only this case</A></TD></TR><TR><TD>contains(&quot;abcdefg&quot;, &quot;zzz&quot;)</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0047">only this case</A></TD></TR><TR><TD>starts-with(&quot;abcdefg&quot;, &quot;abc&quot;)</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0048">only this case</A></TD></TR><TR><TD>starts-with(&quot;abcdefg&quot;, &quot;def&quot;)</TD><TD>value(false)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0049">only this case</A></TD></TR><TR><TD>concat(&quot;abc&quot;, &quot;def&quot;)</TD><TD>value(&quot;abcdef&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0050">only this case</A></TD></TR><TR><TD>concat(&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;)</TD><TD>value(&quot;abcdefghi&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0051">only this case</A></TD></TR><TR><TD>concat(&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;, &quot;jkl&quot;)</TD><TD>value(&quot;abcdefghijkl&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0052">only this case</A></TD></TR><TR><TD>translate(&quot;bar&quot;,&quot;abc&quot;,&quot;ABC&quot;)</TD><TD>value(&quot;BAr&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0053">only this case</A></TD></TR><TR><TD>translate(&quot;--aaa--&quot;,&quot;abc-&quot;,&quot;ABC&quot;)</TD><TD>value(&quot;AAA&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0054">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, 2, 3)</TD><TD>value(&quot;234&quot;)</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0055">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, 2)</TD><TD>value(&quot;2345&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0056">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, 1.5, 2.6)</TD><TD>value(&quot;234&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0057">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, 0, 3)</TD><TD>value(&quot;12&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0058">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, 0 div 0, 3)</TD><TD>value(&quot;&quot;)</TD><TD class="ok">ok</TD><TD>9</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0059">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, 1, 0 div 0)</TD><TD>value(&quot;&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0060">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, -42, 1 div 0)</TD><TD>value(&quot;12345&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0061">only this case</A></TD></TR><TR><TD>substring(&quot;12345&quot;, -1 div 0, 1 div 0)</TD><TD>value(&quot;&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0062">only this case</A></TD></TR><TR><TD>substring-after(&quot;1999/04/01&quot;,&quot;/&quot;)</TD><TD>value(&quot;04/01&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0063">only this case</A></TD></TR><TR><TD>substring-after(&quot;1999/04/01&quot;,&quot;19&quot;)</TD><TD>value(&quot;99/04/01&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0064">only this case</A></TD></TR><TR><TD>substring-before(&quot;1999/04/01&quot;,&quot;/&quot;)</TD><TD>value(&quot;1999&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0065">only this case</A></TD></TR><TR><TD>normalize-space(id(&quot;numbers&quot;)/li) = &quot;1&quot;</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0066">only this case</A></TD></TR><TR><TD>id(&quot;numbers&quot;)/li = id(&quot;numbers&quot;)/li</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0067">only this case</A></TD></TR><TR><TD>&quot;&quot; = false()</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0068">only this case</A></TD></TR><TR><TD>false() = &quot;&quot;</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0069">only this case</A></TD></TR><TR><TD>&quot;1&quot; = 1</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0070">only this case</A></TD></TR><TR><TD>1 = &quot;1&quot;</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0071">only this case</A></TD></TR><TR><TD>&quot;1&quot; = &quot;1&quot;</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0001-0072">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0002"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0002">Basic Functional Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">83</SPAN> / <SPAN>83</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0001" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0003" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div id=&quot;n1&quot; title=&quot;1&quot; class=&quot;26&quot; xml:lang=&quot;en&quot;&gt;
+   &lt;dl id=&quot;n2&quot; title=&quot;2&quot; class=&quot;3&quot;&gt;
+    &lt;dt id=&quot;n3&quot; title=&quot;3&quot; class=&quot;1&quot;&gt;dt&lt;/dt&gt;
+    &lt;dd id=&quot;n4&quot; title=&quot;4&quot; class=&quot;2&quot;&gt;dd&lt;/dd&gt;
+   &lt;/dl&gt;
+   &lt;center id=&quot;n5&quot; title=&quot;5&quot; class=&quot;22&quot;&gt;
+    &lt;h1 id=&quot;n6&quot; title=&quot;6&quot; class=&quot;6&quot;&gt;
+     &lt;em id=&quot;n7&quot; title=&quot;7&quot; class=&quot;4&quot;&gt;em&lt;/em&gt;
+     &lt;strong id=&quot;n8&quot; title=&quot;8&quot; class=&quot;5&quot;&gt;strong&lt;/strong&gt;
+    &lt;/h1&gt;
+    &lt;h2 id=&quot;n9&quot; title=&quot;9&quot; class=&quot;9&quot;&gt;
+     &lt;b id=&quot;n10&quot; title=&quot;10&quot; class=&quot;7&quot;&gt;b&lt;/b&gt;
+     &lt;s id=&quot;n11&quot; title=&quot;11&quot; class=&quot;8&quot;&gt;s&lt;/s&gt;
+    &lt;/h2&gt;
+    &lt;blockquote id=&quot;n12&quot; title=&quot;12&quot; class=&quot;15&quot;&gt;
+     &lt;!--blockquoteComment--&gt;
+     blockquoteText1:
+     &lt;br id=&quot;n13&quot; title=&quot;13&quot; class=&quot;10&quot;/&gt;
+     blockquoteText2
+     &lt;p id=&quot;n14&quot; title=&quot;14&quot; class=&quot;13&quot;&gt;
+      &lt;del id=&quot;n15&quot; title=&quot;15&quot; class=&quot;11&quot;&gt;del&lt;/del&gt;
+      &lt;ins id=&quot;n16&quot; title=&quot;16&quot; class=&quot;12&quot;&gt;ins&lt;/ins&gt;
+     &lt;/p&gt;
+     &lt;?pi hoge ?&gt;
+     &lt;font id=&quot;n17&quot; title=&quot;17&quot; class=&quot;14&quot; face=&quot;n8 n26&quot;&gt;font&lt;/font&gt;
+    &lt;/blockquote&gt;
+    &lt;h3 id=&quot;n18&quot; title=&quot;18&quot; class=&quot;18&quot;&gt;
+     &lt;dfn id=&quot;n19&quot; title=&quot;19&quot; class=&quot;16&quot;&gt;dfn&lt;/dfn&gt;
+     &lt;a id=&quot;n20&quot; title=&quot;20&quot; class=&quot;17&quot;&gt;a&lt;/a&gt;
+    &lt;/h3&gt;
+    &lt;h4 id=&quot;n21&quot; title=&quot;21&quot; class=&quot;21&quot;&gt;
+     &lt;sub id=&quot;n22&quot; title=&quot;22&quot; class=&quot;19&quot;&gt;sub&lt;/sub&gt;
+     &lt;sup id=&quot;n23&quot; title=&quot;23&quot; class=&quot;20&quot;&gt;sup&lt;/sup&gt;
+    &lt;/h4&gt;
+   &lt;/center&gt;
+   &lt;span id=&quot;n24&quot; title=&quot;24&quot; class=&quot;25&quot;&gt;
+    &lt;acronym id=&quot;n25&quot; title=&quot;25&quot; class=&quot;23&quot;&gt;acronym&lt;/acronym&gt;
+    &lt;q id=&quot;n26&quot; title=&quot;26&quot; class=&quot;24&quot; cite=&quot;n8 n17&quot; xml:lang=&quot;it&quot;&gt;q&lt;/q&gt;
+   &lt;/span&gt;
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>.//blockquote/*</TD><TD>br p font</TD><TD class="ok">ok</TD><TD>6</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0000">only this case</A></TD></TR><TR><TD>.//blockquote/child::*</TD><TD>br p font</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0001">only this case</A></TD></TR><TR><TD>.//blockquote/parent::*</TD><TD>center</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0002">only this case</A></TD></TR><TR><TD>.//blockquote/descendant::*</TD><TD>br p del ins font</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0003">only this case</A></TD></TR><TR><TD>.//blockquote/descendant-or-self::*</TD><TD>blockquote br p del ins font</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0004">only this case</A></TD></TR><TR><TD>.//blockquote/ancestor::*</TD><TD>html body div center</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0005">only this case</A></TD></TR><TR><TD>.//blockquote/ancestor-or-self::*</TD><TD>html body div center blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0006">only this case</A></TD></TR><TR><TD>.//blockquote/following-sibling::*</TD><TD>h3 h4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0007">only this case</A></TD></TR><TR><TD>.//blockquote/preceding-sibling::*</TD><TD>h1 h2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0008">only this case</A></TD></TR><TR><TD>.//blockquote/following::*</TD><TD>h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0009">only this case</A></TD></TR><TR><TD>.//blockquote/preceding::*</TD><TD>head title dl dt dd h1 em strong h2 b s</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0010">only this case</A></TD></TR><TR><TD>.//blockquote/self::*</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0011">only this case</A></TD></TR><TR><TD>.//blockquote/attribute::id/parent::*</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0012">only this case</A></TD></TR><TR><TD>.//blockquote/@id/parent::*</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0013">only this case</A></TD></TR><TR><TD>.//*[blockquote]</TD><TD>center</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0014">only this case</A></TD></TR><TR><TD>.//*[child::blockquote]</TD><TD>center</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0015">only this case</A></TD></TR><TR><TD>.//*[parent::blockquote]</TD><TD>br p font</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0016">only this case</A></TD></TR><TR><TD>.//*[descendant::blockquote]</TD><TD>div center</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0017">only this case</A></TD></TR><TR><TD>.//*[descendant-or-self::blockquote]</TD><TD>div center blockquote</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0018">only this case</A></TD></TR><TR><TD>.//*[ancestor::blockquote]</TD><TD>br p del ins font</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0019">only this case</A></TD></TR><TR><TD>.//*[ancestor-or-self::blockquote]</TD><TD>blockquote br p del ins font</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0020">only this case</A></TD></TR><TR><TD>.//*[following-sibling::blockquote]</TD><TD>h1 h2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0021">only this case</A></TD></TR><TR><TD>.//*[preceding-sibling::blockquote]</TD><TD>h3 h4</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0022">only this case</A></TD></TR><TR><TD>.//*[following::blockquote]</TD><TD>dl dt dd h1 em strong h2 b s</TD><TD class="ok">ok</TD><TD>4</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0023">only this case</A></TD></TR><TR><TD>.//*[preceding::blockquote]</TD><TD>h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>5</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0024">only this case</A></TD></TR><TR><TD>.//*[self::blockquote]</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0025">only this case</A></TD></TR><TR><TD>.//*[@id]</TD><TD>div dl dt dd center h1 em strong h2 b s blockquote br p del ins font h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0026">only this case</A></TD></TR><TR><TD>.//*[attribute::id]</TD><TD>div dl dt dd center h1 em strong h2 b s blockquote br p del ins font h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0027">only this case</A></TD></TR><TR><TD>.//blockquote/text()</TD><TD>text(&#39;\n     &#39;):opera:gecko:applewebkit text(&#39; &#39;):netfront text(&#39;\n     blockquoteText1:\n     &#39;):opera:gecko:applewebkit text(&#39;blockquoteText1: &#39;):ie text(&#39; blockquoteText1: &#39;):netfront text(&#39;\n     blockquoteText2\n     &#39;):opera:gecko:applewebkit text(&#39;blockquoteText2 &#39;):ie text(&#39; blockquoteText2 &#39;):netfront text(&#39;\n     &#39;):opera text(&#39;\n     &#39;):opera text(&#39;\n     \n     &#39;):gecko text(&#39;\n          &#39;):applewebkit text(&#39;\n    &#39;):opera:gecko:applewebkit text(&#39; &#39;):ie:netfront text(&#39; &#39;):netfront</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0028">only this case</A></TD></TR><TR><TD>.//blockquote/comment()</TD><TD>comment(&#39;blockquoteComment&#39;):opera:gecko:applewebkit3:ie:netfront comment(&#39; hoge&#39;):ie</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0029">only this case</A></TD></TR><TR><TD>.//blockquote/processing-instruction()</TD><TD>processing-instruction(pi=&#39;hoge &#39;):opera92 processing-instruction(pi=&#39; hoge &#39;):opera95</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0030">only this case</A></TD></TR><TR><TD>.//blockquote/processing-instruction(&quot;pi&quot;)</TD><TD>processing-instruction(pi=&#39;hoge &#39;):opera92 processing-instruction(pi=&#39; hoge &#39;):opera95</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0031">only this case</A></TD></TR><TR><TD>.//blockquote/node()</TD><TD>text(&#39;\n     &#39;):opera:gecko:applewebkit text(&#39; &#39;):netfront comment(&#39;blockquoteComment&#39;):opera:gecko:ie:applewebkit3:netfront text(&#39;\n     blockquoteText1:\n     &#39;):opera:gecko:applewebkit text(&#39;blockquoteText1: &#39;):ie text(&#39; blockquoteText1: &#39;):netfront br text(&#39;\n     blockquoteText2\n     &#39;):opera:gecko:applewebkit text(&#39;blockquoteText2 &#39;):ie text(&#39; blockquoteText2 &#39;):netfront p text(&#39;\n     &#39;):opera comment(&#39; hoge&#39;):ie processing-instruction(pi=&#39;hoge &#39;):opera92 processing-instruction(pi=&#39; hoge &#39;):opera95 text(&#39;\n     &#39;):opera text(&#39;\n     \n     &#39;):gecko text(&#39;\n          &#39;):applewebkit text(&#39; &#39;):netfront font text(&#39;\n    &#39;):opera:gecko:applewebkit text(&#39; &#39;):ie:netfront</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0032">only this case</A></TD></TR><TR><TD>.//blockquote/p</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0033">only this case</A></TD></TR><TR><TD>.//blockquote/*</TD><TD>br p font</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0034">only this case</A></TD></TR><TR><TD>.//*[child::* and preceding::font]</TD><TD>h3 h4 span</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0035">only this case</A></TD></TR><TR><TD>.//*[not(child::*) and preceding::font]</TD><TD>dfn a sub sup acronym q</TD><TD class="ok">ok</TD><TD>4</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0036">only this case</A></TD></TR><TR><TD>.//*[preceding::blockquote or following::blockquote]</TD><TD>dl dt dd h1 em strong h2 b s h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>7</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0037">only this case</A></TD></TR><TR><TD>.//blockquote/ancestor::* | .//blockquote/descendant::*</TD><TD>html body div center br p del ins font</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0038">only this case</A></TD></TR><TR><TD>.//*[.=&quot;sub&quot;]</TD><TD>sub</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0039">only this case</A></TD></TR><TR><TD>.//*[@title &gt; 12 and @class &lt; 15]</TD><TD>br p del ins font</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0040">only this case</A></TD></TR><TR><TD>.//*[@title != @class]</TD><TD>div dl dt dd center em strong b s blockquote br p del ins font dfn a sub sup span acronym q</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0041">only this case</A></TD></TR><TR><TD>.//*[((@class * @class + @title * @title) div (@class + @title)) &gt; ((@class - @title) * (@class - @title))]</TD><TD>dl h1 h2 s blockquote br p font h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>8</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0042">only this case</A></TD></TR><TR><TD>.//*[@title mod 2 = 0]</TD><TD>dl dd h1 strong b blockquote p ins h3 a sub span q</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0043">only this case</A></TD></TR><TR><TD>.//blockquote/child::*[last()]</TD><TD>font</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0044">only this case</A></TD></TR><TR><TD>.//blockquote/descendant::*[position() &lt; 4]</TD><TD>br p del</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0045">only this case</A></TD></TR><TR><TD>id(.//font/@face)</TD><TD>strong q</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0046">only this case</A></TD></TR><TR><TD>.//*[name(.) = &quot;sub&quot;]</TD><TD>sub</TD><TD class="ok">ok</TD><TD>4</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0047">only this case</A></TD></TR><TR><TD>.//*[name() = &quot;sub&quot;]</TD><TD>sub</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0048">only this case</A></TD></TR><TR><TD>.//blockquote/child::*[2]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0049">only this case</A></TD></TR><TR><TD>.//blockquote/descendant::*[4]</TD><TD>ins</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0050">only this case</A></TD></TR><TR><TD>.//blockquote/descendant-or-self::*[4]</TD><TD>del</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0051">only this case</A></TD></TR><TR><TD>.//blockquote/ancestor::*[2]</TD><TD>div</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0052">only this case</A></TD></TR><TR><TD>.//blockquote/ancestor-or-self::*[2]</TD><TD>center</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0053">only this case</A></TD></TR><TR><TD>.//blockquote/following-sibling::*[1]</TD><TD>h3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0054">only this case</A></TD></TR><TR><TD>.//blockquote/preceding-sibling::*[1]</TD><TD>h2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0055">only this case</A></TD></TR><TR><TD>.//blockquote/following::*[4]</TD><TD>h4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0056">only this case</A></TD></TR><TR><TD>.//blockquote/preceding::*[4]</TD><TD>strong</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0057">only this case</A></TD></TR><TR><TD>.//*[starts-with(.,&quot;s&quot;)]</TD><TD>strong s h4:ie sub sup</TD><TD class="ok">ok</TD><TD>5</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0058">only this case</A></TD></TR><TR><TD>.//*[string(@title - 1) = &quot;0&quot;]</TD><TD>div</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0059">only this case</A></TD></TR><TR><TD>.//*[string() = &quot;sub&quot;]</TD><TD>sub</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0060">only this case</A></TD></TR><TR><TD>.//*[string(.) = &quot;sub&quot;]</TD><TD>sub</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0061">only this case</A></TD></TR><TR><TD>.//*[normalize-space(concat(.,..)) = &quot;sub sub sup&quot;]</TD><TD>sub:opera:gecko:applewebkit:netfront</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0062">only this case</A></TD></TR><TR><TD>.//sub[concat(.,..) = &quot;subsub sup &quot;]</TD><TD>sub:ie</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0063">only this case</A></TD></TR><TR><TD>.//node()[normalize-space(concat(.,..,../..)) = &quot;bb b s&quot;]</TD><TD>text(&#39;b&#39;):opera:gecko:applewebkit:netfront</TD><TD class="ok">ok</TD><TD>21</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0064">only this case</A></TD></TR><TR><TD>.//node()[concat(.,..,../..) = &quot;bbb s &quot;]</TD><TD>text(&#39;b&#39;):ie</TD><TD class="ok">ok</TD><TD>17</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0065">only this case</A></TD></TR><TR><TD>.//*[substring-before(.,&quot;u&quot;) = &quot;s&quot;]</TD><TD>h4:ie sub sup</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0066">only this case</A></TD></TR><TR><TD>.//*[substring-after(.,&quot;on&quot;) = &quot;t&quot;]</TD><TD>font</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0067">only this case</A></TD></TR><TR><TD>.//*[substring(.,2,1) = &quot;u&quot;]</TD><TD>h4:ie sub sup</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0068">only this case</A></TD></TR><TR><TD>.//*[substring(.,2) = &quot;up&quot;]</TD><TD>sup</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0069">only this case</A></TD></TR><TR><TD>.//*[contains(.,&quot;b&quot;)]</TD><TD>div center h2 b blockquote h4 sub</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0070">only this case</A></TD></TR><TR><TD>.//*[name() != &#39;dt&#39; and name() != &#39;dd&#39; and string-length() = 3]</TD><TD>del ins dfn sub sup</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0071">only this case</A></TD></TR><TR><TD>.//*[string-length(normalize-space(.)) = 3]</TD><TD>h2 del ins dfn sub sup</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0072">only this case</A></TD></TR><TR><TD>.//*[.=translate(normalize-space(&quot;  s  u  b  &quot;),&quot; &quot;,&quot;&quot;)]</TD><TD>sub</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0073">only this case</A></TD></TR><TR><TD>.//*[normalize-space()=&quot;q&quot;]</TD><TD>q</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0074">only this case</A></TD></TR><TR><TD>.//*[boolean(@title - 1) = false()]</TD><TD>div</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0075">only this case</A></TD></TR><TR><TD>.//*[not(@title - 1) = true()]</TD><TD>div</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0076">only this case</A></TD></TR><TR><TD>.//*[number(@title) &lt; number(@class)]</TD><TD>div dl center blockquote span</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0077">only this case</A></TD></TR><TR><TD>.//*[sum(ancestor::*/@title) &lt; sum(descendant::*/@title)]</TD><TD>div dl center h1 h2 blockquote p h3 h4 span</TD><TD class="ok">ok</TD><TD>9</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0078">only this case</A></TD></TR><TR><TD>.//*[floor(@title div @class) = 1]</TD><TD>h1 em strong h2 b s br p del ins font h3 dfn a h4 sub sup acronym q</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0079">only this case</A></TD></TR><TR><TD>.//*[ceiling(@title div @class) = 1]</TD><TD>div dl center h1 h2 blockquote h3 h4 span</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0080">only this case</A></TD></TR><TR><TD>.//*[round(@title div @class) = 1]</TD><TD>dl h1 h2 b s blockquote br p del ins font h3 dfn a h4 sub sup span acronym q</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0081">only this case</A></TD></TR><TR><TD>/..</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0002-0082">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0003"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0003">Sort and Merge Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">12</SPAN> / <SPAN>12</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0002" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0004" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;ul id=&quot;container&quot;&gt;
+   &lt;li id=&quot;li-1&quot;&gt;&lt;/li&gt;
+   &lt;li id=&quot;li-2&quot;&gt;&lt;/li&gt;
+   &lt;li id=&quot;li-3&quot;&gt;&lt;/li&gt;
+   &lt;li id=&quot;li-4&quot;&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;ul id=&quot;container-0&quot;&gt;
+   &lt;li id=&quot;li-5&quot;&gt;&lt;/li&gt;
+   &lt;li id=&quot;li-6&quot;&gt;&lt;/li&gt;
+   &lt;li id=&quot;li-7&quot;&gt;&lt;/li&gt;
+   &lt;li id=&quot;li-8&quot;&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>id(&quot;container&quot;)/*[1]</TD><TD>li#li-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0000">only this case</A></TD></TR><TR><TD>id(&quot;container&quot;)/*[2]</TD><TD>li#li-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0001">only this case</A></TD></TR><TR><TD>id(&quot;container&quot;)/*[3]</TD><TD>li#li-3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0002">only this case</A></TD></TR><TR><TD>id(&quot;container&quot;)/*[4]</TD><TD>li#li-4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0003">only this case</A></TD></TR><TR><TD>id(&quot;container&quot;)/*[3] | id(&quot;container&quot;)/*[4] | id(&quot;container&quot;)/*[2]  |id(&quot;container&quot;)/*[1]</TD><TD>li#li-1 li#li-2 li#li-3 li#li-4</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0004">only this case</A></TD></TR><TR><TD>id(&quot;container&quot;)/*[4] | id(&quot;container&quot;)/*[2] | id(&quot;container&quot;)/*[4]  |id(&quot;container&quot;)/*[3]</TD><TD>li#li-2 li#li-3 li#li-4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0005">only this case</A></TD></TR><TR><TD>id(&quot;li-1 li-2 li-3 li-4&quot;)</TD><TD>li#li-1 li#li-2 li#li-3 li#li-4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0006">only this case</A></TD></TR><TR><TD>id(&quot;li-4 li-3 li-2 li-1&quot;)</TD><TD>li#li-1 li#li-2 li#li-3 li#li-4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0007">only this case</A></TD></TR><TR><TD>id(&quot;li-2 li-2 li-1 li-1&quot;)</TD><TD>li#li-1 li#li-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0008">only this case</A></TD></TR><TR><TD>id(&quot;container&quot;)/* | id(&quot;container-0&quot;)/*</TD><TD>li#li-1 li#li-2 li#li-3 li#li-4 li#li-5 li#li-6 li#li-7 li#li-8</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0009">only this case</A></TD></TR><TR><TD>id(&quot;container-0&quot;)/* | id(&quot;container&quot;)/*</TD><TD>li#li-1 li#li-2 li#li-3 li#li-4 li#li-5 li#li-6 li#li-7 li#li-8</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0010">only this case</A></TD></TR><TR><TD>id(&quot;container-0&quot;)/* | id(&quot;container&quot;)/* | id(&quot;container-0&quot;)/*</TD><TD>li#li-1 li#li-2 li#li-3 li#li-4 li#li-5 li#li-6 li#li-7 li#li-8</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0003-0011">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0004"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0004">Double-Slash and Descendant Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">7</SPAN> / <SPAN>7</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0003" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0005" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div class=&quot;parent&quot;&gt;
+   &lt;div class=&quot;child first&quot;&gt;
+    &lt;div class=&quot;grand-child first-1&quot;&gt;&lt;/div&gt;
+    &lt;p&gt;dust&lt;/p&gt;
+    &lt;div class=&quot;grand-child&quot;&gt;&lt;/div&gt;
+    &lt;p&gt;dust&lt;/p&gt;
+    &lt;div class=&quot;grand-child&quot;&gt;&lt;/div&gt;
+   &lt;/div&gt;
+   &lt;p&gt;dust&lt;/p&gt;
+   &lt;div class=&quot;child&quot;&gt;
+    &lt;div class=&quot;grand-child first-2&quot;&gt;&lt;/div&gt;
+    &lt;p&gt;dust&lt;/p&gt;
+    &lt;div class=&quot;grand-child&quot;&gt;&lt;/div&gt;
+    &lt;p&gt;dust&lt;/p&gt;
+    &lt;div class=&quot;grand-child&quot;&gt;&lt;/div&gt;
+   &lt;/div&gt;
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>/descendant::div</TD><TD>div.parent div.child div.grand-child div.grand-child div.grand-child div.child div.grand-child div.grand-child div.grand-child</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0000">only this case</A></TD></TR><TR><TD>//body/descendant::*</TD><TD>div.parent div.child div.grand-child p div.grand-child p div.grand-child p div.child div.grand-child p div.grand-child p div.grand-child</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0001">only this case</A></TD></TR><TR><TD>/descendant::div[1]</TD><TD>div.parent</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0002">only this case</A></TD></TR><TR><TD>//div</TD><TD>div.parent div.child div.grand-child div.grand-child div.grand-child div.child div.grand-child div.grand-child div.grand-child</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0003">only this case</A></TD></TR><TR><TD>//body//*</TD><TD>div.parent div.child div.grand-child p div.grand-child p div.grand-child p div.child div.grand-child p div.grand-child p div.grand-child</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0004">only this case</A></TD></TR><TR><TD>//div[1]</TD><TD>div.parent div.child.first div.grand-child.first-1 div.grand-child.first-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0005">only this case</A></TD></TR><TR><TD>//div[contains(@class, &#39;grand-child&#39;)]</TD><TD>div.grand-child div.grand-child div.grand-child div.grand-child div.grand-child div.grand-child</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0004-0006">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0005"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0005">Attribute Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">70</SPAN> / <SPAN>70</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0004" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0006" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+  &lt;link rel=&quot;index&quot; href=&quot;http://coderepos.org/&quot; type=&quot;text/html&quot; /&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;blockquote 
+        title=&quot;CodeRepos&quot;
+        cite=&quot;http://coderepos.org/&quot;&gt;
+   &lt;p title=&quot;paragraph&quot; id=&quot;paragraph&quot;&gt;
+
+    &lt;br id=&quot;pSib&quot; /&gt;
+
+    &lt;!-- test name id problem --&gt;
+    &lt;input name=&quot;foo&quot; id=&quot;bar&quot; class=&quot;input-1&quot; /&gt;
+    &lt;input name=&quot;bar&quot; id=&quot;foo&quot; class=&quot;input-2&quot; /&gt;
+
+    &lt;img name=&quot;hoge&quot; id=&quot;fuga&quot; class=&quot;img-1&quot; /&gt;
+    &lt;img name=&quot;fuga&quot; id=&quot;hoge&quot; class=&quot;img-2&quot; /&gt;
+
+    &lt;br id=&quot;nSib&quot; /&gt;
+
+    Share your codes!
+   &lt;/p&gt;
+   &lt;cite class=&quot;cite site&quot;&gt;
+    &lt;a title=&quot;CodeRepos&quot; href=&quot;http://coderepos.org/&quot;&gt;CodeRepos&lt;/a&gt;
+   &lt;/cite&gt;
+  &lt;/blockquote&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>//blockquote[&quot;http://coderepos.org/&quot;=@cite]</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0000">only this case</A></TD></TR><TR><TD>/descendant::*[&quot;CodeRepos&quot;=@title]</TD><TD>blockquote a</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0001">only this case</A></TD></TR><TR><TD>//*[@class]</TD><TD>input input img img cite</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0002">only this case</A></TD></TR><TR><TD>/descendant::node()[@title]</TD><TD>blockquote p a</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0003">only this case</A></TD></TR><TR><TD>//body/*[@title]</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0004">only this case</A></TD></TR><TR><TD>//blockquote/node()[@title]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0005">only this case</A></TD></TR><TR><TD>//cite[@class=&quot;cite&quot;]</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0006">only this case</A></TD></TR><TR><TD>//cite[@class=&quot;site&quot;]</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0007">only this case</A></TD></TR><TR><TD>//cite[@class=&quot;cite site&quot;]</TD><TD>cite</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0008">only this case</A></TD></TR><TR><TD>//*[@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0009">only this case</A></TD></TR><TR><TD>//body//*[@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0010">only this case</A></TD></TR><TR><TD>//*[@id=&quot;bar&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0011">only this case</A></TD></TR><TR><TD>//*[@name=&quot;foo&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0012">only this case</A></TD></TR><TR><TD>//*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0013">only this case</A></TD></TR><TR><TD>//*[@name=&quot;bar&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0014">only this case</A></TD></TR><TR><TD>//p/node()[@id=&quot;bar&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0015">only this case</A></TD></TR><TR><TD>//p/node()[@name=&quot;foo&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0016">only this case</A></TD></TR><TR><TD>//p/node()[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0017">only this case</A></TD></TR><TR><TD>//p/node()[@name=&quot;bar&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0018">only this case</A></TD></TR><TR><TD>id(&quot;pSib&quot;)/following-sibling::*[@id][1]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0019">only this case</A></TD></TR><TR><TD>id(&quot;nSib&quot;)/preceding-sibling::*[@id][1]</TD><TD>img.img-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0020">only this case</A></TD></TR><TR><TD>id(&quot;pSib&quot;)/following-sibling::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0021">only this case</A></TD></TR><TR><TD>id(&quot;nSib&quot;)/preceding-sibling::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0022">only this case</A></TD></TR><TR><TD>id(&quot;pSib&quot;)/following::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0023">only this case</A></TD></TR><TR><TD>id(&quot;nSib&quot;)/preceding::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0024">only this case</A></TD></TR><TR><TD>/descendant::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0025">only this case</A></TD></TR><TR><TD>/descendant-or-self::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0026">only this case</A></TD></TR><TR><TD>id(&quot;hoge&quot;)/self::*[@id=&quot;hoge&quot;]</TD><TD>img.img-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0027">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/self::*[@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0028">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/parent::*[@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0029">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/ancestor::*[@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0030">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/ancestor-or-self::*[@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0031">only this case</A></TD></TR><TR><TD>//*[./@title=&quot;CodeRepos&quot;]</TD><TD>blockquote a</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0032">only this case</A></TD></TR><TR><TD>//node()[./@class]</TD><TD>input input img img cite</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0033">only this case</A></TD></TR><TR><TD>/descendant::node()[./@title]</TD><TD>blockquote p a</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0034">only this case</A></TD></TR><TR><TD>/descendant::blockquote/*[./@title]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0035">only this case</A></TD></TR><TR><TD>//blockquote[@*=&quot;http://coderepos.org/&quot;]</TD><TD>blockquote</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0036">only this case</A></TD></TR><TR><TD>//node()[@*=&quot;http://coderepos.org/&quot;]</TD><TD>link blockquote a</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0037">only this case</A></TD></TR><TR><TD>//*[./@*=&quot;http://coderepos.org/&quot;]</TD><TD>link blockquote a</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0038">only this case</A></TD></TR><TR><TD>//*[(@href|@cite)=&quot;http://coderepos.org/&quot;]</TD><TD>link blockquote a</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0039">only this case</A></TD></TR><TR><TD>count(//blockquote/@*) = count(//blockquote/@* | //blockquote/@*)</TD><TD>value(true)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0040">only this case</A></TD></TR><TR><TD>//cite[./@class=&quot;cite&quot;]</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0041">only this case</A></TD></TR><TR><TD>//cite[./@class=&quot;site&quot;]</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0042">only this case</A></TD></TR><TR><TD>//cite[./@class=&quot;cite site&quot;]</TD><TD>cite</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0043">only this case</A></TD></TR><TR><TD>//*[./@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0044">only this case</A></TD></TR><TR><TD>//blockquote//*[./@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0045">only this case</A></TD></TR><TR><TD>//*[./@id=&quot;bar&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0046">only this case</A></TD></TR><TR><TD>//*[./@name=&quot;foo&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0047">only this case</A></TD></TR><TR><TD>//*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0048">only this case</A></TD></TR><TR><TD>//*[./@name=&quot;bar&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0049">only this case</A></TD></TR><TR><TD>//p/node()[./@id=&quot;bar&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0050">only this case</A></TD></TR><TR><TD>//p/node()[./@name=&quot;foo&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0051">only this case</A></TD></TR><TR><TD>//p/node()[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0052">only this case</A></TD></TR><TR><TD>//p/node()[./@name=&quot;bar&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0053">only this case</A></TD></TR><TR><TD>//node()[./@id=&quot;bar&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0054">only this case</A></TD></TR><TR><TD>//node()[./@name=&quot;foo&quot;]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0055">only this case</A></TD></TR><TR><TD>//node()[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0056">only this case</A></TD></TR><TR><TD>//node()[./@name=&quot;bar&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0057">only this case</A></TD></TR><TR><TD>id(&quot;pSib&quot;)/following-sibling::*[./@id][1]</TD><TD>input.input-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0058">only this case</A></TD></TR><TR><TD>id(&quot;nSib&quot;)/preceding-sibling::*[./@id][1]</TD><TD>img.img-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0059">only this case</A></TD></TR><TR><TD>id(&quot;pSib&quot;)/following-sibling::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0060">only this case</A></TD></TR><TR><TD>id(&quot;nSib&quot;)/preceding-sibling::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0061">only this case</A></TD></TR><TR><TD>id(&quot;pSib&quot;)/following::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0062">only this case</A></TD></TR><TR><TD>id(&quot;nSib&quot;)/preceding::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0063">only this case</A></TD></TR><TR><TD>/descendant::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0064">only this case</A></TD></TR><TR><TD>/descendant-or-self::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0065">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/self::*[./@id=&quot;foo&quot;]</TD><TD>input.input-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0066">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/parent::*[./@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0067">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/ancestor::*[./@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0068">only this case</A></TD></TR><TR><TD>id(&quot;foo&quot;)/ancestor-or-self::*[./@id=&quot;paragraph&quot;]</TD><TD>p</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0005-0069">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0006"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0006">Descendant Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">24</SPAN> / <SPAN>24</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0005" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0007" class="next">(next)</A></DIV><PRE>&lt;html&gt;&lt;head&gt;&lt;title&gt;title&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;foo&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>//*</TD><TD>html head title body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0000">only this case</A></TD></TR><TR><TD>//node()</TD><TD>html head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0001">only this case</A></TD></TR><TR><TD>/descendant::*</TD><TD>html head title body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0002">only this case</A></TD></TR><TR><TD>/descendant::node()</TD><TD>html head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0003">only this case</A></TD></TR><TR><TD>/descendant-or-self::*</TD><TD>html head title body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0004">only this case</A></TD></TR><TR><TD>/descendant-or-self::node()</TD><TD>document() html head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0005">only this case</A></TD></TR><TR><TD>//*//*</TD><TD>head title body h1</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0006">only this case</A></TD></TR><TR><TD>//node()//node()</TD><TD>head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0007">only this case</A></TD></TR><TR><TD>//*/descendant::*</TD><TD>head title body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0008">only this case</A></TD></TR><TR><TD>//node()/descendant::node()</TD><TD>head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0009">only this case</A></TD></TR><TR><TD>//*/descendant-or-self::*</TD><TD>html head title body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0010">only this case</A></TD></TR><TR><TD>//node()/descendant-or-self::node()</TD><TD>html head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0011">only this case</A></TD></TR><TR><TD>//*[1]</TD><TD>html head title h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0012">only this case</A></TD></TR><TR><TD>//node()[1]</TD><TD>html head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0013">only this case</A></TD></TR><TR><TD>/descendant::*[1]</TD><TD>html</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0014">only this case</A></TD></TR><TR><TD>/descendant::node()[1]</TD><TD>html</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0015">only this case</A></TD></TR><TR><TD>/descendant-or-self::*[1]</TD><TD>html</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0016">only this case</A></TD></TR><TR><TD>/descendant-or-self::node()[1]</TD><TD>document()</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0017">only this case</A></TD></TR><TR><TD>//*//*[1]</TD><TD>head title h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0018">only this case</A></TD></TR><TR><TD>//node()//node()[1]</TD><TD>head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>7</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0019">only this case</A></TD></TR><TR><TD>//*/descendant::*[1]</TD><TD>head title h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0020">only this case</A></TD></TR><TR><TD>//node()/descendant::node()[1]</TD><TD>head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0021">only this case</A></TD></TR><TR><TD>//*/descendant-or-self::*[1]</TD><TD>html head title body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0022">only this case</A></TD></TR><TR><TD>//node()/descendant-or-self::node()[1]</TD><TD>html head title text(&quot;title&quot;):gecko:opera:applewebkit:netfront body h1 text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0006-0023">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0007"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0007">Ancestor Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">16</SPAN> / <SPAN>16</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0006" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0008" class="next">(next)</A></DIV><PRE>&lt;html&gt;&lt;head&gt;&lt;title&gt;title&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1 id=&quot;t&quot;&gt;foo&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>id(&quot;t&quot;)/ancestor::*</TD><TD>html body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0000">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor::node()</TD><TD>document() html body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0001">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::*</TD><TD>html body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0002">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()</TD><TD>document() html body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0003">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor::*</TD><TD>html body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0004">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor::node()</TD><TD>document() html body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0005">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor-or-self::*</TD><TD>html body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0006">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor-or-self::node()</TD><TD>document() html body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0007">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor::*[1]</TD><TD>body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0008">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor::node()[1]</TD><TD>body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0009">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::*[1]</TD><TD>h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0010">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()[1]</TD><TD>h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0011">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor::*[1]</TD><TD>html body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0012">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor::node()[1]</TD><TD>document() html body</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0013">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor-or-self::*[1]</TD><TD>html body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0014">only this case</A></TD></TR><TR><TD>id(&quot;t&quot;)/ancestor-or-self::node()/ancestor-or-self::node()[1]</TD><TD>document() html body h1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0007-0015">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0008"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0008">Sibling Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">16</SPAN> / <SPAN>16</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0007" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0009" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div&gt;&lt;span id=&quot;first&quot; class=&quot;1&quot;&gt;&lt;/span&gt;foo&lt;span class=&quot;2&quot;&gt;&lt;/span&gt;bar&lt;span class=&quot;3&quot;&gt;&lt;/span&gt;baz&lt;span id=&quot;last&quot; class=&quot;4&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>id(&#39;first&#39;)/following-sibling::*</TD><TD>span.2 span.3 span.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0000">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::node()</TD><TD>text(&quot;foo&quot;) span.2 text(&quot;bar&quot;) span.3 text(&quot;baz&quot;) span.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0001">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::*/following-sibling::*</TD><TD>span.3 span.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0002">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::node()/following-sibling::node()</TD><TD>span.2 text(&quot;bar&quot;) span.3 text(&quot;baz&quot;) span.4</TD><TD class="ok">ok</TD><TD>3</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0003">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::*[1]</TD><TD>span.2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0004">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::node()[1]</TD><TD>text(&quot;foo&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0005">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::*/following-sibling::*[1]</TD><TD>span.3 span.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0006">only this case</A></TD></TR><TR><TD>id(&#39;first&#39;)/following-sibling::node()/following-sibling::node()[1]</TD><TD>span.2 text(&quot;bar&quot;) span.3 text(&quot;baz&quot;) span.4</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0007">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::*</TD><TD>span.1 span.2 span.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0008">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::node()</TD><TD>span.1 text(&quot;foo&quot;) span.2 text(&quot;bar&quot;) span.3 text(&quot;baz&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0009">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::*/preceding-sibling::*</TD><TD>span.1 span.2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0010">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::node()/preceding-sibling::node()</TD><TD>span.1 text(&quot;foo&quot;) span.2 text(&quot;bar&quot;) span.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0011">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::*[1]</TD><TD>span.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0012">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::node()[1]</TD><TD>text(&quot;baz&quot;)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0013">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::*/preceding-sibling::*[1]</TD><TD>span.1 span.2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0014">only this case</A></TD></TR><TR><TD>id(&#39;last&#39;)/preceding-sibling::node()/preceding-sibling::node()[1]</TD><TD>span.1 text(&quot;foo&quot;) span.2 text(&quot;bar&quot;) span.3</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0008-0015">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0009"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0009">Element had length property (ex &lt;select&gt;)  Test</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">14</SPAN> / <SPAN>14</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0008" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0010" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;title&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;select id=&quot;target&quot;&gt;
+   &lt;option&gt;foo&lt;/option&gt;
+   &lt;option&gt;bar&lt;/option&gt;
+   &lt;option&gt;baz&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;div&gt;
+   &lt;select name=&quot;target2&quot; id=&quot;a&quot;&gt;
+    &lt;option&gt;foo&lt;/option&gt;
+    &lt;option&gt;bar&lt;/option&gt;
+    &lt;option&gt;baz&lt;/option&gt;
+   &lt;/select&gt;
+   &lt;select name=&quot;target2&quot; id=&quot;b&quot;&gt;
+    &lt;option&gt;foo&lt;/option&gt;
+    &lt;option&gt;bar&lt;/option&gt;
+    &lt;option&gt;baz&lt;/option&gt;
+   &lt;/select&gt;
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>id(&quot;target&quot;)</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0000">only this case</A></TD></TR><TR><TD>//*[@id=&quot;target&quot;]</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0001">only this case</A></TD></TR><TR><TD>//select[@id=&quot;target&quot;]</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0002">only this case</A></TD></TR><TR><TD>//node()[@id=&quot;target&quot;]</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0003">only this case</A></TD></TR><TR><TD>//body/*[@id=&quot;target&quot;]</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0004">only this case</A></TD></TR><TR><TD>//body/select[@id=&quot;target&quot;]</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0005">only this case</A></TD></TR><TR><TD>//body/node()[@id=&quot;target&quot;]</TD><TD>select#target</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0006">only this case</A></TD></TR><TR><TD>id(&quot;target2&quot;)</TD><TD>(none)</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0007">only this case</A></TD></TR><TR><TD>//*[@name=&quot;target2&quot;]</TD><TD>select#a select#b</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0008">only this case</A></TD></TR><TR><TD>//select[@name=&quot;target2&quot;]</TD><TD>select#a select#b</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0009">only this case</A></TD></TR><TR><TD>//node()[@name=&quot;target2&quot;]</TD><TD>select#a select#b</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0010">only this case</A></TD></TR><TR><TD>//body/div/*[@name=&quot;target2&quot;]</TD><TD>select#a select#b</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0011">only this case</A></TD></TR><TR><TD>//body/div/select[@name=&quot;target2&quot;]</TD><TD>select#a select#b</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0012">only this case</A></TD></TR><TR><TD>//body/div/node()[@name=&quot;target2&quot;]</TD><TD>select#a select#b</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0009-0013">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0010"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0010">IE id problem</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">4</SPAN> / <SPAN>4</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0010" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0009" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0011" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+    &lt;head&gt;
+     &lt;title&gt;title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;div id=&quot;aaa&quot;&gt;
+                &lt;p&gt;Howdy&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;tags&quot;&gt;Problem div&lt;/div&gt;
+        &lt;div id=&quot;getElementsByTagName&quot;&gt;Problem div&lt;/div&gt;
+        &lt;div id=&quot;getElementById&quot;&gt;Problem div&lt;/div&gt;
+        &lt;div id=&quot;children&quot;&gt;Problem div&lt;/div&gt;
+        &lt;div id=&quot;nodeType&quot;&gt;Problem div&lt;/div&gt;
+        &lt;div id=&quot;length&quot;&gt;Problem div&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>/html/body/div</TD><TD>div div#tags div#getElementsByTagName div#getElementById div#children div#nodeType div#length</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0010-0000">only this case</A></TD></TR><TR><TD>//body//div</TD><TD>div div#aaa div#tags div#getElementsByTagName div#getElementById div#children div#nodeType div#length</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0010-0001">only this case</A></TD></TR><TR><TD>//div[@id=&quot;aaa&quot;]</TD><TD>div#aaa</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0010-0002">only this case</A></TD></TR><TR><TD>id(&quot;aaa&quot;)</TD><TD>div#aaa</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0010-0003">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0011"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0011">Complex href</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">6</SPAN> / <SPAN>6</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0010" class="prev">(prev)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0012" class="next">(next)</A></DIV><PRE>&lt;html&gt;
+&lt;body&gt;
+&lt;a id=&quot;id0-0&quot; href=&quot;javascript:doFoo(&#39;a&#39;, &#39;b&#39;)&quot;&gt;foo&lt;/a&gt;
+&lt;a id=&quot;id0-1&quot; href=&quot;javascript:doFoo(&#39;a&#39;,&percnt;20&#39;b&#39;)&quot;&gt;foo&lt;/a&gt;
+&lt;a id=&quot;id0-2&quot; href=&quot;javascript:doFoo(&#39;&percnt;61&#39;,&percnt;20&#39;b&#39;)&quot;&gt;foo&lt;/a&gt;
+&lt;a id=&quot;id1-0&quot; href=&quot;http://example.com/a b&quot;&gt;foo&lt;/a&gt;
+&lt;a id=&quot;id1-1&quot; href=&quot;http://example.com/a&percnt;20b&quot;&gt;foo&lt;/a&gt;
+&lt;a id=&quot;id1-2&quot; href=&quot;http://example.com/&percnt;61&percnt;20b&quot;&gt;foo&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>//a[@href=&quot;javascript:doFoo(&#39;a&#39;, &#39;b&#39;)&quot;]</TD><TD>a#id0-0</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011-0000">only this case</A></TD></TR><TR><TD>//a[@href=&quot;javascript:doFoo(&#39;a&#39;,&percnt;20&#39;b&#39;)&quot;]</TD><TD>a#id0-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011-0001">only this case</A></TD></TR><TR><TD>//a[@href=&quot;javascript:doFoo(&#39;&percnt;61&#39;,&percnt;20&#39;b&#39;)&quot;]</TD><TD>a#id0-2</TD><TD class="ok">ok</TD><TD>1</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011-0002">only this case</A></TD></TR><TR><TD>//a[@href=&quot;http://example.com/a b&quot;]</TD><TD>a#id1-0</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011-0003">only this case</A></TD></TR><TR><TD>//a[@href=&quot;http://example.com/a&percnt;20b&quot;]</TD><TD>a#id1-1</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011-0004">only this case</A></TD></TR><TR><TD>//a[@href=&quot;http://example.com/&percnt;61&percnt;20b&quot;]</TD><TD>a#id1-2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0011-0005">only this case</A></TD></TR></TBODY></TABLE></DIV><DIV id="test-0012"><H2><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0012">Misc</A> <SPAN class="local-counter"><SPAN class="local-counter-ok">6</SPAN> / <SPAN>6</SPAN></SPAN></H2><DIV><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012" class="only">(only this test)</A> <A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html#test-0011" class="prev">(prev)</A></DIV><PRE>&lt;html&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;id1&quot;&gt;foo&lt;/div&gt;
+        &lt;div id=&quot;id2&quot;&gt;bar&lt;/div&gt;
+        &lt;div id=&quot;id3&quot;&gt;baz&lt;/div&gt;
+        &lt;div id=&quot;id4&quot;&gt;
+            &lt;div id=&quot;id4-1&quot;&gt;foo&lt;/div&gt;
+            &lt;div id=&quot;id4-2&quot;&gt;bar&lt;/div&gt;
+            &lt;div id=&quot;id4-3&quot;&gt;baz&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;table&gt;
+            &lt;tbody&gt;
+                &lt;tr id=&quot;id5&quot;&gt;
+                    &lt;td&gt;1&lt;/td&gt; &lt;td&gt;2&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr id=&quot;id6&quot;&gt;
+                    &lt;td&gt;1&lt;/td&gt; &lt;td&gt;2&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr id=&quot;id7&quot;&gt;
+                    &lt;td&gt;1&lt;/td&gt; &lt;td&gt;2&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;table&gt;
+            &lt;tbody&gt;
+                &lt;tr id=&quot;id8&quot;&gt;
+                    &lt;td&gt;1&lt;/td&gt; &lt;td&gt;2&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr id=&quot;id9&quot;&gt;
+                    &lt;td&gt;1&lt;/td&gt; &lt;td&gt;2&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr id=&quot;id0&quot;&gt;
+                    &lt;td&gt;1&lt;/td&gt; &lt;td&gt;2&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</PRE><TABLE><THEAD><TR><TH>expression</TH><TH>expects</TH><TH>result</TH><TH>time(ms)</TH><TH>links</TH></TR></THEAD><TBODY><TR><TD>//div[2]</TD><TD>div#id2 div#id4-2</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012-0000">only this case</A></TD></TR><TR><TD>/descendant::div[2]</TD><TD>div#id2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012-0001">only this case</A></TD></TR><TR><TD>(//div)[2]</TD><TD>div#id2</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012-0002">only this case</A></TD></TR><TR><TD>//tr[2]</TD><TD>tr#id6 tr#id9</TD><TD class="ok">ok</TD><TD>2</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012-0003">only this case</A></TD></TR><TR><TD>/descendant::tr[2]</TD><TD>tr#id6</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012-0004">only this case</A></TD></TR><TR><TD>(//tr)[2]</TD><TD>tr#id6</TD><TD class="ok">ok</TD><TD>0</TD><TD><A href="http://svn.coderepos.org/share/lang/javascript/javascript-xpath/trunk/test/functional/index.html?0012-0005">only this case</A></TD></TR></TBODY></TABLE></DIV></DIV>
+  <IFRAME id="testFrame"></IFRAME>
+  <SCRIPT type="text/javascript">
+// <![CDATA[
+
+var testFrame = document.getElementById('testFrame');
+var testLog = document.getElementById('testLog');
+
+
+{
+    var ct_elem = document.getElementById('counter');
+    Logger.globalCounter = new Counter(ct_elem.firstChild, ct_elem.lastChild, 'counter-ng');
+}
+
+function getTestData(id) {
+    if (window.TEST_DATAS)
+        return TEST_DATAS[id];
+
+    var xhr = window.XMLHttpRequest ? new window.XMLHttpRequest : new ActiveXObject('Msxml2.XMLHTTP');
+    var status, responseText;
+    try {
+        xhr.open('GET', 'data/' + id + '?' + Math.random(), false);
+        xhr.send(null);
+        status = xhr.status;
+        if (status == 0) {
+            status = 200;
+        }
+        responseText = xhr.responseText;
+        if (!responseText) {
+            status = 404;
+        }
+    }
+    catch(e) {
+        status = 404;
+    }
+    if (status == 200) {
+        return responseText;
+    }
+    else {
+        return undefined;
+    }
+}
+
+function loadFrame(html) {
+    var win = testFrame.contentWindow;
+    var doc = win.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+    install(win);
+    var html = doc.documentElement;
+    var attrs = html.attributes;
+    var t = '';
+
+    for (var i = 0, attr; attr = attrs[i]; i ++) {
+        t += (attr.prefix ? attr.prefix + ':' : '') + ' ' + attr.name + '=' + attr.value;
+    }
+//    return html.outerHTML || '<' + (html.prefix ? html.prefix + ':' : '') + html.nodeName + t + '>' + html.innerHTML + '</' + (html.prefix ? html.prefix + ':' : '') + html.nodeName + '>';
+}
+
+function applyXPath(context, expr) {
+    var doc = testFrame.contentWindow.document;
+    var expr = doc.createExpression(expr, null);
+    var start_t = new Date;
+    var result = expr.evaluate(context, 0, null);
+    var time = new Date - start_t;
+    if (result.resultType > 3) {
+        result = expr.evaluate(context, 7, null);
+        var array = [];
+        for (var i = 0, length = result.snapshotLength; i < length; i ++) {
+            array[i] = result.snapshotItem(i);
+        }
+        return [array, time];
+    }
+    else {
+        if (result.resultType == 1) {
+            return [result.numberValue, time];
+        }
+        if (result.resultType == 2) {
+            return [result.stringValue, time];
+        }
+        if (result.resultType == 3) {
+            return [result.booleanValue, time];
+        }
+    }
+}
+
+function parseTestData(data) {
+    if (data == undefined) {
+        return undefined;
+    }
+    var dataSplited = data.split(/\n--------\n/);
+
+    var comment = dataSplited[0];
+    var html = dataSplited[1];
+    var contextExpr = dataSplited[2];
+    var testData = dataSplited[3];
+
+    var testDataSplited = testData.split(/\n/);
+    var tests = [];
+    for (var i = 0, length = testDataSplited.length; i < length; i ++) {
+        if (testDataSplited[i].match(/^\s*#/)) continue; // comment
+        var m = testDataSplited[i].match(/^\s*(.*?)\s*=>\s*(.*?)?\s*$/);
+        if (m) { 
+            tests.push({ expr: m[1], data: m[2] });
+        }
+    }
+    return {comment: comment, html: html, contextExpr: contextExpr, tests: tests};
+}
+
+function NodeTest(data) {
+    this.nodes = [];
+    data = data || '';
+    if (data.match(/^\s*\(none\)\s*$/)) return;
+    var tokens = data.match(/([\w-]+\(.*?\)|\w+(\.[\w-]+|#[\w-]+|\[[\w-]+=("[^"]*"|'[^']*')\])*)(:\w+)*/g);
+    tokens = tokens || [];
+    for (var i = 0, l = tokens.length; i < l; i ++) {
+        var token = tokens[i];
+        var m = token.match(/([\w-]+)\(((([\w-]+)=)?("[^"]*"|'[^']*'|-?\d+|NaN|-?Infinity|true|false)?)\)((:\w+)*)/);
+        var uas, nodeData, nodeType, nodeName, nodeValue;
+        uas = nodeData = nodeType = nodeName = nodeValue = null;
+        if (m) {
+            nodeType = this.typeMap[m[1]];
+            switch (nodeType) {
+                case 0:
+                    nodeName = '#value';
+                    nodeValue = m[2];
+                    break;
+                case 2: case 7:
+                    nodeName = m[4];
+                    nodeValue = m[5];
+                    break;
+                case 3:
+                    nodeName = '#text';
+                    nodeValue = m[2];
+                    break;
+                case 4:
+                    nodeName = '#cdata-section';
+                    nodeValue = m[2];
+                    break;
+                case 8:
+                    nodeName = '#comment';
+                    nodeValue = m[2];
+                    break;
+                case 9:
+                    nodeName = '#document';
+                    nodeValue = null;
+                    break;
+                default:
+                    nodeValue = m[2];
+                    break;
+            }
+            if (nodeValue && nodeType != 0) {
+                var first = nodeValue.charAt(0);
+                var last = nodeValue.charAt(nodeValue.length - 1);
+                if (last == first && (first == '"' || first == "'")) {
+                    nodeValue = eval(nodeValue);
+                }
+            }
+            uas = m[6].split(':');
+        }
+        else {
+            m = token.match(/((\w+)((\.[\w-]+|#[\w-]+|\[[\w-]+=("[^"]*"|'[^']*')\])*))((:\w+)*)/);
+
+            nodeType = 1;
+            nodeName = m[2]
+            var nodeDatas = m[3];
+            nodeDatas = nodeDatas.match(/\.[\w-]+|#[\w-]+|\[[\w-]+=("[^"]*"|'[^']*')\]/g);
+            if (nodeDatas) {
+                nodeData = [];
+                for (var j = 0; j < nodeDatas.length; j ++) {
+                    var data = nodeDatas[j];
+                    switch (data.charAt(0)) {
+                        case '.':
+                            data = {
+                                type: 'class',
+                                name: data.substring(1),
+                                match: function(node) {
+                                    var classes = node.className.split(/\s+/);
+                                    for (var i = 0; i < classes.length; i ++) {
+                                        if (classes[i] == this.name) {
+                                            return true;
+                                        }
+                                    }
+                                    return false;
+                                }
+                            };
+                            nodeData.push(data);
+                            break;
+                        case '#':
+                            data = {
+                                type: 'id',
+                                name: data.substring(1),
+                                match: function(node) {
+                                    return node.id == this.name;
+                                }
+                            };
+                            nodeData.push(data);
+                            break;
+                        case '[':
+                            data = data.substring(1, data.length - 1);
+                            data = data.split(/=/);
+                            data = {
+                                type: 'attr',
+                                name: data[0],
+                                value: eval(data[1]), // quot
+                                match: function(node) {
+                                    return node.getAttribute(this.name) == this.value;
+                                }
+                            };
+                            nodeData.push(data);
+                            break;
+                        default:
+                    }
+                }
+            }
+            else {
+            }
+            uas = m[6].split(':');
+        }
+        for (var j = 0, l0 = uas.length; j < l0; j++) {
+            if (!uas[j]) {
+                uas.splice(j, 1);
+            }
+        }
+
+        function createNodeInfo(nodeType, nodeName, nodeValue, nodeData) {
+            return {
+                nodeType: nodeType,
+                nodeName: nodeName,
+                nodeValue: nodeValue,
+                nodeData: nodeData,
+                match: function(node) {
+                    if (node.nodeType != this.nodeType) return false;
+                    if (node.nodeName.toLowerCase() != this.nodeName.toLowerCase()) return false;
+                    if (node.nodeValue != this.nodeValue) return false;
+                    if (this.nodeData) {
+                        for (var i = 0; i < this.nodeData.length; i ++) {
+                            if (!this.nodeData[i].match(node)) return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+
+        if (uas.length) {
+            for (var j = 0, l0 = uas.length; j < l0; j++) {
+                if (uai[uas[j]]) {
+                    this.nodes.push(createNodeInfo(nodeType, nodeName, nodeValue, nodeData));
+                    break;
+                }
+            }
+        }
+        else {
+            this.nodes.push(createNodeInfo(nodeType, nodeName, nodeValue, nodeData));
+        }
+    }
+    if (this.nodes.length == 1 && this.nodes[0].nodeType == 0) {
+        this.primitive = true;
+        this.value = eval(this.nodes[0].nodeValue);
+    }
+}
+
+NodeTest.prototype.typeMap = {
+    value: 0,
+    element: 1,
+    attribute: 2,
+    text: 3,
+    'cdata-section': 4,
+    'entity-reference': 5,
+    entity: 6,
+    'processing-instruction': 7,
+    comment: 8,
+    document: 9,
+    'document-type': 10,
+    'document-fragment': 11,
+    notation: 12
+}
+
+NodeTest.prototype.test = function(nodes) {
+    if (nodes.length != this.nodes.length) {
+//        console.log(nodes.length, this.nodes.length)
+        return false;
+    }
+    for (var i = 0; i < nodes.length; i ++) {
+        if (!this.nodes[i].match(nodes[i])) {
+/*
+            alert(i);
+            alert(nodes[i].nodeValue == this.nodes[i].nodeValue);
+            if (nodes[i].nodeValue)
+                alert(nodes[i].nodeValue.replace(/ /g, 's').replace(/\n/g, 'n'));
+            if (this.nodes[i].nodeValue)
+                alert(this.nodes[i].nodeValue.replace(/ /g, 's').replace(/\n/g, 'n'));
+            
+            console.log(nodes[i], this.nodes[i]);
+*/
+            return false;
+        }
+    }
+    return true;
+}
+
+function testNodes(nodes, data) {
+    var tester = new NodeTest(data);
+    if (tester.primitive) {
+        if (tester.value == nodes) {
+            return { status: 'ok', detail: 'ok' };
+        }
+        else {
+            if (typeof tester.value != 'string') {
+                return { status: 'ng', detail: 'value(' + nodes + ')' }
+            }
+            else {
+                return { status: 'ng', detail: 'value("' + nodes.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")' }
+            }
+        }
+    }
+    if (tester.test(nodes)) {
+        return { status: 'ok', detail: 'ok' };
+    }
+    var detail = [];
+    for (var i = 0; i < nodes.length; i ++) {
+        var t = '';
+        var node = nodes[i]
+        switch (node.nodeType) {
+            case 1:
+                t += node.nodeName.toLowerCase();
+                if (node.id) {
+                    t += '#' + node.id;
+                }
+                if (node.className) {
+                    var classes = node.className.split(/\s+/);
+                    t += '.' + classes.join('.');
+                }
+
+                /*
+                var attrs = node.attributes;
+                for (var j = 0; j < attrs.length; j ++) {
+                    if (attrs[j].nodeName == 'class' || attrs[j].nodeName == 'id') {
+                        continue;
+                    }
+                    if (attrs[j].nodeValue) {
+                        t += '[' + attrs[j].nodeName + '="' + attrs[j].nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '"]';
+                    }
+                }
+                */
+                break;
+            case 3:
+                t += 'text("' + node.nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")';
+                break;
+            case 7:
+                t += 'processing-instruction(' + node.nodeName + '="' + node.nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")';
+                break;
+            case 8:
+                t += 'comment("' + node.nodeValue.replace(/\\/, '\\\\').replace(/"/, '\\"') + '")';
+                break;
+            case 9:
+                t += 'document()';
+                break;
+            default:
+                t += 'unknown';
+                break;
+        }
+        detail.push(t);
+    }
+    return { status: 'ng', detail: detail.join(' ') };
+}
+
+var search = document.location.search;
+if (search) {
+    var splited = search.replace(/^\?/, '').split(/-/);
+    if (splited[0]) {
+        var reservedTestIndex = parseInt(splited[0].replace(/^0*/, '') || 0);
+    }
+    if (splited[1]) {
+        var reservedCaseIndex = parseInt(splited[1].replace(/^0*/, ''));
+    }
+}
+
+window._setTimeout = window.setTimeout;
+
+window.setTimeout = function() {
+    var f = arguments[0];
+    var t = arguments[1];
+    var args = [];
+    for (var i = 2, l = arguments.length; i < l; i ++) args.push(arguments[i]);
+    _setTimeout(function() { return f.apply(this, args) }, t);
+};
+
+var testIndex = (reservedTestIndex || 0);
+var prevLogger = null;
+
+var prevId = null;
+function f () {
+    var doc = testFrame.contentWindow.document;
+    var id = testIndex ++;
+    id = (10000 + id + '').substring(1)
+    var data = parseTestData(getTestData(id));
+    if (!data) return;
+
+    loadFrame(data.html);
+    var context = doc.evaluate(data.contextExpr, doc, null, 7, null).snapshotItem(0);
+    var tests = data.tests;
+    var logger = new Logger(data.comment, data.html, id, prevId);
+    prevId = id;
+    if (prevLogger) prevLogger.next(id);
+    prevLogger = logger;
+    var i = (reservedCaseIndex || 0), length = tests.length;;
+
+    function g(fin) {
+        if (!(i < length)) return fin();
+        var test = tests[i];
+        var expr = test.expr;
+        try {
+            var nodesAndTime = applyXPath(context, expr);
+            var result = testNodes(nodesAndTime[0], test.data);
+            var t = nodesAndTime[1];
+            var ok = result.detail == 'ok';
+
+            var anchor = document.createElement('a');
+            anchor.href = '?' + id + '-' + (10000 + logger.localCounter.countAll + '').substring(1);
+            anchor.appendChild(document.createTextNode('only this case'));
+
+            logger.log([
+                expr,
+                test.data,
+                {
+                    label: result.detail,
+                    className: result.status
+                },
+                {
+                    label: t,
+                    className: (t>50) ? 'heavy': null
+                },
+                {
+                    richLabel: anchor
+                }
+            ]);
+            logger.localCounter.inc(ok);
+            Logger.globalCounter.inc(ok);
+        }
+        catch (e) {
+            logger.log([expr, test.data, e.message, 'error']);
+            logger.localCounter.inc(false);
+            Logger.globalCounter.inc(false);
+//          alert(e);
+        }
+        i ++;
+        if (reservedCaseIndex == undefined) {
+            setTimeout(g, 10, fin);
+        }
+    }
+
+    setTimeout(g , 10, function() {
+        if (reservedTestIndex == undefined) {
+            setTimeout(f, 10);
+        }
+    });
+}
+
+setTimeout(f, 10);
+
+// ]]>
+  </SCRIPT>
+ 
+
+
+</BODY></HTML>

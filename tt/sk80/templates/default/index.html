@@ -1,0 +1,81 @@
+<{include file='default/header.html'}>
+<{strip}>
+            <div id="wrapper-inner">
+              <div id="content">
+                  <{foreach from=$articles name=list item=val}>
+                  <div class="post">
+                      <h2><a href="<{$val->url}>"><{$val->title}></a></h2>
+                      <ul class="info">
+                          <li class="date"><{$val->created_date|date_format:"%Y年 %m月%e日  %H:%M"}></li>
+                          <li class="category"><a href="<{$val->category_url}>"><{$val->category}></a></li>
+                      </ul>                    
+                      <div class="textbody">
+                        <{$val->content}>
+                      </div>
+                      <ul class="reaction">
+                          <li><a rel="nofollow" href="<{$val->url}>">Permalink</a></li>
+                      </ul>
+                  </div>
+                  <{/foreach}>
+                  <p id="page-nav" class="page">
+                      <{$page_nav}>
+                  </p>
+              </div>
+                <div id="utilities" class="utilities_side">
+                    <dl class="navi">
+                        <dt>最近文章</dt>
+                        <dd>
+                            <ul class="recentEntries">
+                                <{foreach from=$recent_post item=val name=recent_post}>
+                                <li><a href="<{$val->url}>"><{$val->title}></a></li>
+                                <{/foreach}>
+                            </ul>
+                        </dd>
+                        <dt>文章分类</dt>
+                        <dd>
+                            <ul class="category">
+                                <{foreach from=$categories item=val name=categories}>
+                                <li <{if $val->pid neq '0'}>class="child"<{/if}>>
+                                    <a href="<{$val->url}>"><{$val->name}></a><small>(<{$val->count}>)</small>
+                                </li>
+                                <{/foreach}>
+                            </ul>
+                        </dd>
+                        <!--dt>文章归档</dt>
+                        <dd>
+                            <ul class="archives">
+
+                            </ul>
+                        </dd-->
+                        <dt>标签</dt>
+                        <dd>
+                            <ul class="tags">
+                              <{foreach from=$tag_list item=val name=tag_list}>
+                              <li><a style="font-size: <{$val.size}>px;" href="<{$val.url}>"><{$val.word}></a></li>
+                              <{/foreach}>
+                            </ul>
+                        </dd>
+                        <dt>链接</dt>
+                        <dd>
+                            <ul class="tags">
+                              <li><a rel="nofollow" href="http://www.pianzhouzi.com">隐湖小筑</a></li>
+                            </ul>
+                        </dd>
+                    </dl>
+
+                    <dl class="other1 others">
+                        <dt>音乐</dt>
+                        <dd>
+                            <embed src="http://disk.kugou.com/player/0/5/0/0/C95E28/200/53DAF04836B88ACC/list.swf" AllowScriptAccess="always" id="KugouPlayer" FlashVars="" quality="high" width="200" height="220" name="KugouPlayer" align="middle" type="application/x-shockwave-flash"  wmode="transparent" ></embed>
+                            <p><a href="javascript:openbox();" style="background-color:#2DAEBF; font:bold 11px/100% Verdana,Arial,sans-serif;text-shadow:0 -1px 1px rgba(0, 0, 0, 0.25);border-radius:5px;-moz-border-radius:5px;-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.5);color:#FFFFFF;display:inline-block;padding:5px 10px 6px;text-decoration:none;">Play in Box</a></p>
+                        </dd>
+                    </dl>
+                    <script type="text/javascript">
+                        function openbox() {
+                            window.open('/music.html', 'music@blog.sk80.com', 'height=220, width=200, top='+Math.round((window.screen.height-200)/2)+',left='+Math.round((window.screen.width-200)/2)+', toolbar=no, menubar=no, scrollbars=no, resizable=0,location=0, status=0');
+                        }
+                    </script>
+
+                </div>
+<{/strip}>
+<{include file="default/footer.html"}>

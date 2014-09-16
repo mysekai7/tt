@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+body {
+	font-size: 12px;
+}
+</style>
+<script type="text/javascript" src="select.js"></script>
+<title></title>
+</head>
+<body>
+
+<!--城市----------------------------------------------->
+<p>
+省市
+<hr />
+<div>
+<select id="province1">
+</select>
+<select id="city1">
+</select>
+<br>
+<select id="province2">
+</select>
+<select id="city2">
+</select>
+</div>
+<script type="text/javascript">
+var slink1 = new SLink([['province1','11'],['city1', '1101']]);
+slink1.init();
+var slink2 = new SLink([['province2','12'],['city2', '1202']]);
+slink2.init();
+</script>
+</p>
+
+
+<!--专业----------------------------------------------->
+<p>
+专业
+<hr />
+<div>
+<select id="zhuanye1">
+</select>
+<select id="zhuanye2">
+</select>
+<select id="zhuanye3">
+</select>
+<br>
+<select id="zhuanye11">
+</select>
+<select id="zhuanye22">
+</select>
+<script type="text/javascript">
+var szhuanye1 = new SLink([['zhuanye1','110000'],['zhuanye2', '110100'],['zhuanye3', '110199']]);
+szhuanye1.base = "/js/acting/select/data/speciality";
+szhuanye1.init();
+var szhuanye2 = new SLink([['zhuanye11','110000'],['zhuanye22', '110100']]);
+szhuanye2.base = "/js/acting/select/data/speciality";
+szhuanye2.init();
+</script>
+</div>
+
+</body>
+</html>

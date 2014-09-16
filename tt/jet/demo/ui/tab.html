@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head profile="http://gmpg.org/xfn/11"> 
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+	<title>Tab Demo - JET</title> 
+	<link rel="stylesheet" href="/css/base.css" type="text/css" media="screen" /> 
+
+<style> 
+ul,li { margin:0; padding:0; list-style:none; }
+#t { }
+#t li { float:left; width:100px; height:30px; background:#ccc; line-height:30px; text-align:center; cursor:pointer; }
+#t li.current { background:red; }
+#s1,#s2,#s3 { clear:left; width:300px; height:50px; line-height:50px; background:#999; display:none; text-align:center; }
+</style> 
+</head> 
+<body> 
+	<div id="container"> 
+		<ul id="t"> 
+			<li id="t1">t1</li> 
+			<li id="t2">t2</li> 
+			<li id="t3">t3</li> 
+		</ul> 
+		<div id="s"> 
+			<div id="s1">s1</div> 
+			<div id="s2">s2</div> 
+			<div id="s3">s3</div> 
+		</div> 
+		<div id="debug"></div> 
+	</div> 
+	
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.array.js"></script>
+	<script type="text/javascript" src="../../source/jet.ui.js"></script>
+	<script>
+		Jet().$package(function(J){
+			var $=J.dom.id,
+				$D=J.dom,
+				$E = J.event;
+				
+			$E.onDomReady(function(){
+				//var tab = new J.ui.Tab([$('t1'),$('t2'), $('t3')],[$('s1'),$('s2'),$('s3')],{ triggerEvent:'mouseover',slideEnabled:true});
+				var tab = new J.ui.Tab();
+				tab.add({trigger:$('t1'), sheet:$('s1')});
+				tab.add({trigger:$('t2'), sheet:$('s2')});
+				tab.add({trigger:$('t3'), sheet:$('s3')});
+				tab.config['triggerEvent'] = 'mouseover';
+				
+				tab.config['slideEnabled'] = true;
+				$E.addObserver(tab, "show", function(a){
+					$('debug').innerHTML = '当前的tab是：' + this.indexOf(a)+"#"+a.sheet.id;
+				});
+				tab.init();
+				
+			});
+		
+		});
+		
+	</script> 
+</body> 
+</html> 
+ 
+ 

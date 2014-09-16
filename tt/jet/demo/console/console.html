@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>JET 控制台 demo</title>
+	<link href="../../source/assets/jet.reset.css" rel="stylesheet" type="text/css" />
+	
+</head>
+
+<body>
+
+
+	<div id="content">
+		<div id="example">
+			<h2>JET 控制台 demo</h2>
+			<a href="?console=true">使用JET默认控制台</a>
+			<a href="?console=firebug">使用Firebug控制台</a>
+			<br />
+			<button id="Button_3" onclick="test()">测试</button> 
+			<br /><br />
+			<h3>如果是使用默认控制台，还可以调用一下方法：</h3>
+			
+			<div class="exampleContainer"> 
+				<button id="Button_1" onclick="J.console.enable()">打开控制台</button> 
+				<button id="Button_2" onclick="J.console.disable()">关闭控制台</button> 
+				
+
+			</div>
+		</div> 
+		<p> 
+		通过控制台，我们可以代替alert方式调试，随时可以输出信息</p> 
+
+	</div> 
+
+
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.string.js"></script>
+	<script type="text/javascript" src="../../source/jet.http.js"></script>
+	<script type="text/javascript" src="../../source/jet.console.js"></script>
+	<script>
+		var J = new Jet(),
+			$ = J.dom.id,
+			$C = J.console,
+			$D = J.dom,
+			$E = J.event;
+		
+		function test() {
+
+			J.out("...测试成功");
+		}
+		
+		
+
+	</script>
+</body>
+</html>

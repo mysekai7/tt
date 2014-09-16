@@ -1,0 +1,20 @@
+arraCity = [{code:"1201",name:"和平区"},
+{code:"1202",name:"河东区"},
+{code:"1203",name:"河西区"},
+{code:"1204",name:"南开区"},
+{code:"1205",name:"河北区"},
+{code:"1206",name:"红桥区"},
+{code:"1207",name:"塘沽区"},
+{code:"1208",name:"汉沽区"},
+{code:"1209",name:"大港区"},
+{code:"1210",name:"东丽区"},
+{code:"1211",name:"西青区"},
+{code:"1212",name:"津南区"},
+{code:"1213",name:"北辰区"},
+{code:"1214",name:"武清区"},
+{code:"1215",name:"宝坻区"},
+{code:"1216",name:"宁河县"},
+{code:"1217",name:"静海县"},
+{code:"1218",name:"蓟县"}];
+
+showaCity();

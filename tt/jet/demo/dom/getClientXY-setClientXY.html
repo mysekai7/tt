@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>获取/设置视窗范围的XY坐标 - getClientXY/setClientXY</title>
+	<link rel="stylesheet" href="../../source/assets/jet.reset2.css" type="text/css" />
+	<link rel="stylesheet" href="../../source/assets/jet.960grid.css" />
+	<style>
+		#Content{
+			width:800px;
+			height:600px;
+		}
+		#ObjectA{
+			position:absolute;
+			left:300px;
+			top:300px;
+			width:100px;
+			height:100px;
+			background:blue;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="Content">
+		<h1>获取/设置视窗范围的XY坐标 - getClientXY/setClientXY</h1>
+
+		<div class="optionButton">
+			<button id="Button_1" onclick="Position.getClientXY()">获取ClientXY</button>
+			<button id="Button_2" onclick="Position.setClientXY()">设置ClientXY</button>
+
+		</div>
+		<div>
+			<label>X:</label>
+			<input id="xInput" type="text" value="100" size="8" />
+			<label>Y:</label>
+			<input id="yInput" type="text" value="100" size="8" />
+		
+		</div>
+		<div id="ObjectA">ObjectA</div>
+	</div> 
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+		Jet().$package("Position",function(J){
+			var $D = J.dom;
+			var ObjectA = $D.id("ObjectA"),
+				xInput = $D.id("xInput"),
+				yInput = $D.id("yInput");
+				
+			
+			this.getClientXY = function(){
+				alert($D.getClientXY(ObjectA));
+			};
+			this.setClientXY = function(){
+				$D.setClientXY(ObjectA,xInput.value,yInput.value);
+			};
+
+		});
+	//]]>
+	</script>
+</body>
+</html>

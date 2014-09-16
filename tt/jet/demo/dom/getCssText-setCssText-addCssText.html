@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>dom 操作 - demo - JET</title>
+<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+
+
+.styleB{
+	padding:5px 0;
+}
+</style>
+</head>
+
+<body>
+	<div id="Div1" class="styleA">bbbbbb</div>
+	<div class="styleB">
+		<label>cssText：</label><input id="cssText" type="text" size="35" value="width:300px;height:200px;background:red;" />
+	</div>
+	<div class="styleB">
+		<input id="setButton" type="button" size="35" value="设置样式" />
+		<input id="getButton" type="button" size="35" value="获取样式" />
+		<input id="addButton" type="button" size="35" value="添加样式" />
+	</div>
+	
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script>
+		J = new Jet();
+
+		var $=J.dom.id;
+		var $D=J.dom;
+		var $E=J.event;
+		var Div1 = $("Div1");
+		var cssText = $("cssText");
+		var setButton = $("setButton");
+		var getButton = $("getButton");
+		var addButton = $("addButton");
+		
+		
+		$D.setCssText(Div1, "color:green; border:1px solid blue; width:200px; height:100px;	color:green; overflow:hidden;");
+
+		var fnSet1 = function(e){
+			$D.setCssText(Div1, cssText.value);
+
+		};
+		var fnSet2 = function(e){
+			if(e.keyCode == 13){
+				$D.setCssText(Div1, cssText.value);
+			}
+		};
+		var fn2 = function(e){
+			alert($D.getCssText(Div1));
+		};
+		
+		var fnSet3 = function(e){
+			$D.addCssText(Div1, cssText.value);
+
+		};
+		
+
+		$E.on(cssText, "keypress", fnSet2);
+		$E.on(setButton, "click", fnSet1);
+		$E.on(getButton, "click", fn2);
+		$E.on(addButton, "click", fnSet3);
+		
+
+	</script>
+</body>
+</html>

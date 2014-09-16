@@ -1,0 +1,19 @@
+2010-03-15 02:40:10	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-03-15 02:40:20	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-03-15 05:00:01	Notice: %%12^122^12225C47%%post.html.php:9: Trying to get property of non-object
+2010-03-15 05:00:01	Notice: %%12^122^12225C47%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-03-15 14:37:44	Error: Smarty.class.php:1093: Smarty error: [in /home/wangchao/www/templates/default/post.html line 27]: syntax error: unrecognized tag: $article->created_date|date_format:"%b %e, %Y %H:%M:%S"} (Smarty_Compiler.class.php, line 446)
+2010-03-15 14:37:44	Notice: Smarty_Compiler.class.php:449: Undefined offset:  1
+2010-03-15 14:37:44	Error: Smarty.class.php:1093: Smarty error: [in /home/wangchao/www/templates/default/post.html line 27]: syntax error: unrecognized tag '' (Smarty_Compiler.class.php, line 590)
+2010-03-15 14:37:46	Error: Smarty.class.php:1093: Smarty error: [in default/index.html line 9]: syntax error: unrecognized tag: $article->created_date|date_format:"%b %e, %Y %H:%M:%S"} (Smarty_Compiler.class.php, line 446)
+2010-03-15 14:37:46	Error: Smarty.class.php:1093: Smarty error: [in default/index.html line 9]: syntax error: unrecognized tag '' (Smarty_Compiler.class.php, line 590)
+2010-03-15 14:38:35	Notice: %%12^122^12225C47%%post.html.php:13: Undefined index:  article
+2010-03-15 14:38:35	Notice: %%12^122^12225C47%%post.html.php:13: Trying to get property of non-object
+2010-03-15 14:47:20	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt
+2010-03-15 21:19:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-03-15 21:19:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-03-15 21:19:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-03-15 21:19:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-03-15 21:19:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-03-15 21:19:55	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object
+2010-03-15 21:52:21	Notice: %%72^72B^72B5FBAE%%post.html.php:21: Undefined property: stdClass::$created_date

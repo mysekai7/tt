@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/js/table/TableColumn.js"></script>
+<script type="text/javascript" src="/js/table/cookie.js"></script>
+<script type="text/javascript" src="/js/table/TableSplit.js"></script>
+<title></title>
+</head>
+<body>
+<!--shupai--->
+<table id="table11"  border="1"  cellpadding="2" cellspacing="1" >
+<tr>
+	<td>a</td>
+	<td>b</td>
+	<td>c</td>
+</tr>
+<tr>
+	<td>aa</td>
+	<td>bb</td>
+	<td>cc</td>
+</tr>
+<tr>
+	<td>aaa</td>
+	<td>bbb</td>
+	<td>ccc</td>
+</tr>
+</table>
+<script language="JavaScript" type="text/javascript">
+  var table11= new TableSplit('table11');
+  table11.create();
+  table11.BoxSplit.style.width='100%';
+</script>
+<br>
+<!--hengpai-->
+
+<input type="checkbox" name="DisplayAll" id="DisplayAll" />
+
+<table id="table22"  border="1"  cellpadding="2" cellspacing="1" >
+<tr>
+	<td>ID</td>
+	<td>标题</td>
+	<td>内容</td>
+	<td>时间</td>
+	<td>操作</td>
+	<td>状态</td>
+</tr>
+<tr>
+	<td>a</td>
+	<td>b</td>
+	<td>c</td>
+	<td>d</td>
+	<td>1</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>aa</td>
+	<td>bb</td>
+	<td>cc</td>
+	<td>dd</td>
+	<td>11</td>
+	<td>22</td>
+</tr>
+<tr>
+	<td>aaa</td>
+	<td>bbb</td>
+	<td>ccc</td>
+	<td>ddd</td>
+	<td>111</td>
+	<td>222</td>
+</tr>
+<tr>
+	<td colspan=6>&nbsp;</td>
+</tr>
+</table>
+<script language="javascript">SortControl('table22',[0,[1,4]]);</script>
+<script type="text/javascript">
+<!--
+var table22 = new TableColumn('table22',2,3);
+table22.setCheckBox('DisplayAll');
+table22.setup(true);
+//-->
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+节点操作一些方法及属性
+封包
+总结javascript面向对编程
+
+if (!Array.prototype.indexOf)
+{
+Array.prototype.indexOf = function(elt /*, from*/)
+{
+var len = this.length >>> 0;
+var from = Number(arguments[1]) || 0;
+from = (from < 0)
+? Math.ceil(from)
+: Math.floor(from);
+if (from < 0)
+from += len;
+for (; from < len; from++)
+{
+if (from in this &&
+this[from] === elt)
+return from;
+}
+return -1;
+};
+}
+
+
+params 元素 索引 数组
+if (!Array.prototype.forEach)
+{
+Array.prototype.forEach = function(fun /*, thisp*/)
+{
+var len = this.length >>> 0;
+if (typeof fun != "function")
+throw new TypeError();
+var thisp = arguments[1];
+for (var i = 0; i < len; i++)
+{
+if (i in this)
+fun.call(thisp, this[i], i, this);
+}
+};
+}
+
+// get the form element names and values
+function getVals() {
+var elems = document.getElementById("picker").elements;
+var elemArray = new Object();
+for (var i = 0; i < elems.length; i++) {
+if (elems[i].type == "text")
+elemArray[elems[i].id] = elems[i].value;
+}
+checkVals(elemArray);
+return false;
+}
+// check values
+function checkVals(elemArray) {
+var str = "";
+for (var key in elemArray) {
+str+=key + "," + elemArray[key] + " ";
+}
+document.getElementById("result").innerHTML = str;
+}
+
+function getStyle(elem, cssprop, cssprop2){
+// IE
+if (elem.currentStyle) {
+return elem.currentStyle[cssprop];
+// other browsers
+} else if (document.defaultView &&
+document.defaultView.getComputedStyle) {
+return document.defaultView.getComputedStyle(elem,
+null).getPropertyValue(cssprop2);
+// fallback
+} else {
+return null;
+}
+
+
+bind
+ var first_object = { 
+  num: 42 
+ }; 
+ var second_object = { 
+  num: 24 
+ }; 
+  
+ function multiply(mult) { 
+  return this.num * mult; 
+ } 
+  
+ Function.prototype.bind = function(obj) { 
+  var method = this, 
+   temp = function() { 
+    return method.apply(obj, arguments); 
+   }; 
+  
+  return temp; 
+ } 
+  
+ var first_multiply = multiply.bind(first_object); 
+ first_multiply(5); // returns 42 * 5 
+  
+ var second_multiply = multiply.bind(second_object); 
+ second_multiply(5); // returns 24 * 5

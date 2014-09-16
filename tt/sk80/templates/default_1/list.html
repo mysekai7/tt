@@ -1,0 +1,32 @@
+<{include file='default/header.html'}>
+<{strip}>
+            <div id="wrapper-inner">
+              <div id="content">
+                  <div id="new-post">
+                      <{if $tag}>
+                      <h1 class="search-title">你正在浏览的是关键词  <strong>{ <{$tag}> }</strong> 的日志归档.</h1>
+                      <{else}>
+                      <h1 class="search-title">你正在浏览的是分类 <strong>{ <{$category}> }</strong> 的日志归档.</h1>
+                      <{/if}>
+                      <ul>
+                          <{foreach from=$post_list item=val name=post_list}>
+                          <li><{$val->created_date|date_format}><a href="<{$site_url}>post/<{$val->id}>.html"><{$val->title}></a></li>
+                          <{foreachelse}>
+                          <p>Nothing</p>
+                          <{/foreach}>
+                      </ul>
+                      <{if $page_nav}>
+                      <p id="page-nav"><{$page_nav}></p>
+                      <{/if}>
+                  </div>
+              </div>
+              <div id="sidebar">
+                  <ul>
+                      <{include file="default/mod_about.html"}>
+                      <{include file="default/mod_search.html"}>
+                      <{include file="default/mod_category.html"}>
+                      <{include file="default/mod_tags.html"}>
+                  </ul>
+              </div>
+<{/strip}>
+<{include file="default/footer.html"}>

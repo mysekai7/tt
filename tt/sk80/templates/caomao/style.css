@@ -1,0 +1,63 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+body{font:13px/1.31 'Microsoft Yahei',"Lucida Grande",Helvetica,Arial,sans-serif; background:#EDEDED; color:#555555; text-align:center;}
+table{border-collapse:collapse; border-spacing:0;}
+ul, ol, dl {list-style-position:inside; padding:1px 0;}
+fieldset,img{border:0;}
+address{font-style:normal;font-weight:normal;}
+a{color:#AD5629;}
+a:hover{color:#000;}
+
+#header{width:960px; border-left:1px solid #DDD; border-right:1px solid #DDD; margin:0 auto; text-align:left; padding:0 0 315px; color:#000000; background:#FFFFFF url(images/header.jpg) no-repeat center bottom;}
+#head{height:65px; padding-top:20px; }
+.sitename{padding:0 0 0 25px; font-weight:bold; font-size:138.5%;}
+.sitedesc{padding:0 0 0 25px;}
+
+#main{background:#FFFFFF; border-left:1px solid #DDD; border-right:1px solid #DDD; border-bottom:1px solid #DDD; text-align:left; width:960px; overflow:hidden; margin:0 auto;}
+#content{float:left; width:730px;}
+#topic-path{margin:0.7em 30px 1em; line-height:1.8em;}
+.entry{padding:1px 0; margin:0.5em 0 2em;}
+.entry a{text-decoration:none;}
+.entry h2{border-bottom:1px solid #EEEEEE; color:#000000; font-size:167%; line-height:1.2; font-weight:normal; padding-bottom:0.3em; margin:0.8em 30px 0.5em;}
+.entry h2 a{color:#AD5629; text-decoration:none;}
+.entry h2 a:hover{color:#000;}
+.info{margin:0.3em 30px 0; padding:1px 0; font-size:85%;}
+.info li{display:inline; margin:0 0.5em 0.1em 0;}
+.textbody{margin:0.5em 30px; padding:1px 0; font-size:100%; line-height:1.8;}
+.reaction{border-top:1px solid #EEEEEE; padding:0.3em 0 1px; margin:0 30px 1em;}
+.reaction li{display:inline;}
+
+.code{margin:2px 0;background:#FAFAFA; border:1px dashed #CCCCCC; padding:0.5em 1em; overflow-x:auto;white-space:nowrap;}
+.code pre{font-size:13px; line-height:1.6; font-family:'Andale Mono','Lucida Console','Monaco','fixed','monospace';}
+
+.detail h1{margin:0.5em 0 0 0; padding:0.5em 30px; color:#666666; background:#F5F5F5; font-size:167%; font-weight:normal;}
+.current{padding:0 0.5em; background:#EEEEEE; font-weight:normal;}
+.flip{margin:1em 10px;}
+#flip1 li{display:inline; line-height:1;}
+.flip li a{color:#666666; text-decoration:none;}
+.flip li a:hover{color:#000000;}
+.flip li.newer{border-right:1px solid #AAAAAA; padding-right:5px;}
+.flip li.newer a{padding:0 0.5em 0 18px; background:url(images/newer.gif) no-repeat left center; }
+.flip li.older a{padding:0 18px 0 0.5em; background:url(images/older.gif) no-repeat right center;}
+#flip2{border:1px solid #EEEEEE; margin:10px 30px; padding:0.3em 0; font-size:100%;}
+#flip2 li{margin:0.3em 10px; line-height:1.5; color:#000000; list-style-type:circle;}
+#flip2 li a{color:#005585; text-decoration:underline;}
+#flip2 li a:hover{color:#01B0F0;}
+
+#utilities{float:right;}
+.utilities_side{padding-top:30px; width:230px;}
+#utilities dl{padding-top:5px;}
+.utilities_side dt{margin:0 0.5em;}
+.utilities_side dd{margin:0 0.5em 0.3em;}
+#utilities dt{padding:0.1em 10px; color:#FFFFFF; background:#AD5629;}
+#utilities dd{background:#F6F6F6; padding:0.2em 0 0.5em; font-size:100%;}
+#utilities dd ul{margin:0.1em 10px; list-style-position:inside;}
+#utilities dd ul li{margin:0.4em 0 0.4em 5px; padding-left:1em; text-indent:-1em; list-style-type:circle;}
+
+.page{margin:0.7em 30px 1em;}
+.page span, .page a, .page b{line-height:1.2; display:inline-block; padding:1px 5px; margin:0 1px; border:1px solid #EEEEEE; text-decoration:none;}
+.return{clear:both; padding:0.4em; margin:0.5em 30px 1em; font-size:100%; text-align:right;}
+
+#footer{width:960px; margin:0 auto; text-align:left; padding:0.3em 0 1px;}
+.support{margin:0.1em; text-align:right;}
+.support li{display:inline; color:#AAAAAA; margin:0 0 0 6px; font-size:12px;}
+#footer address{margin:0.1em 0 2em; text-align:right; color:#FFFFFF;}

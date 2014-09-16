@@ -1,0 +1,1501 @@
+<?php
+/**
+ * Summary     : ALLinone搜索结果�?
+Description :
+ * Requirement : PHP5 (http://www.php.net)
+ * Copyright(C), , 2007, All Rights Reserved.
+ *
+ * $Rev: $
+ * $Author: $
+ * $Date: $
+ * $URL: $
+ * $Id: $
+ */
+//缓冲
+
+
+if (extension_loaded('zlib')) {
+	ob_start('ob_gzhandler');
+} else {
+	ob_start();
+}
+
+
+//跳转
+if (iswapvisit())
+{
+	$pos1 = strpos($_SERVER['REQUEST_URI'], 'buy-');
+	if ($pos1)
+	{
+		if(strpos($_SERVER['HTTP_USER_AGENT'],"Googlebot-Mobile"))
+		{
+			header("location: http://m.tootoo.com".$_SERVER['SCRIPT_URL'],true,301);
+		}else{
+			header("location: http://m.tootoo.com".$_SERVER['SCRIPT_URL']);
+		}
+
+	}else{
+		if ($_GET['src'] == "product")
+		{
+			header("location: http://m.tootoo.com".$_SERVER['SCRIPT_URL']."?kw=".$_GET['kw']."&src=product&code=".$_GET['code']);
+		}else if(strpos($_SERVER['HTTP_USER_AGENT'],"Googlebot-Mobile"))
+		{
+			header("location: http://m.tootoo.com".$_SERVER['SCRIPT_URL']."?kw=".$_GET['kw']."&src=product&code=".$_GET['code'],true,301);
+		}
+
+	}
+
+}
+include_once( "url.inc.php" ); // 地址改写函数�?
+$ym = $_SERVER['HTTP_HOST'];
+$lj = $_SERVER['REQUEST_URI'];
+$lj = urldecode($lj);
+$pos1 = strpos($lj, 'buy-');
+if ($pos1)
+{
+	$pos = strpos($lj, '-', $pos1 + 4);
+	if (!$pos)
+	{
+		$pos = strpos($lj, '/',$pos1 +4);
+	}
+	$urlword = substr($lj,5,$pos - 4 - $pos1);
+	$urlword = trim($urlword);
+	$urlword = unhtmlspecialchars($urlword);
+	$urlword = strip_tags($urlword);
+}
+
+if ($urlword != "")
+{
+	$pattern="/[A-Z]/";
+	if(preg_match($pattern,$urlword) || $ym == "b.tootoo.com")
+	{
+		$keyword = strSpecial($urlword);
+		header("location: http://www.tootoo.com/buy-".$keyword,true,301);
+		exit;
+	}
+}
+
+
+
+
+
+
+function microtime_float()
+{
+	list($usec, $sec) = explode(" ", microtime());
+	return ((float)$usec + (float)$sec);
+}
+$liuyanbegintime = microtime_float();
+include_once( "global.php" );
+// 常用配置文件
+include_once( "list.inc.php" ); //list 页面用到的函�?
+include_once( 'picurl_fun.inc.php' );
+// 国家列表文件
+include_once( "lang_search.inc.php" );
+$tpl->assign( $lang );
+// 询盘信息
+include_once( 'mytootoo_function.php' );
+include_once("showroom_html_func2.php");
+include_once('function.inc.php');
+$liuyantime_dbb = microtime_float();
+include_once( 'mysql.config.php' );
+include_once( 'mysql.php' );
+require_once("mytootoo/my_fun.php");
+include_once("unify_int/getFeatureProducts.inc");
+$getFP = new FeatureProducts();
+
+include_once( "unify_int/getConeResult.inc" );
+$c_cone = new Search_CONE();
+
+require_once('unify_int/getRelateWord_page.inc');
+$relate_class_page = new RelateSearch_page;
+
+// 模板路径
+$tpl->template_dir = WEB_ROOT_PATH . $web_dir . "template/";
+
+// 判断用户登录
+$liuyantime_buser = microtime_float();
+require_once( 'user.func.php' );
+$checkuser = checkUserState();
+$supplierFlag = SupplierFlag($_SERVER['REMOTE_ADDR']);
+$tpl->assign( 'checkuser', $checkuser );
+$tpl->assign( 'supplierflag', $supplierFlag );
+$liuyantime_euser = microtime_float();
+
+// 统一数据接口
+$liuyantime_bAnti = microtime_float();
+$unify = new unify_inter();
+require_once("Anti-Spam.php");
+$liuyantime_eAnti = microtime_float();
+// �?始时�?
+$t_array = explode( ' ', microtime() );
+$P_S_T = $t_array[0] + $t_array[1];
+// 随即�?
+$ot = num_rand( 10 );
+$tpl->assign( 'ot' , $ot );
+// 获取url
+
+$thisurl = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+$referurl = urlencode( $thisurl );
+$tpl->assign( 'referurl' , $referurl );
+// 获得搜索参数数据(for new url rules)
+//判断浏览器类�?
+$userAgent=stripos($_SERVER["HTTP_USER_AGENT"],"Firefox");
+$tpl->assign( 'userAgent' , $userAgent );
+$liuyanendtimebb = microtime_float();
+// 新的地址改写规则
+$rewritrule = disconnect_rewrite_refine( $pa );
+
+if ( !$debug )
+{
+	$debug = $rewritrule['debug'];
+}
+$debug && mprint_r( $lang, '$lang' );
+$debug && mprint_r( $rewritrule , '$rewritrule' );
+$tpl->debugging = ( $debug ? true : false );
+$unify->debug = ( $debug ? $debug : false );
+$tpl->assign( 'debug' , $debug );
+
+// 处理rewritrule
+if ( !$src )
+{
+	$src = $rewritrule['src'] != '' ? $rewritrule['src'] : 'product';
+}
+$tpl->assign( "src", $src );
+// --------- 调整 page �?�? ----------- //
+{
+	// 翻页
+	require_once( "page_link.class.php" );
+	$page_link = new page_link();
+	$pagesize = $page_link->length = 20; // 翻页容量
+	$page_link->page_max=5;
+	$page = $rewritrule['page'] ? $rewritrule['page'] : 1 ;
+	// 修改页码�?�?
+	( is_numeric( $page ) && $page > 0 ) || $page = 1;
+	$page = intval( $page );
+	$page > 50 && $page = 50;
+}
+// --------- 调整 code �?�? ----------- //
+if ( !$code )
+{
+	$code = $rewritrule['code'];
+	$code && $code = str_pad( intval( $code ), 8, '0', STR_PAD_LEFT );
+}
+require_once( "get_cate_info.php" );
+$code_name = trim( Getinfo( $code ) ); // 根据code获得分类名称
+$kcode=$kw;
+if($kcode=="")
+{
+	$kcode= str_replace(",","",$code_name);
+}
+$tpl->assign( "code", $code );
+$tpl->assign( "code_name", $code_name );
+// --------- 调整 sele �?�? ----------- //
+// --------- 分类判断 ------------------ //
+if ( !$sele )
+{
+	$sele = $rewritrule['sele'];
+}
+
+// --------- 调整 kw  �?�? -----------不确定是否反�? //
+$kw = $org_kw = str_replace('_', ' ', strSpecial($kw));
+$kword = $kw;
+
+$tpl->assign( "kw", $kw );
+$debug && mprint_r( $kw, '$kw' );
+
+if(empty($kword))
+{
+    $tpl->assign( "kw", $org_kw );
+    $tpl->display( "v3/list/product/no_result.html" );
+    exit;
+}
+
+// compare页所�?URL,URL中不传�?�page参数
+$compare_url = "/compare.html?kw=" . $kw . ( $code?'&code='.$code:'' ) . preg_replace( "/&page=([\d]+)/im", "", dynamic_url( disconnect_rewrite_refine( $pa ), 'compare' ) ) . "&listUrl=" . $referurl;
+$tpl->assign( "compare_url", $compare_url );
+$debug && mprint_r( $compare_url, '$compare_url' );
+// --------- 调整country�?�? ---------- //
+if ( !$country )
+{
+	$country = ( $rewritrule['country'] != "" ? $rewritrule['country'] : '' );
+}
+$countryname = FindCountryName( $country );
+$tpl->assign( "country", $country );
+// ---------- 调整 $selectrefine ----------  //
+if ( !$selectrefine )
+{
+	$selectrefine = $rewritrule['selectrefine'];
+	$tpl->assign( "QualityCert", $selectrefine['Quality-Cert'] );
+	$tpl->assign( "BusinessType", $selectrefine['Business-Type'] );
+	$tpl->assign( "TQSRank", $selectrefine['TQS-Rank'] );
+	$tpl->assign( "MainMarkets", $selectrefine['Main-Markets'] );
+	$tpl->assign( "selectrefine", $selectrefine );
+	$debug && mprint_r( $selectrefine, '$selectrefine' );
+}
+
+
+
+	// People Also Searches
+	$params = array( 'scat' => 'seorelword',
+	'kw' => $kword,
+	);
+	$debug && mprint_r( $params, '$params_seorelword' );
+	// 查询统一接口
+	$liuyanbegintime_peoplealsosearches_pro = microtime_float();
+	//$seorelword = $unify->singleSearch( $params );
+	$seorelword = $getFP->Search($params,$debug);
+	$liuyanendtime_peoplealsosearches_pro = microtime_float();
+	$debug && mprint_r( $seorelword, '$seorelword_ori' );
+	if ( is_array( $seorelword ) )
+	{
+		foreach( $seorelword as $key => $val )
+		{
+			$seorelword_url[$key]['seorelword'] = $val;
+            //@2010-8-11
+			//$seorelword_url[$key]['seorelword_rewriteurl'] = url_rewrite( 'search_product', "kw=" . strSpecial( $val ) );
+            $seorelword_url[$key]['seorelword_rewriteurl'] = '/buy-'.strSpecial( $val ).'/';
+		}
+		$seorelword = array_slice( $seorelword_url, 0, 15 );
+	}
+	$tpl->assign( 'seorelword', $seorelword );
+	$debug && mprint_r( $seorelword, '$seorelword' );
+	$liuyanendtime55 = microtime_float();
+
+// 拼接refine返回的URL中的参数
+//如果产品的搜索list页，则重新调整参数的获取方法-------------------------added by  shaominghai
+if($src=="product")
+{
+	$rearr = disconnect_rewrite_refine_prod( $pa );
+	$rewritrule = $rearr[1];
+	// ----- 调整 debug �?�? --------- //
+	if ( !$debug )
+	{
+		$debug = $rewritrule['debug'];
+	}
+	$debug && mprint_r( $lang, '$lang' );
+	$debug && mprint_r( $rewritrule , '$rewritrule' );
+	$tpl->debugging = ( $debug ? true : false );
+	$unify->debug = ( $debug ? $debug : false );
+	$tpl->assign( 'debug' , $debug );
+	// 处理rewritrule
+	// ----- 调整 src �?�? --------- //
+	if ( !$src )
+	{
+		$src = $rewritrule['src'] != '' ? $rewritrule['src'] : 'product';
+	}
+	$tpl->assign( "src", $src );
+	// --------- 调整 page �?�? ----------- //
+	{
+		// 翻页
+		require_once( "page_link.class.php" );
+		$page_link = new page_link();
+		$pagesize = $page_link->length = 20; // 翻页容量
+		$page_link->page_max=5;
+		$page = $rewritrule['page'] ? $rewritrule['page'] : 1 ;
+		// 修改页码�?�?
+		( is_numeric( $page ) && $page > 0 ) || $page = 1;
+		$page = intval( $page );
+		$page > 50 && $page = 50;
+	}
+	// --------- 调整 code �?�? ----------- //
+	if ( !$code )
+	{
+		$code = $rewritrule['code'];
+		$code && $code = str_pad( intval( $code ), 8, '0', STR_PAD_LEFT );
+	}
+	$code_name = trim( Getinfo( $code ) ); // 根据code获得分类名称
+	$kcode=$kw;
+	if($kcode=="")
+	{
+		$kcode= str_replace(",","",$code_name);
+	}
+	$tpl->assign( 'kcode' , $kcode );
+	$tpl->assign( "code", $code );
+	$tpl->assign( "code_name", $code_name );
+	// --------- 调整 sele �?�? ----------- //
+	if ( !$sele )
+	{
+		$sele = $rewritrule['sele'];
+	}
+	// --------- 调整 kw  �?�? -----------不确定是否反�? //
+	$kw = trim( $kw );
+	$kw && $kw = str_replace( array( "_", "^" ), array( " ", "-" ), $kw );
+	$tpl->assign( "kw", $kw );
+	$debug && mprint_r( $kw, '$kw' );
+	// compare页所�?URL,URL中不传�?�page参数
+	$compare_url = "/compare.html?kw=" . $kw . ( $code?'&code='.$code:'' ) . preg_replace( "/&page=([\d]+)/im", "", dynamic_url( disconnect_rewrite_refine( $pa ), 'compare' ) ) . "&listUrl=" . $referurl;
+	$tpl->assign( "compare_url", $compare_url );
+	$debug && mprint_r( $compare_url, '$compare_url' );
+	// --------- 调整country�?�? ---------- //
+	if ( !$country )
+	{
+		$country = ( $rewritrule['country'] != "" ? $rewritrule['country'] : '' );
+	}
+	$countryname = FindCountryName( $country );
+	// $country = intval($country);
+	$tpl->assign( "country", $country );
+	// ---------- 调整 $selectrefine ----------  //
+}
+//产品的搜索list页，则重新调整参数的获取方法 结束-------------------------added by  shaominghai
+
+
+$url_var = "&src=" . $src . ( $code?'&code='.$code:'' ) . "&country=" . $country;
+
+
+if ( $kw || $code )
+{
+	if ( $kw )
+	{
+		// 以词找词
+		$params = array( 'scat' => 'word2word',
+		'kw' => $kword,
+		);
+	} elseif ( $code )
+	{
+		$code = '17031300';
+		$params = array( 'scat' => 'natkind',
+		'qtype' => '1',
+		'cate' => str_pad( substr( $code, 0, 2 ), 8, '0' ),
+		'start' => '0',
+		'count' => '70',
+		'rank' => '1',
+		);
+	}
+	$liuyanbegintime_word2word = microtime_float();
+	$look_keyword = $getFP->Search($params,$debug);
+
+	//$debug && mprint_r( $params, '$params_look_keyword' );
+	//$look_keyword = $unify->singleSearch( $params );
+	$liuyanendtime_word2word = microtime_float();
+	$debug && mprint_r( $look_keyword, '$look_keyword_old' );
+
+	if (is_array( $look_keyword ) )
+	{
+		if(is_array($look_keyword) && count($look_keyword) >= 5)
+		{
+			$fea_word2word = array_rand(array_flip( $look_keyword ),5);
+		}
+		$fea_word2word = array_unique($look_keyword);
+		if(is_array($fea_word2word) && count($fea_word2word) >= 5)
+		{
+			$fea_word2word = array_rand(array_flip( $fea_word2word ),5);
+		}
+		if(is_array($fea_word2word))
+		{
+			foreach($fea_word2word as $k=>$v)
+			{
+				$word2word[$k]['word'] = $v;
+				$word2word[$k]['url'] = "/buy-".strSpecial($v)."/";
+			}
+		}
+		$tpl->assign( 'word2word', $word2word );
+		$debug && mprint_r( $word2word, '$word2word' );
+		if ( is_array( $look_keyword ) )
+		{
+			$eight_keyword = array_slice( $look_keyword, 0, 8 );
+		}
+		$tpl->assign( 'eight_keyword', $eight_keyword );
+		$debug && mprint_r( $eight_keyword, 'eight_keyword' );
+	}
+	else
+	{
+		unset( $look_keyword );
+	}
+}
+$liuyantime_barrycache = microtime_float();
+//获得分类列表
+$category_list = array();
+$filename = './arrycache/first_level_cat.txt'; //1级词分类
+if(file_exists($filename)) {
+	$array_str = file_get_contents($filename);
+	$res_arr = unserialize($array_str);
+	if(is_array($res_arr) && count($res_arr) > 0) {
+		foreach($res_arr as $val) {
+			$category_list[$val['code']] = $val['cname'];
+		}
+	}
+}
+$tpl->assign('category_list', $category_list);
+$liuyantime_earrycache = microtime_float();
+/**
+ * ------------------------------------------ 公司搜索�?�? --------------------------------------
+ */
+if ( 'company' == $src )
+{
+	// refine数据及URL处理
+	foreach( $refine as $key => $val )
+	{
+		foreach( $refine[$key] as $k => $v )
+		{
+			$refine_tmp[$key][$k]['name'] = $v;
+			$refine_tmp[$key][$k]['rewriteurl'] = url_rewrite( 'search_' . $src, "kw=" . strSpecial( $kw ) . "-" . ( $rewritrule?RefineArr( $rewritrule, 'page' ):'&code='.$code ) . "&selectrefine_" . $key . "=" . strSpecial( $v ) );
+		}
+	}
+	$tpl->assign( 'quality', $refine_tmp['Quality-Cert'] );
+	$tpl->assign( 'business', $refine_tmp['Business-Type'] );
+	$tpl->assign( 'tqs', $refine_tmp['TQS-Rank'] );
+	$tpl->assign( 'markets', $refine_tmp['Main-Markets'] );
+	// refine返回URL
+	$refine_url1 = url_rewrite( 'search_' . $src, "kw=" . strSpecial( $kw ) . "-" . $url_var . "&" . str_replace( "&", "&selectrefine_", RefineArr( $selectrefine, 'Quality-Cert' ) ) );
+	$refine_url2 = url_rewrite( 'search_' . $src, "kw=" . strSpecial( $kw ) . "-" . $url_var . "&" . str_replace( "&", "&selectrefine_", RefineArr( $selectrefine, 'Business-Type' ) ) );
+	$refine_url3 = url_rewrite( 'search_' . $src, "kw=" . strSpecial( $kw ) . "-" . $url_var . "&" . str_replace( "&", "&selectrefine_", RefineArr( $selectrefine, 'TQS-Rank' ) ) );
+	$refine_url4 = url_rewrite( 'search_' . $src, "kw=" . strSpecial( $kw ) . "-" . $url_var . "&" . str_replace( "&", "&selectrefine_", RefineArr( $selectrefine, 'Main-Markets' ) ) );
+	$tpl->assign( 'refine_url1' , $refine_url1 );
+	$tpl->assign( 'refine_url2' , $refine_url2 );
+	$tpl->assign( 'refine_url3' , $refine_url3 );
+	$tpl->assign( 'refine_url4' , $refine_url4 );
+
+	//if($page == 1)
+	{
+		$liuyanbegintime_company_sphinx = microtime_float();
+		if (strlen($pa) > 0)
+		{
+			$refine_sphinx = disconnect_refine_prod_sphinx($pa);
+		}else{
+			if ($code != "")
+			{
+				$refine_sphinx["all_categories"] = $code;
+			}
+			if($country)
+			{
+				$refine_sphinx["country"] = $country;
+			}
+		}
+		require_once('sphinx/mycompany.search_2.php');
+		$mysearch_company = new mycompany_search_2() ;
+		$start = ( $page - 1 ) * 10;
+		$comp_info_arr = $mysearch_company->companysearch($kword  ,  $start , 10 ,$refine_sphinx);
+		$refine_url_half = '/company/'.str_replace(' ', '_', trim($kcode));
+
+		$tpl->assign( 'refine_url_half' , $refine_url_half );
+
+		$liuyanendtime_company_sphinx = microtime_float();
+		//$_SESSION['company_num'][$kw] = count($prod_info_arr);
+		$prod_info_arr = $comp_info_arr['info_arr'];
+		if (is_array($prod_info_arr)) {
+			foreach ($prod_info_arr as $key=>$val) {
+				$prod_info_arr[$key]['product_url'] = 'http://www.tootoo.com/s-p'.strrchr($prod_info_arr[$key]['comp_url'], '/');
+                $prod_info_arr[$key]['companyinfo_url'] = 'http://www.tootoo.com/s-cp'.strrchr($prod_info_arr[$key]['comp_url'], '/');
+                $prod_info_arr[$key]['contact_url'] = 'http://www.tootoo.com/s-ft'.strrchr($prod_info_arr[$key]['comp_url'], '/');
+				$prod_info_arr[$key]["MY_LIST"] = serialize_for_post(
+				Array( 'src' => 2, // 1为小引擎�?0为大引擎
+				'pid' => '', // 产品id
+				'pname' => '', // 产品名，
+				'pcode' => '', // 产品分类码，
+				'pimg' => '', // 产品图片url�?
+				'purl' => '', // 产品detail
+				'cid' => $prod_info_arr[$key]["comp_id"], // 公司id�?
+				'cname' => $prod_info_arr[$key]["comp_name"], // 公司�?,
+				'country' => '', // 国家�?
+				'desc' => '', // 产品的Description�?50字）,
+				) );
+			}
+
+		}
+		$debug && mprint_r($prod_info_arr,"newcompany");
+		$tpl->assign( "newcompaniesdb", $prod_info_arr );
+	}
+
+	$liuyanendtime33 = microtime_float();
+	// 公司列表
+	$params = array( 'scat' => 'query_result',
+	'kw' => $kword,
+	'start' => ( $page - 1 ) * $pagesize + 1,
+	'count' => $pagesize,
+	'src' => $src,
+	'lemma' => midlineReplace( $selectrefine ),
+	'oparams' => array( 'cc' => $code, 'country' => $country ),
+	);
+	$debug && mprint_r( $params, '$params' );
+	// 查询统一接口
+	$liuyanbegintime_company = microtime_float();
+	//$res_arr = $unify->singleSearch( $params );
+	$res_arr = $c_cone->Search($params,$debug);
+	$liuyanendtime_company = microtime_float();
+	$liuyanengine_time = $res_arr['alltime'];
+
+	$liuyantime_brelate = microtime_float();
+	$relate_class_page->Search($kword, $start,$pagesize,$debug);
+	$num = count($relate_class_page->result);
+	$ten_kw = $relate_class_page->result;
+
+
+	$ten_keyword = array();
+	if (is_array($ten_kw) && count($ten_kw) > 0)
+	{
+		foreach($ten_kw as $k=>$v)
+		{
+			if(empty($v))
+			continue;
+			$ten_keyword[$k]['word'] = $v;
+			$ten_keyword[$k]['word_rewriteurl'] = '/company/'.strSpecial($v).'/';
+		}
+		$tpl->assign( 'ten_keyword', $ten_keyword );
+
+	}
+	$debug && mprint_r( $ten_keyword, 'ten_keyword' );
+	$liuyantime_erelate = microtime_float();
+
+	$liuyantime_bcompanydeal = microtime_float();
+	if ( $res_arr["REV"] !== false )
+	{
+		// 返回数据
+		$companiesdb = $res_arr['data'];
+		if ( is_array( $companiesdb ) )
+		{
+			foreach( $companiesdb as $key => $val )
+			{
+
+				// 公司rewriteurl
+				$companiesdb[$key]["c_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['UCID'] ) . "&name=" . urlencode( $val['COMPANYENAME'] ), "list_company" );
+
+				//产品url
+				$companiesdb[$key]["p_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['UCID'] ) . "&name=" . urlencode( $val['COMPANYENAME'] ), "3.6_product_list" );
+
+                //公司联系
+				$companiesdb[$key]["contact_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['UCID'] ) . "&name=" . urlencode( $val['COMPANYENAME'] ), "3.6_company_contactus" );
+
+                //公司INFO
+				$companiesdb[$key]["companyinfo_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['UCID'] ) . "&name=" . urlencode( $val['COMPANYENAME'] ), "company" );
+
+				// 处理公司名称种特殊字�?
+				$companiesdb[$key]["COMPANYENAME"] = htmlspecialchars( trim( $val["COMPANYENAME"] ) );
+				// 处理过来的数组为字符�?
+				if ( is_array( $companiesdb[$key]["T_QC"] ) )
+				{
+					$companiesdb[$key]["T_QC"] = implode( ",", $companiesdb[$key]["T_QC"] );
+				}
+				// 星级图片
+				//$companiesdb[$key]["stars"] = show_tqs_star( $companiesdb[$key]["star"] );
+				//star链接
+//				$companiesdb[$key]["stars_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['CID'] ) . "&name=" . urlencode( $val['COMPANYENAME'] ), "3.6_company_tqs" );
+
+				// 组合mylist�?要的数据
+				$companiesdb[$key]["MY_LIST"] = serialize_for_post(
+				Array( 'src' => 2, // 1为小引擎�?0为大引擎
+				'pid' => '', // 产品id
+				'pname' => '', // 产品名，
+				'pcode' => '', // 产品分类码，
+				'pimg' => '', // 产品图片url�?
+				'purl' => '', // 产品detail
+				'cid' => $companiesdb[$key]["CID"], // 公司id�?
+				'cname' => $companiesdb[$key]["COMPANYENAME"], // 公司�?,
+				'country' => $companiesdb[$key]["COUNTRYENAME"], // 国家�?
+				'desc' => '', // 产品的Description�?50字）,
+				) );
+			}
+		}
+		$liuyantime_ecompanydeal = microtime_float();
+		$tpl->assign( "companiesdb", $companiesdb );
+		$tpl->assign( "company_search", 1 );
+		$debug && mprint_r( $res_arr["data"], '$companiesdb_old' );
+		$debug && mprint_r( $companiesdb, '$companiesdb_new' );
+		// 返回参数结构
+		$tmp = $res_arr;
+		unset( $tmp["data"] );
+		$debug && mprint_r( $tmp, '$comp_res', 1 );
+		$tmp['end'] = $params['start'] + $tmp['count'] - 1;
+		$tpl->assign( "comp_res", $tmp );
+	}
+
+	//翻页处理
+	{
+		$all = $res_arr["total"] + $comp_info_arr['total'];
+		$totalpage = ceil( $all / $page_link->length );
+		// 50页以后的页码隐藏
+		$all = ( $all > 50 * $pagesize?50 * $pagesize:$all );
+		// 拼接翻页连接
+		$arr1 = explode ( ",", $pa );
+		$pastr = $arr1[0];
+		$url = "/company/" . strSpecial( $kw )  . "/".$pastr;
+		$page_res = $page_link->make_page( $all, $page, $url, 'page_no' );
+		$debug && mprint_r( $page_res, '$page_res', 1 );
+		$tpl->assign( 'url', $url );
+		$tpl->assign( 'pagesize', $params['count'] );
+		$tpl->assign( 'page', $page );
+		$tpl->assign( 'page_res', $page_res );
+
+		//波段分页
+		$tpl->assign('page_div', createDivPage($page, $all, $kw, $src));
+	}
+
+	$com_url = "/company/" . strSpecial( $kw )  . "/country_$country/";
+	$tpl->assign( 'com_url', $com_url );
+	// 翻页代码结束
+
+	$kw = $kw?htmlspecialchars( strip_tags( stripcslashes( $kw ) ) ):htmlspecialchars( strip_tags( stripcslashes( $code_name ) ) );
+	$tpl->assign( "title", "supply $kw, $kw company" );
+	$tpl->assign( "keywords", "$kw, $kw products, buy $kw, $countryname , page$page , supply, company, import, $kw export, buy, $kw sell, wholesale, $kw Manufacturers, suppliers, factory, tootoo.com" );
+	$tpl->assign( "description", "$kw products directory - over 8,000,000 importers and exporters from China and around the world, $kw, $kw products, buy $kw ,$countryname ,  page$page, online $kw product detail of $kw manufacturers. supply, company, $kw import, export, buy, sell, wholesale, Manufacturers, $kw suppliers, factory - tootoo.com" );
+
+	if ( $res_arr["data"] || $prod_info_arr)
+	{
+		// 清空数组
+		{
+			unset( $res_arr );
+			unset( $tmp );
+			unset( $companiesdb );
+			unset( $prod_info_arr );
+		}
+//		$content = $tpl->fetch( "v3/list/company/list.html" );
+//		$pattern = array("/&page=([\d]+)/im",
+//		"/,page_1\//");
+//
+//		$replacement =array( ",page_$1/",
+//		"/");
+//
+//		$content = preg_replace( $pattern, $replacement, $content );
+//
+//		echo $content;
+		$tpl->display( "v3/list/company/list.html" );
+	}
+	else
+	{
+		$tpl->display( "v3/list/company/no_result.html" );
+	}
+	$liuyanendtime = microtime_float();
+	if ($liuyanendtime - $liuyanbegintime > 1)
+	{
+		$fplog = fopen("/tmp/liuyan-".date("Ymd").".log","a");
+		if ($fplog)
+		{
+			$str = "search word  time --".$kw."\n";
+			$str .= ($liuyanendtime_company - $liuyanbegintime_company)."\n";
+			$str .= "search word  time --".$kw."\n";
+			$str .= "company time --".($liuyanendtime_company - $liuyanbegintime_company)."\n";
+			$str .= "peoplealsosearches time --".($liuyanendtime_peoplealsosearches - $liuyanbegintime_peoplealsosearches)."\n";
+			$str .= "word2word time --".($liuyanendtime_word2word - $liuyanbegintime_word2word)."\n";
+			$str .= "company_sphinx time --".($liuyanendtime_company_sphinx - $liuyanbegintime_company_sphinx)."\n";
+			$str .= "company_sphinx_2 time --".($liuyanendtime_company_sphinx_2 - $liuyanbegintime_company_sphinx_2)."\n";
+			$str .= "engine_cone_company time --".$liuyanengine_time."\n";
+			$str .= "Anti_company time --".($liuyantime_eAnti - $liuyantime_bAnti)."\n";
+			$str .= "relate_company time --".($liuyantime_erelate - $liuyantime_brelate)."\n";
+			$str .= "companydeal time --".($liuyantime_ecompanydeal - $liuyantime_bcompanydeal)."\n";
+			$str .= "user time --".($liuyantime_euser - $liuyantime_buser)."\n";
+			$str .= "tpl time --".($liuyanendtime - $liuyanendtime_tpl)."\n";
+			$str .= "all time --".($liuyanendtime - $liuyanbegintime)."\n";
+			$str .= "company time now --".date("Y-m-d H:i:s")."\n\n";
+			fwrite($fplog,$str);
+			fclose($fplog);
+		}
+	}
+}
+
+
+/**
+ * ------------------------------------------ 公司搜索结束 --------------------------------------
+ */
+
+/**
+ * ------------------------------------------ 产品搜索开始 --------------------------------------
+ */
+if ( 'product' == $src )
+{
+	//滚动词条
+	$rolling_words = array();
+	// refine数据及URL处理
+	foreach( $refine as $key => $val )
+	{
+		foreach( $refine[$key] as $k => $v )
+		{
+			$refine_tmp[$key][$k]['name'] = $v;
+			$refine_tmp[$key][$k]['rewriteurl'] = url_rewrite( 'search_' . $src, "kw=" . $kcode. ( $rewritrule?RefineArr( $rewritrule, 'page' ):'&code='.$code ) . "&selectrefine_" . $key . "=" . strSpecial( $v ) );
+		}
+	}
+	$debug && mprint_r( $refine_tmp, '$refine_tmp' );
+	$tpl->assign( 'quality', $refine_tmp['Quality-Cert'] );
+	$tpl->assign( 'business', $refine_tmp['Business-Type'] );
+	$tpl->assign( 'tqs', $refine_tmp['TQS-Rank'] );
+	$tpl->assign( 'markets', $refine_tmp['Main-Markets'] );
+	// refine返回URL:点击去掉某个查询条件时的链接！connect_url_remove_refine($arr,$k,$kw)
+	$debug && mprint_r( $rearr, '$rearr' );
+	$refine_url1 = connect_url_remove_refine($rearr[0],"Quality-Cert",$kcode);
+	$refine_url2 = connect_url_remove_refine($rearr[0],"Business-Type",$kcode);
+	$refine_url3 = connect_url_remove_refine($rearr[0],"TQS-Rank",$kcode);
+	$refine_url4 = connect_url_remove_refine($rearr[0],"Main-Markets",$kcode);
+
+
+	$tpl->assign( 'refine_url1' , $refine_url1 );
+	$tpl->assign( 'refine_url2' , $refine_url2 );
+	$tpl->assign( 'refine_url3' , $refine_url3 );
+	$tpl->assign( 'refine_url4' , $refine_url4 );
+
+	//product left links
+	$refine_url_half = '/buy-'.str_replace(' ', '_', trim($kcode));
+	$tpl->assign( 'refine_url_half' , $refine_url_half );
+
+
+	//取sphinx结果
+	if (strlen($pa) > 0)
+	{
+		$refine_sphinx = disconnect_refine_prod_sphinx($pa);
+	}else{
+		if ($code != "")
+		{
+			$refine_sphinx["all_categories"] = intval($code);
+		}
+		if($country)
+		{
+			$refine_sphinx["country"] = intval($country);
+		}
+	}
+	$start = ( $page - 1 ) * $pagesize;
+	//if ($_SESSION['product_num'][$kword]['sphinx'] > $start || $page == 1 || !$_SESSION['product_num'][$kword]['sphinx'])
+	{
+		$liuyanbegintime_product_sphinx = microtime_float();
+		require_once( "sphinx/mytootoo.search.php" );
+		$mytootooSearch = new mytootoo_sphinx_p() ;
+
+		$debug && mprint_r($kword,"sphinx kw");
+		$debug && mprint_r($start,"sphinx start");
+		$debug && mprint_r($pagesize,"sphinx pagesize");
+		$sphinxresult = $mytootooSearch->mysearch( $kword, $start  , $pagesize , $refine_sphinx );
+		$liuyanendtime_product_sphinx = microtime_float();
+		if(is_array( $sphinxresult["prod_arr"] ) && $sphinxresult["total"] > 0)
+		{
+
+			$newproductsdb = $sphinxresult["prod_arr"];
+			$sphinxresultnum = $sphinxresult["total"];
+			$debug && mprint_r($newproductsdb,"result sphinx");
+			$noresult_flag = 0;
+		}else if(($sphinxresult["total"] == 1 || $sphinxresult["total"] == 0) && $page == 1)
+		{
+			//无结果出sphinx_b结果
+			$liuyanbegintime_product_sphinx_no = microtime_float();
+			//require_once('sphinx/noresult.php');
+			require_once('sphinx/b_mytootoo.search_2.php');
+			$mytootooSearch = new b_mytootoo_sphinx_2() ;
+			$prod_info_arr = $mytootooSearch->mysearch( $kword, 1  , 3 , $refine_sphinx );
+			$liuyanendtime_product_sphinx_no = microtime_float();
+			$newproductsdb = $prod_info_arr['prod_arr'];
+			$sphinxresultnum = 3;
+			$debug && mprint_r($newproductsdb,"noresult sphinx");
+			$noresult_flag = 1;
+            $tpl->assign('nsflag', 1);
+		}
+
+		
+	}
+
+	$relate_class_page->Search($kword,$start,$pagesize,$debug);
+	$num = count($relate_class_page->result);
+	$ten_kw= $relate_class_page->result;
+	$ten_keyword = array();
+	if (is_array($ten_kw) && count($ten_kw) > 0)
+	{
+		foreach($ten_kw as $k=>$v)
+		{
+			if(empty($v))
+			continue;
+			$ten_keyword[$k]['word'] = $v;
+			//$ten_keyword[$k]['word_rewriteurl'] = url_rewrite( 'search_product', "kw=" . $v  );
+            $ten_keyword[$k]['word_rewriteurl'] = '/buy-'.strSpecial($v).'/';   //@2010-8-11
+		}
+		$debug && mprint_r( $ten_keyword, 'ten_keyword' );
+		$tpl->assign( 'ten_keyword', $ten_keyword );
+	}
+	unset($relate_class);
+
+	//请求cone数据
+	$selectrefine = disconnect_rewrite_refine_prod( $pa );
+	if ($sphinxresultnum - $start < $pagesize && $sphinxresultnum > $start)
+	{
+		//如果sphinx数据不够一页，用cone数据补齐
+		$params = array( 'scat' => 'query_result',
+		'kw' => $kword,
+		'start' => 1,
+		'count' => $sphinxresultnum ? $pagesize - ( $sphinxresultnum - $start ):$pagesize,
+		'src' => $src,
+		'lemma' => midlineReplace( $selectrefine[1]['selectrefine'] ),
+		'oparams' => array( 'cc' => $code, 'country' => $country ),
+		'refresh' => 0, //0 不刷新，1  刷新
+		);
+	}else if($sphinxresultnum < $start)
+	{
+		$params = array( 'scat' => 'query_result',
+		'kw' => $kword,
+		'start' => $sphinxresultnum ? ( $page - 1 ) * $pagesize + 1 - $sphinxresultnum:( $page - 1 ) * $pagesize + 1,
+		'count' => $pagesize,
+		'src' => $src,
+		'lemma' => midlineReplace( $selectrefine[1]['selectrefine'] ),
+		'oparams' => array( 'cc' => $code, 'country' => $country ),
+		'refresh' => 0, //0 不刷新，1  刷新
+		);
+	}else if($sphinxresultnum - $pagesize >= $start)
+	{
+		$params = array( 'scat' => 'query_result',
+		'kw' =>$kword,
+		'start' => 1,
+		'count' => 1,
+		'src' => $src,
+		'lemma' => midlineReplace( $selectrefine[1]['selectrefine'] ),
+		'oparams' => array( 'cc' => $code, 'country' => $country ),
+		'refresh' => 0, //0 不刷新，1  刷新
+		);
+	}else// if(!$_SESSION['product_num'][$kword]['cone'])
+	{
+		$params = array( 'scat' => 'query_result',
+		'kw' => $kword,
+		'start' => 1,
+		'count' => $pagesize,
+		'src' => $src,
+		'lemma' => midlineReplace( $selectrefine[1]['selectrefine'] ),
+		'oparams' => array( 'cc' => $code, 'country' => $country ),
+		'refresh' => 0, //0 不刷新，1  刷新
+		);
+	}
+
+	$debug && mprint_r( $params, '$params' );
+	// 查询cone引擎
+	$liuyanbegintime_product = microtime_float();
+	//$res_arr = $unify->singleSearch( $params );
+	$res_arr = $c_cone->Search($params,$debug);
+	$liuyanendtime_product = microtime_float();
+	$liuyanengine_time = $res_arr['alltime'];
+
+	// 运行时间
+	$tpl->assign( 'runtime', round( time() + microtime() - $P_S_T, 3 ) );
+
+	//处理cone产品数据
+	$liuyantime_bproductdeal = microtime_float();
+	if($res_arr["REV"] !== false && $sphinxresultnum < ($start + $pagesize))
+	{
+		// 返回数据
+		$productsdb = $res_arr['data'];
+		$debug && mprint_r( $productsdb, 'liuyan' );
+
+		if ( $productsdb && is_array( $productsdb ) )
+		{
+			foreach( $productsdb as $key => $val )
+			{
+				if($productsdb[$key]['PICLPATH'] == '' || $productsdb[$key]['PICLPATH'] == '0' )
+				{
+					//$piclurl = GetPordPhotoUrl($productsdb[$key]["MYTOOTOOCID"],'l');
+					//$productsdb[$key]["PICLPATH"] = $piclurl[0];
+					$productsdb[$key]["PICLPATH"] = '';
+
+				}else{
+					$productsdb[$key]["PICLPATH"] = getPicUrl($productsdb[$key]["PICLPATH"]);
+				}
+				// 产品rewriteurl
+				$productsdb[$key]["p_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['PID'] ) . "&name=" . urlencode( $val['PROCUDEENAME'] ), "3.6_product");
+				$productsdb[$key]["c_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $val['UCID'] ) . "&name=" . urlencode( $val['COMPANYENAME'] ), "list_company" );
+				// 'products_list' rewrite url
+				if ( $val['products_list'] )
+				{
+					foreach( $val['products_list'] as $pkey => $pval )
+					{
+
+						$productsdb[$key]['products_list'][$pkey]["p_rewriteurl"] = search_url_rewrite( "sid=" . urlencode( $pval['PID'] ) . "&name=" . urlencode( $pval['PRODUCTENAME'] ), "3.6_product");
+						// 处理名称中特殊字�?
+						$productsdb[$key]['products_list'][$pkey]['PRODUCTENAME'] = htmlspecialchars( trim( $pval['PRODUCTENAME'] ) );
+					}
+				}
+				// 处理名称中特殊字�?
+				$productsdb[$key]["PRODUCTENAME"] = htmlspecialchars( trim( $val["PROCUDEENAME"] ) );
+				$productsdb[$key]["COMPANYENAME"] = htmlspecialchars( trim( $val["COMPANYENAME"] ) );
+				$productsdb[$key]["products_num_rewriteurl"] = search_url_rewrite( "sid=" . urlencode(  $productsdb[$key]["CID"] ) . "&name=" . urlencode($productsdb[$key]['COMPANYENAME'])."&page=1", "3.6_product_list" );
+
+				// 处理过来的数组为字符�?
+				if ( is_array( $productsdb[$key]["T_QC"] ) )
+				{
+					$productsdb[$key]["T_QC"] = implode( ",", $productsdb[$key]["T_QC"] );
+				}
+				$productsdb[$key]["DESCRIPTION"] = replaceSpace($productsdb[$key]["DESCRIPTION"]);
+				// 组合mylist�?要的数据
+				$productsdb[$key]["MY_LIST"] = serialize_for_post(
+				Array( 'src' => 2, // 1为小引擎�?0为大引擎
+				'pid' => $productsdb[$key]["PID"], // 产品id
+				'pname' => $productsdb[$key]["PROCUDEENAME"], // 产品名，
+				'pcode' => $productsdb[$key]["C_CODE"], // 产品分类码，
+				'pimg' => $productsdb[$key]["PICLPATH"], // 产品图片url�?
+				'purl' => $productsdb[$key]["p_rewriteurl"], // 产品detail
+				'cid' => $productsdb[$key]["CID"], // 公司id�?
+				'cname' => $productsdb[$key]["COMPANYENAME"], // 公司�?,
+				'country' => $productsdb[$key]["COMPANYENAME"], // 国家�?
+				'desc' => substrs( $productsdb[$key]["DESCRIPTION"], 50 ), // 产品的Description�?50字）,
+				) );
+
+
+				$productsdb[$key]["rel_word"] = explode(";",$productsdb[$key]["TAG_WORD"]);
+				if(is_array($productsdb[$key]["rel_word"]))
+				{
+					$tmpindex = 0;
+					foreach($productsdb[$key]["rel_word"] as $k=>$v)
+					{
+						$productsdb[$key]["related_word"][$k]['word'] = $v;
+						$productsdb[$key]["related_word"][$k]['url'] = '/buy-'.str_replace(' ', '_', strtolower(trim($v))).'/';
+						$index++;
+						if ($index == 5)
+						{
+							break;
+						}
+
+					}
+					$rolling_words = array_merge($rolling_words,$productsdb[$key]["related_word"]);
+				}
+
+			}
+		}
+		$liuyantime_eproductdeal = microtime_float();
+		// 处理返回结果
+		$tpl->assign( "productsdb", $productsdb );
+		$debug && mprint_r( $res_arr["data"], '$productsdb_old', 1 );
+		$debug && mprint_r( $productsdb, '$productsdb_new', 1 );
+	}
+
+	if(($sphinxresultnum + $res_arr['total'] ) < $pagesize && $page == 1 && $noresult_flag == 0 )
+	{	
+				 //无结果出sphinx_b结果
+				$liuyanbegintime_product_sphinx_no = microtime_float();
+				require_once('sphinx/b_mytootoo.search_2.php');
+				$mytootooSearch = new b_mytootoo_sphinx_2() ;
+				$noresult_num = $pagesize - $sphinxresult["total"];
+				$prod_info_arr = $mytootooSearch->mysearch( $kword, 1  , $noresult_num, $refine_sphinx );
+				$liuyanendtime_product_sphinx_no = microtime_float();
+				$newproductsdb = array_merge($newproductsdb,$prod_info_arr['prod_arr']);
+				$sphinxresultnum = $sphinxresultnum + $noresult_num;
+				
+				//echo $sphinxresult["total"]."###".$noresult_num;
+	}
+		$liuyantime_bmytootoodeal = microtime_float();
+		if ($start < $sphinxresultnum)
+		{
+			//处理sphinx数据
+			if ( $newproductsdb && is_array( $newproductsdb ) && count($newproductsdb)>0 )
+			{
+				foreach( $newproductsdb as $key => $val )
+				{
+					$temp = ProductPhoto($newproductsdb[$key]['prod_id'], $newproductsdb[$key]['photoform'], 's');
+                	$newproductsdb[$key]['photo_url'] = $temp[0]['url'];
+					$newproductsdb[$key]["keyword"] = trim($newproductsdb[$key]["keyword"]);
+					$newproductsdb[$key]["rel_word"] = explode(",",$newproductsdb[$key]["keyword"]);
+					if(is_array($newproductsdb[$key]["rel_word"]))
+					{
+						foreach($newproductsdb[$key]["rel_word"] as $k=>$v)
+						{
+							$newproductsdb[$key]["related_word"][$k]['word'] = trim($v);
+							$newproductsdb[$key]["related_word"][$k]['url'] = "/buy-".strSpecial( $v )."/";
+						}
+						$newproductsdb[$key]["related_word"] = array_slice($newproductsdb[$key]["related_word"],0,5);
+						$rolling_words = array_merge($rolling_words,$newproductsdb[$key]["related_word"]);
+					}
+
+					$newproductsdb[$key]["prod_desc"] = strlen(trim($newproductsdb[$key]["prod_desc"])) > 0 ? dealwith_desc($newproductsdb[$key]["prod_desc"]) :'';
+                    $time = explode(' ', $newproductsdb[$key]["update_time"]);
+                    $newproductsdb[$key]["update_time"] = $time[0];
+					$newproductsdb[$key]["MY_LIST"] = serialize_for_post(
+					Array( 'src' => 2, // 1为小引擎�?0为大引擎
+					'pid' => $newproductsdb[$key]["prod_id"], // 产品id
+					'pname' => $newproductsdb[$key]["prod_name"], // 产品名，
+					'pcode' => $newproductsdb[$key]["cat_id"], // 产品分类码，
+					'pimg' => $newproductsdb[$key]["photo_url"], // 产品图片url�?
+					'purl' => $newproductsdb[$key]["url"], // 产品detail
+					'cid' => $newproductsdb[$key]["comp_id"], // 公司id�?
+					'cname' => $newproductsdb[$key]["comp_name"], // 公司�?,
+					'country' => '', // 国家�?
+					'desc' => substrs( $newproductsdb[$key]["prod_desc"], 50 ), // 产品的Description�?50字）,
+					) );
+					$parStr = "action_p";
+					$newproductsdb[$key]['url_plist']	= get_showroom_html_url2($newproductsdb[$key]["comp_id"],'p',$newproductsdb[$key]["comp_name"],$parStr);
+					//http://www.tootoo.com/s-p/gold-medal-sanitary-ware-co-ltd--c-388393.html
+
+				}
+			}
+			$tpl->assign( "newproductsdb", $newproductsdb );
+			$debug && mprint_r( $refine_sphinx, 'sphinx refine' );
+			$debug && mprint_r( $sphinxresult, 'sphinx result' );
+			$debug && mprint_r( $newproductsdb, 'sphinx new result' );
+
+		}
+		$liuyantime_emytootoodeal = microtime_float();
+
+
+	//去重$rolling_words
+	if($rolling_words && is_array($rolling_words) && count($rolling_words)>0)
+	{
+		$rw_tmp = array();
+		foreach($rolling_words as $val)
+		{
+			$s = strtolower(trim($val['word']));
+			if(empty($s)) continue;
+			$rw_tmp[] = $s;
+		}
+		$b = array_unique($rw_tmp);
+		$rolling_words = array();
+		if(count($b)>0)
+		{
+			$i=0;
+			foreach($b as $k => $v)
+			{
+				$rolling_words[$i]['word'] = $v;
+				$rolling_words[$i]['url'] = '/buy-'.strSpecial( $v ).'/';
+				$i++;
+			}
+		}
+	}
+
+	// 返回参数结构
+	if ($res_arr['total'] > 0 || $sphinxresultnum > 0)
+	{
+		$tmp = array();
+		$tmp['start'] = $start + 1;
+		$tmp['end'] = $start + count($newproductsdb) + count($productsdb);
+		( $tmp['end'] < $tmp['start'] ) && ( $tmp['end'] = $tmp['start'] );
+		// 放大搜索结果
+		//$tmp['total'] = enlarge_total( $tmp['total'], count( $sale_w ) + count( $sale_re ) ) + $sphinxresult["total"];
+		$tmp['total'] = $res_arr['total'] + $sphinxresult["total"];
+		$debug && mprint_r( $tmp, '$prod_res_new' );
+
+	}else{
+		$tmp['start'] = 1;
+		$tmp['end'] =20;
+		$tmp['total'] = 20;
+
+	}
+	$tpl->assign( "prod_res", $tmp );
+
+	// Related Categories
+	$params = array( 'scat' => 'analyse_word',
+	'kw' =>  $kword ,
+	'src' => 'rel_cate',
+	'count' => 3,
+	);
+	$debug && mprint_r( $params, '$params_related_cate' );
+	// 查询统一接口
+	$liuyanbegintime_relatedcategories = microtime_float();
+	$related_cate = $unify->singleSearch( $params );
+    if($related_cate && is_array($related_cate) && count($related_cate)>0)
+    {
+        foreach($related_cate as $key => $val){
+            if($key == 'MSG')
+            {
+                $related_cate = array();
+                break;
+            }
+        }
+    }
+	$liuyanendtime_relatedcategories = microtime_float();
+	$debug && mprint_r( $related_cate, '$related_cate' );
+    if($related_cate && is_array($related_cate) && count($related_cate)>0)
+    {
+        $code_str = '';
+        $code_arr = array_keys($related_cate);
+        $code_str = urlencode(implode('^', $code_arr));
+        $tpl->assign('code_str', $code_str);
+    }
+	// related_cate URL静�?�化
+	$related_cate_urls = static_url_fun( "search_product", "related_cate", $related_cate, "", "kw=" . strSpecial( $kcode ) . "&src=" . $src . "&country=" . $country );
+	$tpl->assign( 'related_cate_urls', $related_cate_urls );
+
+	$related_cate_front_one = array_slice( $related_cate, 0, 1 , true ); //第一�?
+	$related_cate_one_key = array_keys( $related_cate_front_one );
+	list( $related_cate_one_key_str ) = $related_cate_one_key;
+	$rel_top_code = str_pad( substr( $related_cate_one_key_str, 0, 2 ), 8, '0', STR_PAD_RIGHT );
+
+	$tpl->assign( 'rel_top_code', $rel_top_code );
+	$debug && mprint_r( $rel_top_code, '$rel_top_code' );
+	$related_cate_front_four = array_slice( $related_cate, 0, 4 , true ); //前四�?
+	// related_cate_front_four URL静�?�化
+	$related_cate_front_four_urls = static_url_fun( "search_product", "related_cate", $related_cate_front_four, "", "kw=" . strSpecial( $kcode ) . "&src=" . $src . "&country=" . $country );
+	$tpl->assign( 'related_cate_front_four_urls', $related_cate_front_four_urls );
+
+	$related_cate_leave = array_slice( $related_cate, 4, 10, true ); //第四到第十个
+	// related_cate_leave URL静�?�化
+	$related_cate_leave_urls = static_url_fun( "search_product", "related_cate", $related_cate_leave, "", "kw=" . strSpecial( $kcode ) . "&src=" . $src . "&country=" . $country );
+	$tpl->assign( 'related_cate_leave_urls', $related_cate_leave_urls );
+
+	$debug && mprint_r( $related_cate_leave_urls, '$related_cate_leave_urls' );
+	$debug && mprint_r( $related_cate_front_one, '$related_cate_front_one' );
+	$debug && mprint_r( $related_cate_front_four, '$related_cate_front_four' );
+	$debug && mprint_r( $related_cate_leave, '$related_cate_leave' );
+
+	if ( $related_cate["REV"] !== false )
+	{
+		$tpl->assign( 'related_cate', $related_cate );
+		$tpl->assign( 'related_cate_front_one', $related_cate_front_one );
+		$tpl->assign( 'related_cate_front_four', $related_cate_front_four );
+		$tpl->assign( 'related_cate_leave', $related_cate_leave );
+	}
+
+
+	//翻页处理
+	$all = $res_arr['total'] + $sphinxresultnum;
+    $records = $all;
+	$totalpage = ceil( $all / $page_link->length );
+	// 50页以后的页码隐藏
+	$all = ( $all > 50 * $pagesize?50 * $pagesize:$all );
+	// 拼接翻页连接
+	// $url = "list.html?src=" . $src . "&country=$country&kw=" . htmlspecialchars( stripslashes( $kw ) ) . ( $code?"&code=" . $code:'' );
+	$url = "/buy-" . strSpecial( $kcode ) . "-" . $countryname . "/src_" . $src . ",country_" . $country . ( $code?",code_" . $code:'' );
+
+
+	if ( $selectrefine )
+	{
+		$ifmark = "";
+		foreach( $selectrefine as $key => $val )
+		{
+			$key = str_replace( " ", "-", $key );
+			$val = str_replace( "/", "-", $val );
+			// $url .= ",selectrefine[$key]_" . $val;
+			$url .= ",selectrefine" . $ifmark . "_" . $key . "_" . $val;
+			// $ifmark = 1;
+		}
+	}
+
+
+	if ($code)
+	{
+		$rearr[0][0]['key'] = 'code';
+		$rearr[0][0]['value'] = $code;
+	}
+	if (is_array($rearr[0]) || $page > 1)
+	{
+		$keywordurl_top = 1;
+	}else{
+		$keywordurl_top = 0;
+	}
+
+	$tpl->assign( 'keywordurl_top', $keywordurl_top);
+
+	$selfurl=connect_rewrite_refine_no_page($rearr[0],$kword);
+
+	$page_res = $page_link->make_page( $all, $page, $selfurl, 'page_no' );
+	$debug && mprint_r( $page_res, '$page_res', 1 );
+	$tpl->assign( 'url', $url );
+	$tpl->assign( 'pagesize', $params['cout'] );
+	$tpl->assign( 'page', $page );
+	$tpl->assign( 'page_res', $page_res );
+
+
+	//波段分页
+	$tpl->assign('page_div', createDivPage($page, $all, $kw, $src));
+
+	// 翻页代码结束
+	$kw = $kw?htmlspecialchars( strip_tags( stripcslashes( $kw ) ) ):htmlspecialchars( strip_tags( stripcslashes( $code_name ) ) );
+	$refineStr="";
+	if(is_array($rewritrule["selectrefine"]) && count($rewritrule["selectrefine"])>0)
+	{
+		foreach( $rewritrule["selectrefine"] as $v )
+		{
+			$refineStr.= $v.",";
+		}
+	}
+	//SEO数据
+	$tmp_urlinfo = disconnect_rewrite_refine_prod($pa);
+
+	$urlinfo = $tmp_urlinfo[1];
+	if(isset($urlinfo['selectrefine'])) {
+		$key = str_replace(array('-', '_'), ' ', key($urlinfo['selectrefine']));
+		$val = str_replace(array('-', '_'), ' ', current($urlinfo['selectrefine']));
+	}
+	if(isset($urlinfo['code'])) {
+		$key = 'Cateogry';
+		$val = trim( Getinfo( $urlinfo['code'] ) );
+	}
+	$title = "$kcode, buy $kcode";
+	$title .= !empty($urlinfo['selectrefine'])? " In {$key} {$val} " : null;
+	$title .=  !empty($urlinfo['page']) ? " On Page {$urlinfo['page']}": null;
+    $description = "$kcode Suppliers & $kcode manufacturers directory.Best cost performance $kcode from reliable & professional $kcode Manufactures, $kcode Factories, $kcode Manufacturers,Companies, $kcode Exporters, $kcode Wholesalers and Distributors";
+    $description .= isset($urlinfo['selectrefine']) && $val !='' ? " In {$key} {$val} " : null;
+    $description .= isset($urlinfo['page']) ? " On Page {$urlinfo['page']}" : null;
+    
+
+	$tpl->assign( "title", $title);
+	$tpl->assign( "description", $description );
+	$tpl->assign( "keywords", "$kcode manufacturers, $kcode suppliers,$kcode exporters, wholesalers, $kcode Distributors, traders, sellers, import, export, trade leads, sell offers, selling leads" );
+	$tpl->assign( 'code', $code );
+	$tpl->assign('rolling_words', $rolling_words);
+
+    $process_time_end = microtime_float();
+    $tpl->assign('seconds', round(($process_time_end-$liuyanbegintime), 2));
+    $tpl->assign('records', number_format($records));
+	$tpl->assign('rs_total', $records);
+
+
+	//sphinx或者cone有数据
+	if ( $res_arr["data"] || $newproductsdb)
+	{
+		//导航分类处理
+		if (is_array($newproductsdb))
+		{
+			$categoriesname = $newproductsdb[0]['cat_ename'];
+			$categoriesid = $newproductsdb[0]['cat_id'];
+		}else if (is_array($productsdb))
+		{
+			$categoriesname = $productsdb[0]['C_NAME'];
+			$categoriesid = $productsdb[0]['C_CODE'];
+		}
+
+		$arr_tmp = explode('^', $categoriesid);
+		if (is_array($arr_tmp))
+		{
+			$categoriesid = $arr_tmp[0];
+		}
+		if ($categoriesid)
+		{
+			$tpl->assign( 'categoriesid', $categoriesid );
+			$tpl->assign( 'categoriesname', $categoriesname );
+		}
+		if ( empty( $productsdb ) )
+		{
+			makeNoCache();
+		}
+		// 清空数
+		{
+			unset( $res_arr );
+			unset( $tmp );
+			unset( $productsdb );
+			unset( $newproductsdb );
+		}
+		$liuyanendtime_tpl =  microtime_float();
+//		$content = $tpl->fetch( "v3/list/product/list.html" );   //2010-1-13 chao
+//		$pattern = array( "/&page=([\d]+)/im",
+//		"/\/src_product\//",
+//		"/\/src_product,country_156\//",
+//		"/(?<=\/)src_product,country_156,/",
+//		"/0-9-/",
+//		"/-China \(mainland\)\/page_1\//",
+//		"/,page_1\//");
+//		$replacement = array( ",page_$1/",
+//		"/",
+//		"/",
+//		"",
+//		"NU-",
+//		"/" ,
+//		"/");
+//		$content = preg_replace( $pattern, $replacement, $content );
+//		echo $content;
+		
+		if($page == 1 && eregi("www.google|yahoo.com|msn.com", $_SERVER['HTTP_REFERER']) == 1)
+		{
+			$tpl->display( "v3/list/product/list_zip.html" );
+		}
+		else
+		{
+			$tpl->display( "v3/list/product/list.html" );
+		}
+	}
+	else
+	{		
+			$tpl->display( "v3/list/product/no_result.html" );
+	}
+
+	//大于1秒的请求写日志
+	$liuyanendtime = microtime_float();
+	if ($liuyanendtime - $liuyanbegintime > 1)
+	{
+		$fplog = fopen("/tmp/liuyan-".date("Ymd").".log","a");
+		if ($fplog)
+		{
+			$time = $liuyanendtime - $liuyanbegintime;
+			$str = "search word  time --".$kw."\n";
+			$str .= "peoplealsosearches_pro time --".($liuyanendtime_peoplealsosearches_pro - $liuyanbegintime_peoplealsosearches_pro)."\n";
+			$str .= "relatedcategories  time --".($liuyanendtime_relatedcategories - $liuyanbegintime_relatedcategories)."\n";
+			$str .= "word2word  time --".($liuyanendtime_word2word - $liuyanbegintime_word2word)."\n";
+			$str .= "product time --".($liuyanendtime_product - $liuyanbegintime_product)."\n";
+			$str .= "product_sphinx_db time --".($dbend - $dbstart)."\n";
+			$str .= "product_sphinx time --".($liuyanendtime_product_sphinx - $liuyanbegintime_product_sphinx)."\n";
+			$str .= "mytootoodeal time --".($liuyantime_emytootoodeal - $liuyantime_bmytootoodeal)."\n";
+			$str .= "sphinx_2 time --".($liuyanendtime_product_sphinx_2 - $liuyanbegintime_product_sphinx_2)."\n";
+			$str .= "sphinx_no time --".($liuyanendtime_product_sphinx_no - $liuyanbegintime_product_sphinx_no)."\n";
+			$str .= "engine_cone_product time --".$liuyanengine_time."\n";
+			$str .= "Anti time --".($liuyantime_eAnti - $liuyantime_bAnti)."\n";
+			$str .= "user time --".($liuyantime_euser - $liuyantime_buser)."\n";
+			$str .= "productdeal time --".($liuyantime_eproductdeal - $liuyantime_bproductdeal)."\n";
+			$str .= "tpl time --".($liuyanendtime - $liuyanendtime_tpl)."\n";
+			$str .= "include time --".($liuyantime_dbb - $liuyanbegintime)."\n";
+			$str .= "db time --".($liuyantime_buser - $liuyantime_dbb)."\n";
+			$str .= "all time --".$time."\n";
+			$str .= "product time now --".date("Y-m-d H:i:s")."\n\n";
+			fwrite($fplog,$str);
+			fclose($fplog);
+		}
+	}
+
+}
+
+ob_end_flush();
+
+/**
+ * ------------------------------------------ 产品搜索结束 --------------------------------------
+ */
+
+/**
+ * 处理前台大段文字显示
+ * @date 2010-8-3
+ */
+function dealwith_desc($str)
+{
+    $str = preg_replace("/<style .*?<\/style>/is", "", $str);
+    $str = preg_replace("/<script .*?<\/script>/is", "", $str);
+    $str = preg_replace("/<br\s*\/?>/i", "\n", $str);
+    $str = str_ireplace("&gt;", ">", $str);
+    $str = str_ireplace("&lt;", "<", $str);
+    $str = preg_replace("/<\/?p>/i", "\n", $str);
+    $str = preg_replace("/<\/?td>/i", "\n", $str);
+    $str = preg_replace("/<\/?div>/i", "\n", $str);
+    $str = preg_replace("/<\/?blockquote>/i", "\n", $str);
+    $str = preg_replace("/<\/?li>/i", "\n", $str);
+    $str = strip_tags($str);
+    $str = preg_replace("/\&\#.*?\;/i", "", $str);
+    $str = str_ireplace("&amp;", "&", $str);
+    $str = str_ireplace("&nbsp;&nbsp;&nbsp;", "&nbsp;&nbsp;", $str);
+    $str = str_ireplace("&nbsp;&nbsp;", "&nbsp;", $str);
+    $str = str_ireplace("&nbsp;", "\t", $str);
+    $str = str_ireplace("&quot;", '"', $str);
+    $str = str_ireplace("<br>", "", $str);
+    $str = str_ireplace("<br />", "", $str);
+    //$str = str_ireplace("&gt;", ">", $str);
+    //$str = str_ireplace("&lt;", "<", $str);
+    //$str = str_ireplace("&amp;", "&", $str);
+    return $str;
+}
+
+/**
+ * 波段分页 (不带src的可参考inquire列表页)
+ * @param <int> $page 当前页
+ * @param <int> $total 总条数
+ * @param <string> $kw 关键词 默认是空格变'_'
+ * @param <string> $src 判断是公司还是产品列表
+ * @param <int> $perPage每页条数
+ * @param <int> $div 波段范围
+ * @return <string>
+ */
+function createDivPage($page, $total, $kw, $src, $perPage=20, $div=5)
+{
+	$page = $page < 1 ? 1 : (int)$page; //当前页码
+	$maxDiv = ceil($total/$perPage/$div);//总段数
+	$kw =  str_replace(' ', '_', trim($kw));
+	if($src == 'product')
+	$url = "http://www.tootoo.com/buy-{$kw}-P_";
+	else
+	$url = "http://www.tootoo.com/company/{$kw}/,page_";
+
+	$html_page = '';
+	if($total > ($div*$perPage)){
+		$html_page .= '<p><span>Page Division: </span>';
+		for($i=1; $i<=$maxDiv; $i++)
+		{
+			$start = ($i - 1) * $div + 1;
+			$end = $i * $div;
+
+			if($start <= $page && $page <=$end) {
+				$html_page .= "<b>".$start.'-'.$end."</b> | ";
+			}else{
+				if($start != $end)
+				$html_page .= "<a href='{$url}{$start}/'>".$start.'-'.$end."</a> | ";
+				else
+				$html_page .= "<a href='{$url}{$start}/'>".$start."</a> ";
+			}
+			if($end == $maxPage)
+			break;
+		}
+		$html_page .= '</p>';
+	}
+	return $html_page;
+}
+
+function makeNoCache()
+{
+	header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
+	header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+	header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+	header( 'Cache-Control: post-check=0, pre-check=0', false );
+	header( 'Pragma: no-cache' );
+}
+// 星级图标
+function show_tqs_star( $star )
+{
+	$count = preg_match( "/[^012345]+/", $star );
+	if ( empty( $star ) || $count == 1 )
+	{
+		$tqs_star = "<img src='" . SEARCH_PIC_PATH . "images/star0.gif' alt='' /><img src='" . SEARCH_PIC_PATH . "images/star0.gif' alt='' /><img src='" . SEARCH_PIC_PATH . "images/star0.gif' alt='' /><img src='" . SEARCH_PIC_PATH . "images/star0.gif' alt='' /><img src='" . SEARCH_PIC_PATH . "images/star0.gif' alt='' />";
+		return $tqs_star;
+	}
+	for( $i = 0;$i < $star;$i++ )
+	{
+		$tqs_star .= "<img src='" . SEARCH_PIC_PATH . "images/star1.gif' alt='' />";
+	}
+
+	for( $i = 0;$i < ( 5 - $star );$i++ )
+	{
+		$tqs_star .= "<img src='" . SEARCH_PIC_PATH . "images/star0.gif' alt='' />";
+	}
+	return $tqs_star;
+}
+//替换：将特殊字符转换为_，同时将多个连着的_转化为一�?
+function str_special_preg1($str)
+{
+	$patterns=array("/\W/");
+	$replacements=array("_");
+	$tmp= preg_replace($patterns, $replacements, $str);
+	$patterns2=array("/(\_)+/");
+	$replacements2=array("_");
+	return preg_replace($patterns2, $replacements2, $tmp);
+}
+
+function del_html($str){
+	$arr_allow_tag = array("br","p","strong","u","em","ol","ul","li","div","sup","sub","blockquote");
+	$ret = str_replace("&amp;","&",$str);
+	foreach ($arr_allow_tag as $tag){
+		$exp = "'&lt;(\/?".$tag.".*?)&gt;'";
+		//echo $exp;
+		$ret = preg_replace($exp,"",$ret);
+	}
+	return $ret;
+}
+
+//过滤关键词
+function filter_kw($str)
+{
+	preg_match_all ("/([a-z0-9 ]+)/im",$str, $out, PREG_SET_ORDER);
+	foreach ($out as $k=>$v)
+	{
+		$searchword .= $v[0]." ";
+	}
+	$searchword = trim($searchword);
+	$searchword = strtolower($searchword);
+	return $searchword;
+}
+function unhtmlspecialchars( $string )
+{
+	$string = str_replace ( '&amp;', '', $string );
+	$string = str_replace ( '&#039;', '', $string );
+	$string = str_replace ( '&quot;', '', $string );
+	$string = str_replace ( '&lt;', '', $string );
+	$string = str_replace ( '&gt;', '', $string );
+	$string = str_replace ( '&uuml;', '', $string );
+	$string = str_replace ( '&Uuml;', '', $string );
+	$string = str_replace ( '&auml;', '', $string );
+	$string = str_replace ( '&Auml;', '', $string );
+	$string = str_replace ( '&ouml;', '', $string );
+	$string = str_replace ( '&Ouml;', '', $string );
+	return $string;
+}
+
+function iswapvisit()
+{
+	$strtmp = $_SERVER['HTTP_ACCEPT'];
+	$str = $_SERVER['HTTP_USER_AGENT'];
+
+	if (strlen($strtmp) > 1 || strlen($str) > 1)
+	{
+		//echo $strtmp;
+		if (
+		(strpos($strtmp,'vnd.wap.')!==FALSE)
+		&& (strpos($strtmp,'text/html')===FALSE ||
+		(strpos($strtmp,'vnd.wap.') <
+		strpos($strtmp,'text/html')))
+		|| eregi("UCWEB|NetFront|mini 9.5|vx1000|lge |m800|e860|u940|ux840|compal|wireless| mobi|ahong|lg380|lgku|lgu900|lg210|lg47|lg920|lg840|lg370|sam-r|mg50|s55|g83|t66|vx400|mk99|d615|d763|el370|sl900|mp500|samu3|samu4|vx10|xda_|samu5|samu6|samu7|samu9|a615|b832|m881|s920|n210|s700|c-810|_h797|mob-x|sk16d|848b|mowser|s580|r800|471x|v120|rim8|c500foma:|160x|x160|480x|x640|t503|w839|i250|sprint|w398samr810|m5252|c7100|mt126|x225|s5330|s820|htil-g1|fly v71|s302|-x113|novarra|k610i|-three|8325rc|8352rc|sanyo|vx54|c888|nx250|n120|mtk |c5588|s710|t880|c5005|i;458x|p404i|s210|c5100|teleca|s940|c500|s590|foma|samsu|vx8|vx9|a1000|_mms|myx|a700|gu1100|bc831|e300|ems100|me701|me702m-three|sd588|s800|8325rc|ac831|mw200|brew |d88|htc\/|htc_touch|355x|m50|km100|d736|p-9521|telco|sl74|ktouch|m4u\/|me702|8325rc|kddi|phone|lg |sonyericsson|samsung|240x|x320vx10|nokia|sony cmd|motorola|up.browser|up.link|mmp|symbian|smartphone|midp|wap|vodafone|o2|pocket|kindle|mobile|psp|treo|iris|3g_t|windows ce|opera mobi|windows ce; smartphone;|windows ce; iemobile|ipod|iphone|android|opera mini|blackberry|palm os|palm|hiptop|avantgo|fennec|plucker|xiino|blazer|elaine|iris|3g_t|windows ce|opera mobi|windows ce; smartphone;|windows ce; iemobile",$str) == 1
+		)
+		{//手机访问
+			return true;
+		}else{
+			return false;
+		}
+	}
+	return false;
+}
+?>

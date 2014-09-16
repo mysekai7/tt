@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript" src="ajax.js"></script>
+
+    <title>Example | xHTML1.0</title>
+
+
+    <script type="text/javascript">
+    
+    function postform_attachbox_open()
+    {
+        var iframe = document.createElement("IFRAME");
+        iframe.name = "i";
+        //iframe.style.display = "none";
+        //iframe.setAttribute('name', 'i');
+        iframe.setAttribute('style', 'display:none');
+        document.body.appendChild(iframe);
+        var frm = document.createElement("FORM");
+        //frm.method = "POST";
+        //frm.action = "http://sk.com/demo/ajax_uploadfile/upload.php";
+        //frm.enctype	= "multipart/form-data";
+        //frm.encoding	= "multipart/form-data";
+        //frm.target	= iframe.name;
+        //frm.style.display	= "none";
+        frm.setAttribute('method', 'POST');
+        frm.setAttribute('action', 'http://sk.com/demo/ajax_uploadfile/upload.php');
+        frm.setAttribute('enctype', 'multipart/form-data');
+        frm.setAttribute('target', iframe.name);
+        frm.setAttribute('style', 'display:none');
+
+        //var inp	= document.createElement("INPUT");
+        var inp = document.getElementById('ii').cloneNode(true);
+        //inp.name = "book_image";
+        //inp.id = "book_image";
+        inp.setAttribute('name', 'book_image');
+        inp.setAttribute('id', 'book_image');
+        //inp.type = "file";
+        //inp.value = document.getElementById('ii').value;
+        frm.appendChild(inp);
+        document.body.appendChild(frm);
+        //alert(document.getElementById('ii').value);
+        frm.submit();
+        frm.reset();
+        document.getElementById('ii').value = null;
+    }
+    </script>
+</head>
+<body>
+
+
+<input type="file" id="ii" />
+<button onclick="postform_attachbox_open(); return false;">upload</button>
+
+
+<div id="attachment"></div>
+    
+</body>
+</html>

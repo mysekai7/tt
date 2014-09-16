@@ -1,0 +1,28 @@
+//cid 是文本框控件的id，msg是要插入的字符串，filename不是必需的
+function   test1(cid, msg, filename)   
+{   
+    var obj = window.parent.document.getElementById(cid) //首先获取控件对象
+    obj.focus();  //设置焦点在控件对象上
+       
+    var slct = window.parent.document.selection; //这个不是很懂，好像引用网页的选择对象
+    var rng = slct.createRange(); //创建区域？
+    obj.select(); //不懂这句是做什么用的
+    rng.setEndPoint("StartToStart", slct.createRange()); //选择从头到光标所在位置的区域？
+    var psn = rng.text.length; //psn是选中字符串的长度，也就是光标所在的位置。
+    rng.collapse(false); //不懂这句是做什么用的
+    rng.select(); //不懂这句是做什么用的
+    
+    var tellPoint = psn;//光标位置
+    var stringBox = obj.value;//内容字符串
+    
+    var str1 = obj.value.substring(0,psn);//将文本框中的字符串，按光标所在位置分为两段字符串
+    var str2 = obj.value.substring(psn,obj.value.length);
+    
+    obj.value = str1 + msg + str2; //将字符串组合并付给文本框对象
+
+    alert("添加图片 " + filename + " 成功")
+    return false
+
+//    alert(str1);
+//    alert(str2);    
+}  

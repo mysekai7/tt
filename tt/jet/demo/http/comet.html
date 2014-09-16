@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+	<div id="alert">show server time</div>
+	<div id="count">+</div>
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script type="text/javascript" src="../../source/jet.http.js"></script>
+	<script type="text/javascript">
+	
+		var callback = function (time) {
+			document.getElementById('alert').innerHTML = time;
+		};
+		
+		Jet().$package(function(J){
+
+			var sf = function(o){
+			alert(99)
+				document.getElementById('count').innerHTML += "+";
+				comet.contentWindow.location.reload();
+			}
+			var config = {
+				callback : "callback",
+				onLoad:sf,
+				arguments:99
+				
+			};
+
+			var comet = J.http.comet("./comet.backend.php", config);
+
+
+
+		});
+
+
+	</script>
+</body>
+
+</html>

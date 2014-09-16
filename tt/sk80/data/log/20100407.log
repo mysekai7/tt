@@ -1,0 +1,10 @@
+2010-04-07 00:00:18	Warning: Smarty.class.php:1093: Smarty error: unable to read resource: "caomao/post.html"
+2010-04-07 00:00:20	Notice: IndexController.class.php:74: Undefined variable: args
+2010-04-07 00:00:20	Notice: IndexController.class.php:76: Undefined variable: args
+2010-04-07 00:00:21	Notice: %%5B^5B2^5B2E9221%%index.html.php:45: Undefined index:  category_url
+2010-04-07 00:12:40	Warning: Smarty.class.php:1093: Smarty error: unable to read resource: "caomao/list.html"
+2010-04-07 00:35:33	Notice: IndexController.class.php:74: Undefined index:  page
+2010-04-07 22:55:36	Notice: AdminArticleController.class.php:26: Undefined index:  cid
+2010-04-07 22:55:37	Notice: AdminArticleController.class.php:51: Undefined index:  debug
+2010-04-07 22:55:37	Notice: %%32^32D^32DBDDB7%%article_list.html.php:20: Undefined index:  cid
+2010-04-07 22:55:41	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt

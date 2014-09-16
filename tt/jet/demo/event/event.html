@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="A">aaaaaa</div>
+	<div id="B">bbbbbb</div>
+	<div id="C">ccccccc</div>
+
+
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script>
+		Jet().$package(function(J){
+			var $=J.dom.id;
+			var $D=J.dom;
+			var $E=J.event;
+			
+			
+			var fnA1=function(){
+				J.out("click A: 1 " + this.innerHTML);
+			};
+			var fnA2=function(){
+				J.out("click A: 2 " + this.innerHTML);
+			};
+			var fnB1=function(a,b,e){
+				J.out("click B: pass "+"\n1:"+a+"\n2:"+b +"\n3:" +e+"\n4:"+ this.innerHTML);
+			};
+			var fnB2=function(a,b,e){
+				J.out("click B: pass "+"\n1:"+a+"\n2:"+b +"\n3:" +e+"\n4:"+ this.innerHTML);
+			};
+			var fnC=function(a,b,e){
+				J.out("click C:"+"\n"+a+"\n1:"+b+"\n2:" +e+"\n3:" + this.text);
+			};
+			var k_fn = function(e){
+				//s
+				if(e.keyCode == 83){
+					e.preventDefault();
+					J.out("key");
+				}
+				
+			}
+			
+			var o={};
+			o.text="object's text";
+			
+			$E.on($("A"),"click",fnA1);
+			$E.on($("A"),"click",fnA2);
+			
+			$E.on($("B"),"click",fnB1);
+			$E.on($("B"),"click",J.pass(fnB2,1,2));
+			
+			$E.on($("C"),"click",J.bind(fnC,o, "arg_a","arg_b"));
+			
+			$E.on(document,"keydown",k_fn);
+
+
+
+
+		});
+
+	</script>
+</body>
+</html>

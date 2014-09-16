@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="PHP APC文件上传进度条实现范例:PHP," /><meta name="description" content="PHP APC文件上传进度条实现范例,PHP数据库存储session,nginx apache svn配置" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>PHP APC文件上传进度条实现范例</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/php/">PHP</a>&gt;<strong class="current">PHP APC文件上传进度条实现范例</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="PHP数据库存储session" href="http://sk2.com/post/148.html" rel="nofollow">Newer</a></li><li class="older"><a title="nginx apache svn配置" href="http://sk2.com/post/146.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>PHP APC文件上传进度条实现范例</h1><ul class="info"><li class="date">2010年 03月28日  21:54</li><li class="category"><a href="http://sk2.com/category/php/">PHP</a></li></ul><div class="textbody"><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">//upload.php (文件上传表单,提交到target.php)
+&lt;?php $id = $_GET['id']; ?&gt;
+&lt;form enctype=&quot;multipart/form-data&quot; id=&quot;upload_form&quot; action=&quot;target.php&quot; method=&quot;POST&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;APC_UPLOAD_PROGRESS&quot; id=&quot;progress_key&quot;  value=&quot;&lt;?php echo $id?&gt;&quot;/&gt;
+  &lt;input type=&quot;file&quot; id=&quot;test_file&quot; name=&quot;test_file&quot;/&gt;
+&nbsp;
+  &lt;input onclick=&quot;window.parent.startProgress(); return true;&quot; type=&quot;submit&quot; value=&quot;Upload!&quot;/&gt;
+&lt;/form&gt;
+&nbsp;
+//target.php (接收upload.php上传表单提交页面)
+&lt;?php 
+set_time_limit(600);
+if($_SERVER['REQUEST_METHOD']=='POST') {
+  move_uploaded_file($_FILES[&quot;test_file&quot;][&quot;tmp_name&quot;],
+  dirname($_SERVER['SCRIPT_FILENAME']).&quot;/UploadTemp/&quot; . $_FILES[&quot;test_file&quot;][&quot;name&quot;]);//UploadTemp文件夹位于此脚本相同目录下
+  echo &quot;&lt;p&gt;File uploaded.  Thank you!&lt;/p&gt;&quot;;
+}
+&nbsp;
+//getprogress.php (用来得到文件上传状态信息,让js来调用)
+&lt;?php
+session_start();
+if(isset($_GET['progress_key'])) {
+  $status = apc_fetch('upload_'.$_GET['progress_key']);
+  echo ($status['current']/$status['total'])*100;
+}
+?&gt;
+&nbsp;
+//progress.php (调用getprogress.php和upload.php,显示进度条)
+&lt;?php
+$id = md5(uniqid(rand(), true));
+?&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Upload Example&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;script language=&quot;javascript&quot;&gt;
+var xmlHttp;
+var proNum=0;
+var loop=0;
+&nbsp;
+var Try = {
+ these: function() {
+ var returnValue;
+  for (var i = 0; i &lt; arguments.length; i++) {
+   var lambda = arguments[i];
+   try {
+    returnValue = lambda();
+    break;
+   } catch (e) {}
+  }
+  return returnValue;
+ }
+}
+&nbsp;
+function createXHR(){
+ return Try.these(
+  function() {return new XMLHttpRequest()},
+  function() {return new ActiveXObject('Msxml2.XMLHTTP')},
+  function() {return new ActiveXObject('Microsoft.XMLHTTP')}
+ ) || false;
+}
+&nbsp;
+var xmlHttp;
+&nbsp;
+function sendURL() {
+ xmlHttp=createXHR();
+ var url=&quot;getprogress.php?progress_key=&lt;?php echo $id;?&gt;&quot;;
+ xmlHttp.onreadystatechange = doHttpReadyStateChange;
+ xmlHttp.open(&quot;GET&quot;,url,true);
+ xmlHttp.send(null);  
+}
+&nbsp;
+function doHttpReadyStateChange() {
+ if (xmlHttp.readyState == 4){
+  proNum=parseInt(xmlHttp.responseText);
+  document.getElementById(&quot;progressinner&quot;).style.width = proNum+&quot;%&quot;;
+  document.getElementById(&quot;showNum&quot;).innerHTML = proNum+&quot;%&quot;;
+  if ( proNum &lt; 100){
+   setTimeout(&quot;getProgress()&quot;, 100);
+  }
+ }
+}
+&nbsp;
+function getProgress(){
+ loop++;
+ document.getElementById(&quot;showNum2&quot;).innerHTML = loop;
+ sendURL();
+}
+var interval;
+function startProgress(){
+ document.getElementById(&quot;progressouter&quot;).style.display=&quot;block&quot;;
+ setTimeout(&quot;getProgress()&quot;, 100);
+}
+&lt;/script&gt;
+&nbsp;
+&lt;iframe id=&quot;theframe&quot; name=&quot;theframe&quot;
+src=&quot;upload.php?id=&lt;?php echo($id); ?&gt;&quot;
+style=&quot;border: none; height: 100px; width: 400px;&quot; &gt;
+&lt;/iframe&gt;
+&nbsp;
+&nbsp;
+&nbsp;
+&lt;div id=&quot;progressouter&quot; style=
+&quot;width: 500px; height: 20px; border: 6px solid red; display:none;&quot;&gt;
+&lt;div id=&quot;progressinner&quot; style=
+&quot;position: relative; height: 20px; background-color: purple; width: 0%; &quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div id='showNum'&gt;&lt;/div&gt;&lt;br&gt;
+&lt;div id='showNum2'&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div><br /></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/148.html">PHP数据库存储session</a></li><li>Older:<a href="http://sk2.com/post/146.html">nginx apache svn配置</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

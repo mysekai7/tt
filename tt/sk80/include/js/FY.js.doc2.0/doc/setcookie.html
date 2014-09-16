@@ -1,0 +1,105 @@
+<html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<head>
+<title>$().setcookie()  - FY.JS文档</title>
+<link rel="stylesheet" href="./main.css" type="text/css" media="screen"/>
+<script type='text/javascript' src='./FY.js'></script>
+<script type='text/javascript' src='./main.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+code();
+});
+
+var setcookie = function() {
+	$(document).setcookie({
+    name: $('cn').val(), // cookie名字
+    value: $('cc').val(),  //cookie 值
+    expires: $('cd').val(),  //生存日期
+    path: "/",      //有效路径
+    domain: "",  // 指定域名
+    secure: false   //是否加密
+});
+alert('Cookie设置成功.');
+}
+</script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    	<div id="search">
+		<input name="s" id="s"/><input type="submit" value="搜索" onclick="highlight(FY.val('s'));return false;"/></form>
+		</div>
+  		$().setcookie() - FY.JS文档          
+    </div>
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebarinner">
+              
+                <div class="dialog">
+		FY.JS是轻量级的迷你JavaScirpt库体积只有2.0KB.
+
+
+				</div>
+            	         <div class="cat">
+            函数列表
+            </div> <p>
+
+			<ul>
+<li><a href="./index.html">文档主页</a></li>
+<li><a href="./var.html">$()</a></li>
+<li><a href="./ready.html">$().ready()</a></li>
+<li><a href="./click.html">$().click()</a></li>
+<li><a href="./html.html">$().html()</a></li>
+<li><a href="./val.html">$().val()</a></li>
+<li><a href="./text.html">$().text()</a></li>
+<li><a href="./show.html">$().show()</a></li>
+<li><a href="./hide.html">$().hide()</a></li>
+<li><a href="./ajax.html">$().ajax()</a></li>
+<li><b>$().setcookie()</b></li>
+<li><a href="./getcookie.html">$().getcookie()</a></li>
+<p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="2279712">
+<input type="image" src="https://www.paypal.com/zh_XC/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="donate me!"></p>
+</form>
+
+<script type="text/javascript" src="http://js.tongji.linezing.com/1445230/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1445230/tongji.gif"/></a></noscript>
+</p>
+		 </ul>
+	</div>	
+        </div>
+        <div id="main">
+            <div class="maininner">
+<h3>$().setcookie() </h3>
+<p>$().setcookie() 是对cookie操作的函数，写入一个cookie. 本函数没有返回值</p><p>代码如下。</p>
+<p>
+<pre class="code">
+$(document).setcookie({
+    name: "fengyin", // cookie名字
+    value: "13456",  //cookie 值
+    expires: "365",  //生存天数 删除一个cookie只要把日期设置为-1天
+    path: "/",      //有效路径
+    domain: "127.0.0.1",  // 指定域名
+    secure: false   //是否加密
+});
+</pre>
+</p>
+
+<p>在线演示: </p>
+<p>设置cookie名字: <input type="text" id="cn" value="test"/></p>
+<p>设置cookie内容: <input type="text" id="cc" value="我是风吟"/></p>
+<p>设置cookie天数: <input type="text" id="cd" value="999"/></p>
+<p><a href="javascript:setcookie();">点击这里设置cookie</a></p>
+<p>设置完cookie之后,想要查看您设置的cookie请进入下一章 $().getcookie() </p>
+        </div>
+    </div>   
+</div>
+
+    <div id="footer">
+      &copy;2010 <a href="http://fengyin.name/" target="_blank">风吟</a> 版权所有. 本主机由胡戈戈合租赞助.合租地址: <a href="http://hugege.com/" target="_blank">http://hugege.com/</a>
+    </div>
+    </div>
+</body>
+</html>

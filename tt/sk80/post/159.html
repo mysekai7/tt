@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="Linux常用命令集:Linux," /><meta name="description" content="Linux常用命令集,SVN on CentOS,Centos5 编译内核" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>Linux常用命令集</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/linux/">Linux</a>&gt;<strong class="current">Linux常用命令集</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="SVN on CentOS" href="http://sk2.com/post/160.html" rel="nofollow">Newer</a></li><li class="older"><a title="Centos5 编译内核" href="http://sk2.com/post/158.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>Linux常用命令集</h1><ul class="info"><li class="date">2010年 03月28日  23:35</li><li class="category"><a href="http://sk2.com/category/linux/">Linux</a></li></ul><div class="textbody"><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">常用的基本命令
+uname -a 查看内核版本
+ls -al 显示所有文件的属性
+pwd 显示当前路径
+cd - 返回上一次目录 cd ~ 返回主目录
+date s 设置时间、日期
+cal 显示日历 cal 2006
+bc 计算器具
+man &amp; info 帮助手册
+locale 显示当前字体 locale -a 所有可用字体 /etc/sysconfig/i18n设置文件
+LANG=en 使用英文字体
+sync 将数据同步写入硬盘
+shutdonw -h now &amp; half &amp; poweroff 关机
+reboot 重启
+startx &amp; init 5 进入图形介面
+/work &amp; ?work 向上、下查找文档内容
+chgrp 改变档案群组 chgrp testing install.log
+chown 改变所属人 chown root:root install.log
+chmod 改变属性 chmod 777 install.log read=4 write=2 execute=1
+cp 复制 cp filename
+rm 删除文件 rm -rf filename 强制删除文件
+rmdir 删除文件夹
+mv 移动 mv 123.txt 222.txt 重命名
+mkdir 创建文件夹
+touch 创建文件 更新当前时间
+cat 由第一行开始显示 cat |more 分页
+nl 在内容前加行号
+more &amp; less 一面一面翻动
+head -n filename 显示第N行内容
+tail -n filename 显示后N行内容
+od 显示非纯文档
+df -h 显示分区空间
+du 显示目录或文件的大小
+fdisk 分区设置 fdisk -l /dev/hda 显示硬盘分区状态
+mkfs 建立各种文件系统 mkfs -t ext3 /dev/ram15
+fsck 检查和修复LINUX档案
+ln 硬链接 ln -s 软件链接
+whereis 查找命令
+locate 查找
+find 查找 find / -name “***.***”
+which 查看工具
+whoami 显示当前用户
+gcc -v 查看GCC版本
+chattr +i filename 禁止删除 chattr -i filename 取消禁止
+lsattr 显示隐藏档属性
+updatedb 更新资料库
+mke2fs 格式化 mkfs -t ext3
+dd if=/etc/passwd of=/tmp/passwd.bak 备份
+mount 列出系统所有的分区
+mount -t iso9660 /dev/cdrom /mnt/cdrom 挂载光盘
+mount -t vfat /dev/fd0 /mnt/floppy 挂载软盘
+mount -t vfat -o iocharset=utf8,umask=000 /dev/hda2 /mnt/hda2 挂载fat32分区
+mount -t ntfs -o nls=utf8,umask=000 /dev/hda3 /mnt/hda3 挂载ntfs分区
+Linux-NTFS Project: http://linux-ntfs.sourceforge.net/
+umount /mnt/hda3 缷载
+ifconfig 显示或设置网络设备
+service network restart 重启网卡
+ifdown eth0 关闭网卡
+ifup eth0 开启网卡
+clear 清屏
+history 历史记录 !55 执行第55个指令
+stty 设置终端 stty -a
+fdisk /mbr 删除GRUB
+at 僅進行一次的工作排程
+crontab 循環執行的例行性命令 [e]编辑,[l]显示,[r]删除任务
+&amp; 后台运行程序 tar -zxvf 123.tar.gz &amp; ———&gt;后台运行
+jobs 观看后台暂停的程序 jobs -l
+fg 将后台程序调到前台 fg n ——&gt;n是数字,可以指定进行那个程序
+bg 让工作在后台运行
+kill 结束进程 kill -9 PID [9]强制结束,[15]正常结束,[l]列出可用的kill信号
+ps aux 查看后台程序
+top 查看后台程序 top -d 2 每两秒更新一次 top -d 2 -p10604 观看某个PID
+top -b -n 2 &gt; /tmp/top.txt —–&gt;將 top 的資訊進行 2 次，然後將結果輸出到 /tmp/top.txt
+pstree 以树状图显示程序 [A]以 ASCII 來連接, [u]列出PID, [p]列出帐号
+killall 要刪除某個服務 killall -9 httpd
+free 显示内存状态 free -m ——–&gt;以M为单位显示
+uptime 显示目前系统开机时间
+netstat 显示网络状态 netstat -tulnp——&gt;找出目前系統上已在監聽的網路連線及其 PID
+dmesg 显示开机信息 demsg | more
+nice 设置优先权 nice -n -5 vi &amp; —–&gt;用 root 給一個 nice 植為 -5 ，用於執行 vi
+renice 调整已存在优先权
+runlevel 显示目前的runlevel
+depmod 分析可载入模块的相依性
+lsmod 显示已载入系统的模块
+modinfo 显示kernel模块的信息
+insmod 载入模块
+modprobe 自动处理可载入模块
+rmmod 删除模块
+chkconfig 检查，设置系统的各种服务 chkconfig –list —–&gt;列出各项服务状态
+ntsysv 设置系统的各种服务
+cpio 备份文件
+&nbsp;
+压缩命令
+*.Z compress 程式壓縮的檔案；
+*.bz2 bzip2 程式壓縮的檔案；
+*.gz gzip 程式壓縮的檔案；
+*.tar tar 程式打包的資料，並沒有壓縮過；
+*.tar.gz tar 程式打包的檔案，其中並且經過 gzip 的壓縮
+compress filename 压缩文件 加[-d]解压 uncompress
+gzip filename 压缩 加[-d]解压 zcat 123.gz 查看压缩文件内容
+bzip2 -z filename 压缩 加[-d]解压 bzcat filename.bz2 查看压缩文件内容
+tar -cvf /home/123.tar /etc 打包，不压缩
+tar -xvf 123.tar 解开包
+tar -zxvf /home/123.tar.gz 以gzip解压
+tar -jxvf /home/123.tar.bz2 以bzip2解压
+tar -ztvf /tmp/etc.tar.gz 查看tar内容
+cpio -covB &gt; [file|device] 份份
+cpio -icduv &lt; [file|device] 还原
+&nbsp;
+vi一般用法
+一般模式 编辑模式 指令模式
+h 左 a,i,r,o,A,I,R,O :w 保存
+j 下 进入编辑模式 :w! 强制保存
+k 上 dd 删除光标当前行 :q! 不保存离开
+l 右 ndd 删除n行 :wq! 保存后离开
+0 移动到行首 yy 复制当前行 :e! 还原原始档
+$ 移动到行尾 nyy 复制n行 :w filename 另存为
+H 屏幕最上 p,P 粘贴 :set nu 设置行号
+M 屏幕中央 u 撤消 :set nonu 取消行号
+L 屏幕最下 [Ctrl]+r 重做上一个动作 ZZ 保存离开
+G 档案最后一行 [ctrl]+z 暂停退出 :set nohlsearch 永久地关闭高亮显示
+/work 向下搜索 :sp 同时打开两个文档
+?work 向上搜索 [Ctrl]+w 两个文档设换
+gg 移动到档案第一行 :nohlsearch 暂时关闭高亮显示
+&nbsp;
+帐号管理
+/etc/passwd 系统帐号信息
+/etc/shadow 帐号密码信息 经MD5 32位加密
+在密码栏前面加『 * 』『 ! 』禁止使用某帐号
+/etc/group 系统群组信息
+/etc/gshadow
+newgrp 改变登陆组
+useradd &amp; adduser 建立新用户 ———&gt; useradd -m test 自动建立用户的登入目录
+useradd -m -g pgroup test ———&gt;指定所属级
+/etc/default/useradd 相关设定
+/etc/login.defs UID/GID 有關的設定
+passwd 更改密码 ———–&gt; passwd test
+usermod 修改用户帐号
+userdel 删除帐号 ———–&gt;userdel -r test
+chsh 更换登陆系统时使用的SHELL [-l]显示可用的SHELL;[-s]修改自己的SHELL
+chfn 改变finger指令显示的信息
+finger 查找并显示用户信息
+id 显示用户的ID ———–&gt; id test
+groupadd 添加组
+groupmod 与usermod类似
+groupdel 删除组
+su test 更改用户 su - 进入root,且使用root的环境变量
+sudo 以其他身份来执行指令
+visudo 编辑/etc/sudoers 加入一行『 test ALL=(ALL) ALL 』
+%wheel ALL = (ALL) ALL 系统里所有wheel群组的用户都可用sudo
+%wheel ALL = (ALL) NOPASSWD: ALL wheel群组所有用户都不用密码NOPASSWD
+User_Alias ADMPW = vbird, dmtsai, vbird1, vbird3 加入ADMPW组
+ADMPW ALL = NOPASSWD: !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, \
+!/usr/bin/passwd root 可以更改使用者密码,但不能更改root密码 (在指令前面加入 ! 代表不可)
+PAM (Pluggable Authentication Modules, 嵌入式模組)
+&nbsp;
+who &amp; w 看谁在线
+last 最近登陆主机的信息
+lastlog 最近登入的時間 读取 /var/log/lastlog
+talk 与其他用户交谈
+write 发送信息 write test [ctrl]+d 发送
+mesg 设置终端机的写入权限 mesg n 禁止接收 mesg y
+wall 向所有用户发送信息 wall this is q test
+mail 写mail
+/etc/default/useradd 家目录默认设置
+&nbsp;
+quota 显示磁盘已使用的空间与限制 quota -guvs —–&gt;秀出目前 root 自己的 quota 限制值
+quota -vu 查询
+quotacheck 检查磁盘的使用空间与限制 quotacheck -avug —–&gt;將所有的在 /etc/mtab 內，含有 quota 支援的 partition 進行掃瞄
+[-m] 强制扫描
+quota一定要是独立的分区,要有quota.user和quota.group两件文件,在/etc/fstab添加一句:
+/dev/hda3 /home ext3 defaults,usrquota,grpquota 1 2
+chmod 600 quota* 设置完成,重启生效
+edquota 编辑用户或群组的quota [u]用户,[g]群组,[p]复制,[t]设置宽限期限
+edquota -a yang edquota -p yang -u young —–&gt;复制
+quotaon 开启磁盘空间限制 quotaon -auvg ——–&gt;啟動所有的具有 quota 的 filesystem
+quotaoff 关闭磁盘空间限制 quotaoff -a ——–&gt;關閉了 quota 的限制
+repquota -av 查閱系統內所有的具有 quota 的 filesystem 的限值狀態
+&nbsp;
+Quota 從開始準備 filesystem 的支援到整個設定結束的主要的步驟大概是：
+1、設定 partition 的 filesystem 支援 quota 參數：
+由於 quota 必須要讓 partition 上面的 filesystem 支援才行，一般來說， 支援度最好的是 ext2/ext3 ，
+其他的 filesystem 類型鳥哥我是沒有試過啦！ 啟動 filesystem 支援 quota 最簡單就是編輯 /etc/fstab ，
+使得準備要開放的 quota 磁碟可以支援 quota 囉；
+2、建立 quota 記錄檔：
+剛剛前面講過，整個 quota 進行磁碟限制值記錄的檔案是 aquota.user/aquota.group，
+要建立這兩個檔案就必須要先利用 quotacheck 掃瞄才行喔！
+3、編輯 quota 限制值資料：
+再來就是使用 edquota 來編輯每個使用者或群組的可使用空間囉；
+4、重新掃瞄與啟動 quota ：
+設定好 quota 之後，建議可以再進行一次 quotacheck ，然後再以 quotaon 來啟動吧！
+&nbsp;
+开机流程简介
+1、載入 BIOS 的硬體資訊，並取得第一個開機裝置的代號；
+2、讀取第一個開機裝置的 MBR 的 boot Loader (亦即是 lilo, grub, spfdisk 等等) 的開機資訊；
+3、載入 Kernel 作業系統核心資訊， Kernel 開始解壓縮，並且嘗試驅動所有硬體裝置；
+4、Kernel 執行 init 程式並取得 run-level 資訊；
+5、init 執行 /etc/rc.d/rc.sysinit 檔案；
+6、啟動核心的外掛模組 (/etc/modprobe.conf)；
+7、init 執行 run-level 的各個批次檔( Scripts )；
+8、init 執行 /etc/rc.d/rc.local 檔案；
+9、執行 /bin/login 程式，並等待使用者登入；
+10、登入之後開始以 Shell 控管主機。
+在/etc/rc.d/rc3.d內,以S开头的为开机启动,以K开头的为关闭,接着的数字代表执行顺序
+GRUB vga设定
+彩度\解析度 640×480 800×600 1024×768 1280×1024 bit
+256 769 771 773 775 8 bit
+32768 784 787 790 793 15 bit
+65536 785 788 791 794 16 bit
+16.8M 786 789 792 795 32 bit
+&nbsp;
+./configure 检查系统信息 ./configure –help | more 帮助信息
+make clean 清除之前留下的文件
+make 编译
+make install 安装
+rpm -q —–&gt;查询是否安装 rpm -ql ——&gt;查询该套件所有的目录
+rpm -qi —–&gt;查询套件的说明资料 rpm -qc[d] —–&gt;设定档与说明档
+rpm -ivh —-&gt;安装 rpm -V ——–&gt;查看套件有否更动过
+rpm -e ——&gt;删除 rpm -Uvh ——-&gt;升级安装
+–nodeps —–&gt;强行安装 –test —–&gt;测试安装
+&nbsp;
+转自:ChinaUnix</pre></div><br /></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/160.html">SVN on CentOS</a></li><li>Older:<a href="http://sk2.com/post/158.html">Centos5 编译内核</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

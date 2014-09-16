@@ -1,0 +1,20 @@
+arraCity = [{code:"1101",name:"东城区"},
+{code:"1102",name:"西城区"},
+{code:"1103",name:"崇文区"},
+{code:"1104",name:"宣武区"},
+{code:"1105",name:"朝阳区"},
+{code:"1106",name:"丰台区"},
+{code:"1107",name:"石景山区"},
+{code:"1108",name:"海淀区"},
+{code:"1109",name:"门头沟区"},
+{code:"1110",name:"房山区"},
+{code:"1111",name:"通州区"},
+{code:"1113",name:"昌平区"},
+{code:"1114",name:"大兴区"},
+{code:"1115",name:"怀柔区"},
+{code:"1116",name:"平谷区"},
+{code:"1117",name:"密云县"},
+{code:"1118",name:"延庆县"},
+{code:"1119",name:"顺义区"}];
+
+showaCity();

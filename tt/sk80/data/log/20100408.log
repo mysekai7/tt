@@ -1,0 +1,24 @@
+2010-04-08 19:50:05	Notice: IndexController.class.php:74: Undefined index:  page
+2010-04-08 19:50:06	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-04-08 19:50:06	Notice: %%C1^C14^C14AEF59%%index.html.php:10: Undefined index:  article
+2010-04-08 19:50:06	Notice: %%C1^C14^C14AEF59%%index.html.php:10: Trying to get property of non-object
+2010-04-08 19:50:06	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-04-08 20:30:22	Notice: %%C1^C14^C14AEF59%%index.html.php:14: Undefined index:  category_url
+2010-04-08 20:33:51	Notice: IndexController.class.php:75: Undefined index:  page
+2010-04-08 20:48:31	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-04-08 20:48:34	Notice: %%72^72B^72B5FBAE%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-04-08 21:28:10	Notice: %%C1^C14^C14AEF59%%index.html.php:26: Undefined property: stdClass::$created_date
+2010-04-08 21:40:07	Notice: %%C1^C14^C14AEF59%%index.html.php:26: Undefined index:  url
+2010-04-08 22:13:03	Notice: IndexController.class.php:76: Undefined index:  page
+2010-04-08 22:13:28	Notice: %%72^72B^72B5FBAE%%post.html.php:9: Trying to get property of non-object
+2010-04-08 22:22:32	Notice: %%72^72B^72B5FBAE%%post.html.php:13: Undefined index:  val
+2010-04-08 22:22:32	Notice: %%72^72B^72B5FBAE%%post.html.php:13: Trying to get property of non-object
+2010-04-08 22:45:43	Notice: IndexController.class.php:167: Undefined variable: recent_post
+2010-04-08 23:00:47	Notice: AdminArticleController.class.php:26: Undefined index:  cid
+2010-04-08 23:00:47	Notice: AdminArticleController.class.php:51: Undefined index:  debug
+2010-04-08 23:00:47	Notice: %%32^32D^32DBDDB7%%article_list.html.php:20: Undefined index:  cid
+2010-04-08 23:03:07	Notice: IndexController.class.php:78: Undefined index:  page
+2010-04-08 23:26:06	Error: Smarty.class.php:1093: Smarty error: [in default/index.html line 36]: syntax error: mismatched tag {/if}. expected {/foreach} (opened line 34). (Smarty_Compiler.class.php, line 2338)
+2010-04-08 23:26:06	Error: Smarty.class.php:1093: Smarty error: [in default/index.html line 38]: syntax error: mismatched tag {/foreach}. expected {/strip} (opened line 2). (Smarty_Compiler.class.php, line 2338)
+2010-04-08 23:26:06	Error: Smarty.class.php:1093: Smarty error: [in default/index.html line 73]: syntax error: mismatched tag {/strip}. (Smarty_Compiler.class.php, line 2338)
+2010-04-08 23:26:33	Notice: IndexController.class.php:169: Undefined variable: recent_post

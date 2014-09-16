@@ -1,0 +1,24 @@
+2010-04-05 14:53:49	Notice: %%81^81F^81F6D955%%header.html.php:7: Trying to get property of non-object
+2010-04-05 14:53:49	Notice: %%C1^C14^C14AEF59%%index.html.php:18: Undefined property: stdClass::$created_date
+2010-04-05 14:54:01	Notice: AdminArticleController.class.php:36: Undefined index:  debug
+2010-04-05 15:34:13	Notice: AdminArticleController.class.php:21: Undefined index:  selectID
+2010-04-05 16:36:46	Notice: AdminArticleController.class.php:34: Undefined index:  debug
+2010-04-05 17:18:01	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined property: Article::$allow_cmt
+2010-04-05 17:18:06	Notice: %%A4^A41^A41A59B5%%post.html.php:9: Trying to get property of non-object
+2010-04-05 17:18:06	Notice: %%A4^A41^A41A59B5%%post.html.php:21: Undefined property: stdClass::$created_date
+2010-04-05 17:18:26	Warning: index.php:21: Cannot modify header information - headers already sent
+2010-04-05 17:18:49	Notice: %%FE^FE2^FE2E434C%%list.html.php:10: Undefined index:  tag
+2010-04-05 21:55:05	Notice: AdminArticleController.class.php:37: Undefined index:  debug
+2010-04-05 22:11:20	Notice: AdminArticleController.class.php:40: Undefined index:  debug
+2010-04-05 22:13:36	Notice: AdminArticleController.class.php:42: Undefined index:  debug
+2010-04-05 22:17:12	Notice: %%32^32D^32DBDDB7%%article_list.html.php:20: Undefined index:  cid
+2010-04-05 22:19:31	Notice: AdminArticleController.class.php:41: Undefined index:  debug
+2010-04-05 22:22:49	Notice: AdminArticleController.class.php:43: Undefined index:  debug
+2010-04-05 22:27:03	Notice: AdminArticleController.class.php:44: Undefined index:  debug
+2010-04-05 22:29:07	Notice: AdminArticleController.class.php:26: Undefined index:  cid
+2010-04-05 23:52:02	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Undefined index:  article
+2010-04-05 23:52:02	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:10: Trying to get property of non-object
+2010-04-05 23:52:02	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Undefined index:  article
+2010-04-05 23:52:02	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:14: Trying to get property of non-object
+2010-04-05 23:52:02	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Undefined index:  article
+2010-04-05 23:52:02	Notice: %%DD^DD3^DD3D7145%%article_add.html.php:18: Trying to get property of non-object

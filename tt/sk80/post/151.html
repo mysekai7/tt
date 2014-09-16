@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="generator" content="blog.sk80.com" /><meta name="keywords" content="编译安装LAMP+SVN+Trac+Memcached:Linux,memcached svn lamp trac " /><meta name="description" content="编译安装LAMP+SVN+Trac+Memcached,yum安装svn+trac+apache,常用添加网摘代码 Add Bookmark" /><meta name="author" content="4kychao" /><link rel="stylesheet" type="text/css" href="http://sk2.com/templates/default/style.css" /><title>编译安装LAMP+SVN+Trac+Memcached</title></head><body><div id="wrapper"><div id="header"><div id="header-inner"><p class="sitename">blog.sk80.com</p><div class="description">等我有钱了, 咱买棒棒糖, 买2 根, 1 根 你看着我吃, 另1根 我吃给你看。</div><div class="menu"><ul><li class="current_page"><a rel="nofollow" href="/">日志</a></li><!--li><a href="#">About</a></li--></ul></div></div></div><div id="wrapper-inner"><p id="topic-path"><a href="/" rel="nofollow">Home</a>&gt;<a href="http://sk2.com/category/linux/">Linux</a>&gt;<strong class="current">编译安装LAMP+SVN+Trac+Memcached</strong></p><ul id="flip1" class="flip"><li class="newer"><a title="yum安装svn+trac+apache" href="http://sk2.com/post/152.html" rel="nofollow">Newer</a></li><li class="older"><a title="常用添加网摘代码 Add Bookmark" href="http://sk2.com/post/150.html" rel="nofollow">Older</a></li></ul><div id="detail"><div class="post"><h1>编译安装LAMP+SVN+Trac+Memcached</h1><ul class="info"><li class="date">2010年 03月28日  22:27</li><li class="category"><a href="http://sk2.com/category/linux/">Linux</a></li></ul><div class="textbody"><div class="code"><pre class="plain" style="font-family:Andale Mono,Lucida Console,Monaco,fixed,monospace;">##
+## 转载请注明出处: http://yemaosheng.com
+##
+&nbsp;
+## 环境:Dell1950  CentOS5.3 x86
+&nbsp;
+## 新建软件安装目录
+&nbsp;
+mkdir /home/lib
+mkdir /home/apache
+mkdir /home/mysql
+mkdir /home/memcached
+mkdir /home/php
+mkdir /home/svn
+mkdir /home/trac
+&nbsp;
+## 安装依赖包
+&nbsp;
+# gettext-devel
+yum install -y gettext-devel.x86_64
+&nbsp;
+# zlib
+tar zxvf zlib-1.2.3.tar.gz
+cd zlib-1.2.3
+./configure --prefix=/home/lib/zlib
+make
+make install
+cd ..
+&nbsp;
+# openssl
+tar zxvf openssl-0.9.8g.tar.gz
+cd openssl-0.9.8g
+./config \
+	--prefix=/home/lib/openssl \
+	--openssldir=/home/lib/openssl \
+	--with-zlib-lib=/home/lib/zlib/lib \
+	--with-zlib-include=/home/lib/zlib/include \
+	shared \
+	zlib \
+	threads 
+make
+make test
+make install
+echo &quot;/home/lib/openssl/lib&quot; &gt;&gt; /etc/ld.so.conf.d/openssl.conf
+ldconfig
+cd ..
+&nbsp;
+# apr
+tar zxvf apr-1.3.5.tar.gz
+cd apr-1.3.5
+./configure --prefix=/home/lib/apr
+make
+make install
+cd ..
+&nbsp;
+# apr-util
+tar zxvf apr-util-1.3.7.tar.gz
+cd apr-util-1.3.7
+./configure \
+	--prefix=/home/lib/apr-util \
+	--with-apr=/home/lib/apr
+make
+make install
+cd ..
+&nbsp;
+## 安装Apache
+&nbsp;
+rm -rf /usr/lib/libexpat.so
+ln -s /usr/lib64/libexpat.so /usr/lib/
+tar zxvf httpd-2.2.11.tar.gz
+cd httpd-2.2.11
+./configure \
+	--prefix=/home/apache \
+	--enable-track-vars \
+	--enable-rewrite \
+	--enable-proxy \
+	--enable-proxy-http  \
+	--enable-cache \
+	--enable-disk-cache \
+	--enable-mem-cache \
+	--enable-so \
+	--enable-ssl \
+	--enable-mods-shared=all \
+	--enable-rewrite=shared \
+	--enable-proxy=shared \
+	--enable-proxy-http=shared \
+	--with-mpm=worker \
+	--sysconfdir=/home/apache/conf \
+	--with-ssl=/home/lib/openssl \
+	--with-z-dir=/home/lib/zlib \
+	--with-apr=/home/lib/apr \
+	--with-apr-util=/home/lib/apr-util \
+	--with-perl 
+make 
+make install
+cd ..
+&nbsp;
+mv /etc/init.d/httpd /etc/init.d/httpd.bak
+cp /home/apache/bin/apachectl /etc/init.d/httpd
+chmod +x /etc/init.d/httpd
+&nbsp;
+## 安装依赖包
+&nbsp;
+# icon
+tar zxvf libiconv-1.12.tar.gz
+cd libiconv-1.12
+./configure --prefix=/home/lib/iconv
+make
+make install
+cd ..
+&nbsp;
+# libpng
+tar jxvf libpng-1.2.23.tar.bz2   
+cd libpng-1.2.23
+env \
+	CPPFLAGS=&quot;-I/home/lib/zlib/include&quot; \
+	LDFLAGS=&quot;-L/home/lib/zlib/lib&quot; \
+	./configure \
+	--prefix=/home/lib/libpng
+make
+make check 
+make install
+cd ..
+&nbsp;
+# curl
+tar zxvf curl-7.19.5.tar.gz
+cd curl-7.19.5
+./configure --prefix=/home/lib/curl
+make
+make install
+cd ..
+&nbsp;
+# freetype
+tar jxvf freetype-2.3.5.tar.bz2 
+cd freetype-2.3.5
+env \
+	CPPFLAGS=&quot;-I/home/lib/zlib/include&quot; \
+	LDFLAGS=&quot;-L/home/lib/zlib/lib&quot; \
+	./configure \
+	--prefix=/home/lib/freetype2
+make
+make install
+cd ..
+&nbsp;
+# jpeg
+mkdir -p \
+	/home/lib/jpeg6/bin \
+	/home/lib/jpeg6/lib \
+	/home/lib/jpeg6/include \
+	/home/lib/jpeg6/man1 \
+	/home/lib/jpeg6/man/man1 
+&nbsp;
+tar zxvf jpegsrc.v6b.tar.gz    
+cd jpeg-6b
+./configure \
+	--prefix=/home/lib/jpeg6 \
+	--enable-shared --enable-static
+make
+make install-lib  
+make install
+cd ..
+&nbsp;
+# libxml
+tar -zxvf libxml2-2.6.30.tar.gz
+cd libxml2-2.6.30
+./configure \
+	--prefix=/home/lib/libxml2 \
+	--with-zlib=/home/lib/zlib
+make
+make install
+cd ..
+&nbsp;
+# gd
+tar -jvxf gd-2.0.35.tar.bz2
+cd gd-2.0.35 
+./configure \
+	--prefix=/home/lib/gd2 \
+	--with-freetype=/home/lib/freetype2 \
+	--with-png=/home/lib/libpng \
+	--with-jpeg=/home/lib/jpeg6 \
+	CPPFLAGS=&quot;-I/home/lib/zlib/include&quot; \
+	LDFLAGS=&quot;-L/home/lib/zlib/lib&quot;
+make
+make install 
+cd ..
+&nbsp;
+## 安装Mysql
+&nbsp;
+groupadd mysql
+useradd -g mysql mysql
+tar zxvf mysql-5.1.34.tar.gz
+cd mysql-5.1.34
+./configure \
+	--prefix=/home/mysql \
+	--enable-assembler \
+	--without-debug \
+	--with-mysqld-ldflags=-all-static \
+	--with-charset=utf8 \
+	--with-extra-charsets=all \
+	--with-innodb \
+	--with-unix-socket-path=/home/mysql/mysql.sock \
+	--enable-thread-safe-client \
+	--with-mysqld-user=mysql
+make
+make install
+cd ..
+cp /home/mysql/share/mysql/mysql.server /etc/init.d/mysqld
+chmod +x /etc/init.d/mysqld 
+if [ -f my.cnf.slave ]; then mv my.cnf.slave /etc/my.cnf; else mv my.cnf.mast /etc/my.cnf; fi; mkdir -p /data/mysqllog/binlog /data/mysqllog/relaylog ; chown mysql.0 /data/mysqllog/binlog /data/mysqllog/relaylog  /home/mysql; cp /home/mysql/share/mysql/mysql.server /etc/init.d/mysqld ; /home/mysql/bin/mysql_install_db --user=mysql; /etc/init.d/mysqld start
+&nbsp;
+## 安装PHP
+&nbsp;
+tar zxvf php-5.2.9.tar.gz
+cd php-5.2.9
+./configure \
+	--prefix=/home/php \
+	--with-zlib=/home/lib/zlib \
+	--with-zlib-dir=/home/lib/zlib \
+	--with-apxs2=/home/apache/bin/apxs \
+	--with-mysql=/home/mysql \
+	--with-mysql-sock=/home/mysql \
+	--with-pdo-mysql=/home/mysql \
+	--with-libxml-dir=/home/lib/libxml2 \
+	--with-gd=/home/lib/gd2 \
+	--with-jpeg-dir=/home/lib/jpeg6 \
+	--with-png-dir=/home/lib/libpng \
+	--with-freetype-dir=/home/lib/freetype2 \
+	--with-libxml-dir=/home/lib/libxml2 \
+	--with-openssl=/home/lib/openssl \
+	--with-iconv-dir=/home/lib/iconv \
+	--with-curl=/home/lib/curl \
+	--with-ttf \
+	--with-gettext \
+	--enable-gd-native-ttf \
+	--enable-mbstring \
+	--enable-xml \
+	--enable-pcntl \
+	--enable-soap \
+	--enable-sockets \
+	--enable-zip \
+	--with-bz2 \
+	--disable-debug 
+&nbsp;
+make
+make install
+cp php.ini-dist /home/php/lib/php.ini 
+cd ..
+&nbsp;
+## 安装PHP扩展
+&nbsp;
+# memcached
+tar zxvf memcache-2.2.1.tgz
+cd memcache-2.2.1
+/home/php/bin/phpize
+./configure --with-php-config=/home/php/bin/php-config --enable-memcach
+make 
+make install
+cd ..
+&nbsp;
+# APC
+tar zxvf APC-3.0.19.tgz 
+cd APC-3.0.19
+/home/php/bin/phpize
+./configure --enable-apc --enable-apc-mmap --with-apxs=/home/apache/bin/apxs --with-php-config=/home/php/bin/php-config 
+make
+make install
+cd ..
+&nbsp;
+# xdebug
+tar zxvf xdebug-2.0.4.tgz
+cd xdebug-2.0.4
+/home/php/bin/phpize
+./configure --enable-xdebug --with-php-config=/home/php/bin/php-config
+make
+make install
+cd ..
+&nbsp;
+sed -i 's#extension_dir = &quot;./&quot;#extension_dir = &quot;/home/php/lib/php/extensions/no-debug-zts-20060613/&quot;\n\nextension = &quot;memcache.so&quot;\nextension = &quot;apc.so&quot;\nextension = &quot;xdebug.so&quot;#' /home/php/lib/php.ini
+sed -i 's#expose_php = On#expose_php = Off#' /home/php/lib/php.ini
+&nbsp;
+#xdebug.auto_trace=on 监测函数调用过程
+#xdebug.collect_params=on 收集函数参数
+#xdebug.collect_return=on 收集函数返回值
+#xdebug.profiler_enable=on 效能监测器
+#xdebug.trace_output_dir=&quot;/tmp&quot; 函数调用监测信息的输出文件的路径
+#debug.profiler_output_dir=&quot;/tmp&quot; 效能监测信息输出文件的路径
+#sed -i 's#extension = &quot;xdebug.so&quot;#xdebug.auto_trace=on\nxdebug.collect_params=on\nxdebug.collect_return=on\nxdebug.profiler_enable=on\nxdebug.trace_output_dir=&quot;/tmp&quot;\ndebug.profiler_output_dir=&quot;/tmp&quot;#' /home/php/lib/php.ini
+&nbsp;
+&nbsp;
+sed -i 's#DirectoryIndex index.html#DirectoryIndex index.html index.php#' /home/apache/conf/httpd.conf
+sed -i 's#TypesConfig conf/mime.types#TypesConfig conf/mime.types\nAddType application/x-httpd-php .php#' /home/apache/conf/httpd.conf
+&nbsp;
+tar zxvf phpmyadmin.tar.gz
+mv phpmyadmin /home/apache/htdocs/
+&nbsp;
+## 安装memcached
+tar zxvf libevent-1.4.10-stable.tar.gz 
+cd libevent-1.4.10-stable
+./configure --prefix=/home/lib/libevent
+make
+make install
+cd ..
+&nbsp;
+tar zxvf memcached-1.2.8.tar.gz
+cd memcached-1.2.8
+./configure \
+	--prefix=/home/memcached \
+	--with-libevent=/home/lib/libevent \
+	--enable-64bit
+make
+make install
+ln -s /home/lib/libevent/lib/libevent-1.4.so.2 /usr/lib64/libevent-1.4.so.2
+/home/memcached/bin/memcached -l 127.0.0.1 -d -p 11211 -u nobody -m 128
+cd ..
+&nbsp;
+## 安装SVN
+tar zxvf subversion-1.6.2.tar.gz
+tar zxvf subversion-deps-1.6.2.tar.gz
+tar zxvf sqlite-amalgamation-3.6.14.2.tar.gz
+&nbsp;
+cd subversion-1.6.2
+./configure \
+	--prefix=/home/svn \
+	--with-apxs=/home/apache/bin/apxs \
+	--enable-maintainer-mode
+&nbsp;
+make
+make install
+&nbsp;
+make swig-py
+make install-swig-py 
+&nbsp;
+cd ..
+&nbsp;
+echo /home/svn/lib/svn-python &gt; /usr/lib/python2.4/site-packages/subversion.pth
+&nbsp;
+# Create SVN Repo
+mkdir /srv/svn
+mkdir /srv/trac
+&nbsp;
+/home/svn/bin/svnadmin create /srv/svn/project
+&nbsp;
+touch /srv/svn/project.htpasswd
+htpasswd -m /srv/svn/project.htpasswd svnroot
+echo -e &quot;&lt;Location /svn&gt;\nDAV svn\nSVNParentPath /srv/svn\nAuthType Basic\nAuthName \&quot;project Repository\&quot;\nAuthzSVNAccessFile /srv/svn/svn-acl-conf\nAuthUserFile /srv/svn/project.htpasswd\nRequire valid-user\n&lt;/Location&gt;&quot; &gt;&gt; /home/apache/conf/httpd.conf
+echo -e &quot;[project:/]\nsvnroot =  rw&quot; &gt;&gt; /srv/svn/svn-acl-conf
+&nbsp;
+## 安装Trac
+yum install flex
+tar zxvf mod_python-3.3.1.tgz
+cd mod_python-3.3.1
+./configure \
+	--with-apxs=/home/apache/bin/apxs \
+	--with-python=/usr/bin/python2.4 \
+	--with-max-locks=32
+make
+make install_dso
+make install_py_lib
+cd ..
+&nbsp;
+yum install -y python-setuptools
+rpm -i clearsilver-0.10.4-1.el5.rf.i386.rpm
+rpm -i python-clearsilver-0.10.4-1.el5.rf.i386.rpm
+&nbsp;
+tar zxvf Trac-0.11.4.tar.gz
+cd Trac-0.11.4
+python setup.py build &amp;&amp; python setup.py install
+&nbsp;
+# vi /home/apache/conf/httpd.conf
+# Add: LoadModule python_module modules/mod_python.so
+&nbsp;
+trac-admin /srv/trac/project initenv
+sed -i 's#php_path = php#php_path = /home/php/bin/php#' /srv/trac/project/conf/trac.ini
+# vi /srv/trac/project/conf/trac.ini 在 [mimeviewer] 后加上 pygments_default_style = trac 修改[trac] default_charset = utf-8
+&nbsp;
+chown -R apache.apache /srv/svn/project
+chown -R apache.apache /srv/trac/project
+&nbsp;
+# 生成trac的用户名密码
+touch /srv/trac/project.htpasswd
+htpasswd -m /srv/trac/project.htpasswd tracroot
+# 生成tracroot用户的权限
+trac-admin /srv/trac/project permission add tracroot TRAC_ADMIN
+&nbsp;
+echo -e &quot;&lt;Location /trac/project&gt;\nSetHandler mod_python\nPythonHandler trac.web.modpython_frontend\nPythonOption TracEnv /srv/trac/project\nPythonOption TracUriRoot /trac/project\n&lt;/Location&gt;\n&lt;Location &quot;/trac/project/login&quot;&gt;\nAuthType Basic\nAuthName \&quot;trac\&quot;\nAuthUserFile /srv/trac/project.htpasswd\nRequire valid-user\n&lt;/Location&gt;&quot; &gt;&gt; /home/apache/conf/httpd.conf
+&nbsp;
+/etc/init.d/httpd restart
+&nbsp;
+## OK
+&nbsp;
+http://127.0.0.1/svn/project
+http://127.0.0.1/trac/project
+memcached: telnet 127.0.0.1 11211
+&nbsp;
+/home/lib (关联库)
+/home/apache  (2.2.11)
+/home/mysql  (5.1.34)
+/home/php  (5.2.9)
+/home/memcached  (1.2.8)
+/home/svn  (1.6.2)
+/home/trac  (0.11.4)</pre></div><br /></div><div class="entry-tags"><strong>Tags:</strong><a href="http://sk2.com/tag/memcached/">memcached</a>,<a href="http://sk2.com/tag/svn/">svn</a>,<a href="http://sk2.com/tag/lamp/">lamp</a>,<a href="http://sk2.com/tag/trac/">trac</a></div></div><ul id="flip2" class="flip"><li>Newer:<a href="http://sk2.com/post/152.html">yum安装svn+trac+apache</a></li><li>Older:<a href="http://sk2.com/post/150.html">常用添加网摘代码 Add Bookmark</a></li></ul></div>
+<div id="footer"><div><a rel="nofollow" class="admin" href="http://sk2.com/login"><small>ADMIN</small></a><address>&copy; 2010 <a href='http://sk2.com/'>blog.sk80.com</a></address></div></div></div></div><script type="text/javascript" src="http://sk2.com/include/js/resize.js"></script><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-5695529-2");pageTracker._trackPageview();} catch(err) {}</script></body></html>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3688801.js"></script>
+<noscript><a href="http://www.51.la/?3688801" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3688801.asp" style="border:none" /></a></noscript>

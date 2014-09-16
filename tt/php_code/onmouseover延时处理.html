@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="Editplus4PHP" />
+    <meta name="keywords" content="Editplus4PHP" />
+    <meta name="description" content="Editplus4PHP" />
+    <meta name="author" content="Leo" />
+<!--
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+-->
+    <title>Example | xHTML1.0</title>
+</head>
+<body>
+试试效果：1快速从灰色区经过。2移到上面停留
+<script type="text/javascript">
+var OMO = null;
+function _onmouseover(evt) {
+	OMO = setTimeout(evt,300);//300毫秒后再执行
+}
+function _onmouseout() {
+	clearTimeout(OMO);//鼠标移出后就清除事件的产生
+}
+
+// 这个是你自己定义的onmouseover事件
+function overEvent(v) {
+	alert(v);
+}
+</script>
+<br /><br /><br /><br /><br /><br />
+<div style="width:120px; height:20px; background:#cccccc;" onMouseOut="_onmouseout()" onMouseOver="_onmouseover('overEvent(\'abc\')')">鼠标移到这里来</div>
+    
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript" src="ajax.js"></script>
+    <title>Example | xHTML1.0</title>
+    <script type="text/javascript">
+    var timer;
+
+    function save_drafting()
+    {
+        clearTimeout(timer);
+        timer = setTimeout("save_draft()", 300);
+    }
+
+    function save_draft()
+    {
+        var form = document.getElementById('form');
+        var ele = form.elements;
+        //alert(ele.length);
+        var data=null;
+        var post = new Array();
+        for(var i=0; i<ele.length; i++)
+        {          
+            if(ele[i].type == 'submit' || ele[i].type == '')
+            {
+                continue;
+            }
+            post[i] = ele[i].name +'='+ encodeURIComponent( ele[i].value );
+
+        }
+        data = post.join('&');
+        //alert(data);
+
+        ajax('ajax_postform.php', data, r);
+    }
+
+    function r(json)
+    {
+        var tmp = eval('('+json+')');
+        //alert(tmp.title);
+        var html='';
+        for(var key in tmp)
+        {
+            html += tmp[key]+'<br>';
+        }
+        document.getElementById('debug').innerHTML = html;
+    }
+    </script>
+
+</head>
+<body>
+
+<form id="form">
+    
+    <input name="post[title]" type="text" /><br />
+    <textarea name="post[text]"></textarea><br />
+    <input type="submit" value="submit" />
+    <button onclick="save_drafting(); return false;">save</button>
+</form>
+<div id="debug"></div>
+    
+</body>
+</html>

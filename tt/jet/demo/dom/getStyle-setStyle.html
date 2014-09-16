@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>dom 操作 - demo - JET</title>
+<link href="../../source/jet.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+
+.styleA{
+	border:1px solid blue;
+	width:200px;
+	height:100px;
+	overflow:hidden;
+}
+.styleB{
+	padding:5px 0;
+}
+</style>
+</head>
+
+<body>
+	<div id="Div1" class="styleA">bbbbbb</div>
+	<div class="styleB">
+		<label>属性名：</label><input id="styleName" type="text" size="35" value="backgroundColor" />
+		<label>值：</label><input id="styleValue" type="text" size="35" value="red" />
+	</div>
+	<div class="styleB">
+		<input id="setButton" type="button" size="35" value="设置样式" />
+		<input id="getButton" type="button" size="35" value="获取样式" />
+	</div>
+	
+
+	<script type="text/javascript" src="../../source/jet.base.js"></script>
+	<script>
+		J = new Jet();
+
+		var $=J.dom.id;
+		var $D=J.dom;
+		var $E=J.event;
+		var Div1 = $("Div1");
+		var styleName = $("styleName");
+		var styleValue = $("styleValue");
+		var setButton = $("setButton");
+		var getButton = $("getButton");
+
+		var fnSet1 = function(e){
+			$D.setStyle(Div1, styleName.value, styleValue.value);
+
+		};
+		var fnSet2 = function(e){
+			if(e.keyCode == 13){
+				$D.setStyle(Div1, styleName.value, styleValue.value);
+			}
+		};
+		var fn2 = function(e){
+			J.out($D.getStyle(Div1, styleName.value));
+		};
+		
+		$E.on(styleValue, "keypress", fnSet2);
+		$E.on(setButton, "click", fnSet1);
+		$E.on(getButton, "click", fn2);
+
+
+	</script>
+</body>
+</html>

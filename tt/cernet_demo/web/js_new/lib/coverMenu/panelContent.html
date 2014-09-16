@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="utf-8">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" rev="stylesheet" href="/css/common.css" type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="/css/group_2008.css" type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="/css/change_org.css" type="text/css" media="all" />
+<style type="text/css">
+#cityDiv {margin-top:10px;border-top:4px solid #E3EEF4; padding:10px;}
+#cityDiv ul {height:65px;line-height:20px;}
+#cityDiv li {display:inline;list-style:none;float:left;}
+#floor{border-top:4px solid #E3EEF4;margin-top:10px;padding:10px 0px;}
+#floorContent {height:300px; overflow:auto;border:1px solid #94BDD6;margin:0px 0px 10px;padding:10px 10px; vertical-align:top}
+</style>
+<script type="text/javascript" src="/js_new/common.js"></script>
+<script type="text/javascript" src="/js_new/lib/httpRequest.js"></script>
+</head>
+<body style="margin:0px;">
+<div id="new_frame">
+<div class="xgk_title"><span class="left">选择学校</span> <span class="right"><a onClick="parent.closePanel();return false" href="#"><img src="/images/panel_close.jpg" alt="关闭" /></a></span></div>
+
+<div id="provFloor" class="z_blue01_14">
+<nobr onclick="onchangeProv(this,'11')"><a class="fontB" href="javascript:;" onclick="return false">北京</a>|</nobr>
+<nobr onclick="onchangeProv(this,'12')"><a class="" href="javascript:void(0)" onclick="return false">天津</a>|</nobr>
+<nobr onclick="onchangeProv(this,'13')"><a class="" href="javascript:void(0)" onclick="return false">河北</a>|</nobr>
+<nobr onclick="onchangeProv(this,'14')"><a class="" href="javascript:void(0)" onclick="return false">山西</a>|</nobr>
+<nobr onclick="onchangeProv(this,'15')"><a class="" href="javascript:void(0)" onclick="return false">内蒙古</a>|</nobr>
+<nobr onclick="onchangeProv(this,'21')"><a class="" href="javascript:void(0)" onclick="return false">辽宁</a>|</nobr>
+<nobr onclick="onchangeProv(this,'22')"><a class="" href="javascript:void(0)" onclick="return false">吉林</a>|</nobr>
+<nobr onclick="onchangeProv(this,'23')"><a class="" href="javascript:void(0)" onclick="return false">黑龙江</a>|</nobr>
+<nobr onclick="onchangeProv(this,'31')"><a class="" href="javascript:void(0)" onclick="return false">上海</a>|</nobr>
+<nobr onclick="onchangeProv(this,'32')"><a class="" href="javascript:void(0)" onclick="return false">江苏</a>|</nobr>
+<nobr onclick="onchangeProv(this,'33')"><a class="" href="javascript:void(0)" onclick="return false">浙江</a>|</nobr>
+<nobr onclick="onchangeProv(this,'34')"><a class="" href="javascript:void(0)" onclick="return false">安徽</a>|</nobr>
+<nobr onclick="onchangeProv(this,'35')"><a class="" href="javascript:void(0)" onclick="return false">福建</a>|</nobr>
+<nobr onclick="onchangeProv(this,'36')"><a class="" href="javascript:void(0)" onclick="return false">江西</a>|</nobr>
+<nobr onclick="onchangeProv(this,'37')"><a class="" href="javascript:void(0)" onclick="return false">山东</a>|</nobr>
+<nobr onclick="onchangeProv(this,'41')"><a class="" href="javascript:void(0)" onclick="return false">河南</a>|</nobr>
+<nobr onclick="onchangeProv(this,'42')"><a class="" href="javascript:void(0)" onclick="return false">湖北</a>|</nobr>
+<nobr onclick="onchangeProv(this,'43')"><a class="" href="javascript:void(0)" onclick="return false">湖南</a>|</nobr>
+<nobr onclick="onchangeProv(this,'44')"><a class="" href="javascript:void(0)" onclick="return false">广东</a>|</nobr>
+<nobr onclick="onchangeProv(this,'45')"><a class="" href="javascript:void(0)" onclick="return false">广西</a>|</nobr>
+<nobr onclick="onchangeProv(this,'46')"><a class="" href="javascript:void(0)" onclick="return false">海南</a>|</nobr>
+<nobr onclick="onchangeProv(this,'50')"><a class="" href="javascript:void(0)" onclick="return false">重庆</a>|</nobr>
+<nobr onclick="onchangeProv(this,'51')"><a class="" href="javascript:void(0)" onclick="return false">四川</a>|</nobr>
+<nobr onclick="onchangeProv(this,'52')"><a class="" href="javascript:void(0)" onclick="return false">贵州</a>|</nobr>
+<nobr onclick="onchangeProv(this,'53')"><a class="" href="javascript:void(0)" onclick="return false">云南</a>|</nobr>
+<nobr onclick="onchangeProv(this,'54')"><a class="" href="javascript:void(0)" onclick="return false">西藏</a>|</nobr>
+<nobr onclick="onchangeProv(this,'61')"><a class="" href="javascript:void(0)" onclick="return false">陕西</a>|</nobr>
+<nobr onclick="onchangeProv(this,'62')"><a class="" href="javascript:void(0)" onclick="return false">甘肃</a>|</nobr>
+<nobr onclick="onchangeProv(this,'63')"><a class="" href="javascript:void(0)" onclick="return false">青海</a>|</nobr>
+<nobr onclick="onchangeProv(this,'64')"><a class="" href="javascript:void(0)" onclick="return false">宁夏</a>|</nobr>
+<nobr onclick="onchangeProv(this,'65')"><a class="" href="javascript:void(0)" onclick="return false">新疆</a>|</nobr>
+<nobr onclick="onchangeProv(this,'71')"><a class="" href="javascript:void(0)" onclick="return false">台湾</a>|</nobr>
+<nobr onclick="onchangeProv(this,'81')"><a class="" href="javascript:void(0)" onclick="return false">香港</a>|</nobr>
+<nobr onclick="onchangeProv(this,'82')"><a class="" href="javascript:void(0)" onclick="return false">澳门</a>|</nobr>
+<nobr onclick="onchangeProv(this,'99')"><a class="" href="javascript:void(0)" onclick="return false">国外</a>|</nobr>
+</div>
+<!--<div id="cityDiv">
+<ul id="cityFloor">
+<li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,'1101','东城区');return false">东城区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1102','西城区');return false">西城区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,'1103','崇文区');return false">崇文区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1104','宣武区');return false">宣武区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1105','朝阳区');return false">朝阳区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,'1106','丰台区');return false">丰台区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1107','石景山区');return false">石景山区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,'1108','海淀区');return false">海淀区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1109','门头沟区');return false">门头沟区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,'1110','房山区');return false">房山区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1111','通州区');return false">通州区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,'1113','昌平区');return false">昌平区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1114','大兴区');return false">大兴区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1115','怀柔区');return false">怀柔区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1116','平谷区');return false">平谷区</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1117','密云县');return false">密云县</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1118','延庆县');return false">延庆县</a>&nbsp;&nbsp;&nbsp;</li><li><a class="" href="javascript:void(0);" onclick="onchangeCity(this,'1119','顺义区');return false">顺义区</a>&nbsp;&nbsp;&nbsp;</li>
+</ul>
+</div>-->
+ <!-- <div id="TownFloor" class="xgk_text"></div>-->
+  
+  <div id="floor">
+    <div id="floorContent">
+		<div style=""></div>
+		<div class="no_way"></div>
+    </div>
+    <p><a href="#" class="z_blue01_12l">没有我的学校 </a></p>
+  </div>
+</div>
+<script type="text/javascript">
+var dataPath = '/js_new/data/';
+function loadJs(type,id,source)
+{	
+	/*var html_doc = document.getElementsByTagName('head').item(0);
+	var scripts=html_doc.getElementsByTagName("script");	
+	if(scripts.length>0){html_doc.removeChild(scripts[scripts.length-1])}
+	var js = document.createElement('script');
+	js.setAttribute('language', 'javascript');
+	js.setAttribute('type', 'text/javascript');
+	html_doc.appendChild(js);
+	js.setAttribute('src', strfile);*/
+	if(!source) {
+		var url = dataPath + type +'/' + id +'.js?id=' + new Date();
+		(new httpRequest()).request(url, {onSuccess:function(ro) { if(type == 'city') showCity(ro);
+																	   if(type == 'town') showTown(ro);
+																	   if(type == 'college') showCollege(ro); },
+											  onLoading:function() {},
+											  onFailure:function() {}
+		});
+	}else {
+		
+	}
+}
+function parseData(dataStr)
+{
+	var resData = [];
+	if(!dataStr) return resData;
+	dataStr = dataStr.split('@');
+	
+	
+	for(var i=0;i<dataStr.length;i++) { 
+		resData[i] = dataStr[i].split('^');
+	}
+	return resData;
+}
+
+function onchangeProv(obj,codeProv,source)
+{
+	
+	var provFloor=document.getElementById("provFloor");
+	var objNobr=provFloor.getElementsByTagName("nobr");	
+	for(var i=0;i<objNobr.length;i++) {
+		objNobr[i].getElementsByTagName("a")[0].style.color="black";
+	}
+	obj.getElementsByTagName("a")[0].style.color="red";
+	
+	//document.getElementById("cityFloor").innerHTML="";
+	//document.getElementById("TownFloor").innerHTML="";	
+	document.getElementById("floorContent").innerHTML="";	
+	
+	loadJs('college',codeProv,source);
+}
+/*function showCity(o)
+{	
+	//alert(o.responseText);
+	var cityArr = parseData(o.responseText);
+	var cityHTML="";	
+	for(var i=0;i<cityArr.length;i++)
+	{
+		cityHTML += '<li><a class="" href="javascript:void(0)" onclick="onchangeCity(this,\''+cityArr[i][0]+'\');return false">'+cityArr[i][1]+'</a>&nbsp;&nbsp;&nbsp;</li>';
+	}
+	document.getElementById("cityFloor").innerHTML=cityHTML;				
+	document.getElementById("floorContent").innerHTML="";
+	//window.top.setH(document.body.clientHeight);
+}
+function onchangeCity(obj,codeCity)
+{
+	
+	var cityFloor=document.getElementById("cityFloor");
+	var objNobr=cityFloor.getElementsByTagName("a");	
+	for(var i=0;i<objNobr.length;i++) {
+		objNobr[i].style.color="black";
+	}
+	obj.style.color="red";
+	//document.getElementById("TownFloor").innerHTML="";	
+	document.getElementById("floorContent").innerHTML="";	
+	
+	loadJs('college',codeCity);
+}*/
+function showCollege(o)
+{	
+	var collegeArr = parseData(o.responseText);
+	if(collegeArr) {
+		var collegeHTML='<table width="550" border="0" cellpadding="0" cellspacing="0" align="center">';	
+		for(var i=0;i<collegeArr.length;i++) {
+			if(i%2 == 0) collegeHTML += '<tr>';
+			collegeHTML += '<td width="50%" height="20"><a class="" href="javascript:;" onclick="doSubmit(this,[\''+collegeArr[i][0]+'\',\''+collegeArr[i][1]+'\']);parent.closePanel();return false">'+collegeArr[i][1]+'</a></td>';
+			if((i+1)%2 == 0) collegeHTML += '</tr>';
+		}
+		collegeHTML += '</table>';
+		$("floorContent").innerHTML = collegeHTML;
+		//$('floorContent').style.overflow = 'auto';
+		$("floorContent").style.top = "0px";
+	}
+	else return;
+	//window.top.setH(document.body.clientHeight);
+}
+
+function doSubmit(obj,arr)
+{
+	parent.document.getElementById('college').value = arr[0]+','+arr[1];
+}
+</script>
+</body>
+
+</html>

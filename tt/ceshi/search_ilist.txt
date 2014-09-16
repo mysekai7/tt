@@ -1,0 +1,23 @@
+tt?id=ititle&type=1####title_1
+tt?id=ititle&type=2####title_2
+tt?id=ititle&type=3####title_3
+tt?id=ititle&type=4####title_4
+tt?id=ititle&type=5####title_5
+tt?id=ititle&type=6####title_6
+tt?id=ititle&type=7####title_7
+tt?id=ititle&type=8####title_8
+tt?id=ititle&type=9####title_9
+tt?id=ititle&type=10####title_10
+tt?id=ipic&type=1####pic_1
+tt?id=ipic&type=2####pic_2
+tt?id=ipic&type=3####pic_3
+tt?id=ipic&type=4####pic_4
+tt?id=ipic&type=5####pic_5
+tt?id=ipic&type=6####pic_6
+tt?id=ipic&type=7####pic_7
+tt?id=ipic&type=8####pic_8
+tt?id=ipic&type=9####pic_9
+tt?id=ipic&type=10####pic_10
+type=imr####More Result
+type=ihot####Hot Searches
+type=refineSearch####Refine Search

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+    <link rel="stylesheet" href="html5reset.css" type="text/css" />
+    <link rel="stylesheet" href="html5semanticmarkup.css" type="text/css" />
+    <!--[if lt ie 9]>
+        <script src="html5.js"></script>
+    <![endif]-->
+</head>
+ <body>
+<style type="text/css">
+#info
+{
+width: 100px; height: 100px;
+background-color: #ff0000;
+position: absolute;
+top: 0;
+left: 0;
+}
+</style>
+<script>
+window.onload=function() {
+document.onclick=processClick;
+}
+
+
+
+function processClick2(evt) {
+	// access event object
+	evt = evt || window.event;
+	var x = 0; var y = 0;
+	// if event object has pageX property
+	// get position using pageX, pageY
+	if (evt.pageX) {
+		x = evt.pageX;
+		y = evt.pageY;
+	// else if event has clientX property
+	} else if (evt.clientX) {
+		var offsetX = 0; offsetY = 0;
+		// if documentElement.scrollLeft supported
+		if (document.documentElement.scrollTop) {
+			offsetX = document.documentElement.scrollLeft;
+			offsetY = document.documentElement.scrollTop;
+		} else if (document.body) {
+			offsetX = document.body.scrollLeft;
+			offsetY = document.body.scrollTop;
+		}
+
+		alert ("you clicked at offsetX=" + offsetX + " offsetY=" + offsetY);
+
+		x = evt.clientX + offsetX;
+		y = evt.clientY + offsetY;
+	}
+	//alert ("you clicked at x=" + x + " y=" + y);
+}
+
+function processClick(evt) 
+{
+	evt = evt || window.event;
+	_debug(evt);
+	var x = 0; var y = 0;
+	if (evt.pageX) {
+		x = evt.pageX;
+		y = evt.pageY;
+
+	} else if (evt.clientX) {
+		var offsetX = 0; offsetY = 0;
+		if (document.documentElement) {
+			offsetX = document.documentElement.scrollLeft;
+			offsetY = document.documentElement.scrollTop;
+		}
+		 else if (document.body) {
+			offsetX = document.body.scrollLeft;
+			offsetY = document.body.scrollTop;
+		}
+		
+		//alert ("you clicked at offsetX=" + offsetX + " offsetY=" + offsetY);
+
+
+
+		x = evt.clientX + offsetX;
+		y = evt.clientY + offsetY;
+
+		//alert ("you clicked at x=" + x + " y=" + y);
+	}
+
+	var style = "left: " + x + "px; top: " + y + "px";
+	var box = document.getElementById("info");
+	//box.setAttribute("style", style);
+	box.style.left = x;
+	box.style.top = y;
+}
+
+
+
+function _debug(o)
+{
+	var s = '';
+	for(var i in o)
+	{
+		s += i +' : '+ o[i] + "\n";
+	}
+	var pre = document.createElement('pre');
+	var txt = document.createTextNode(s);
+	pre.appendChild(txt);
+	document.getElementsByTagName('body')[0].appendChild(pre);
+}
+
+
+
+//_debug(navigator.userAgent);
+</script>
+</head>
+<body>
+<div id="info" style="position:absolute;"></div>
+<p style="height:1000px; width:20px; background:#EEE;">11</p>
+ </body>
+</html>

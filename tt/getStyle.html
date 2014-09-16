@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Semantic Markup Demo: Cross Browser</title>
+    <link rel="stylesheet" href="html5reset.css" type="text/css" />
+    <link rel="stylesheet" href="html5semanticmarkup.css" type="text/css" />
+    <!--[if lt ie 9]>
+        <script src="html5.js"></script>
+    <![endif]-->
+
+	<style>
+		p{background-color:#EEE;}
+	
+	</style>
+</head>
+ <body>
+  <p id="elem"></p>
+
+
+
+  <script>
+  function getStyle(elem, cssprop, cssprop2){
+
+  //_debug(document.defaultView.getComputedStyle(document.getElementById("elem"), null));
+	// IE
+	if (elem.currentStyle) {
+		return elem.currentStyle[cssprop];
+	// other browsers
+	} else if (document.defaultView && document.defaultView.getComputedStyle) {
+		return document.defaultView.getComputedStyle(elem, null).getPropertyValue(cssprop2);
+	// fallback
+	} else {
+		return null;
+	}
+}
+
+var elem = document.getElementById("elem");
+var color = getStyle(elem,"backgroundColor", "background-color");
+alert(color); // rgb(0,255,0)
+
+function _debug(o)
+{
+	var s = '';
+	for(var i in o)
+	{
+		s += i +' : '+ o[i] + "\n";
+	}
+	var pre = document.createElement('pre');
+	var txt = document.createTextNode(s);
+	pre.appendChild(txt);
+	document.getElementsByTagName('body')[0].appendChild(pre);
+}
+
+  
+  </script>
+ </body>
+</html>

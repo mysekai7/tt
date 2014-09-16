@@ -1,0 +1,23 @@
+CREATE TABLE `cmsware_publish_1` (
+`IndexID` int(10) NOT NULL default '0',
+`ContentID` int(10) NOT NULL default '0',
+`NodeID` int(10) NOT NULL default '0',
+`PublishDate` int(10) default NULL,
+`URL` varchar(250) default NULL,
+`Title` varchar(250) NOT NULL default '',
+`Author` varchar(20) NOT NULL default '',
+`Editor` varchar(20) NOT NULL default '',
+`Photo` varchar(250) NOT NULL default '',
+`SubTitle` varchar(250) NOT NULL default '',
+`Content` longtext NOT NULL,
+`KeyWords` varchar(250) NOT NULL default '',
+`FromSite` varchar(250) NOT NULL default '',
+`Intro` text NOT NULL,
+`TitleColor` varchar(7) NOT NULL default '',
+`Lanmu` varchar(50) NOT NULL default '',
+`WantComment` varchar(20) NOT NULL default '',
+PRIMARY KEY (`IndexID`),
+KEY `NodeID` (`NodeID`),
+KEY `ContentID` (`ContentID`),
+KEY `PublishDate` (`PublishDate`)
+) TYPE=MyISAM

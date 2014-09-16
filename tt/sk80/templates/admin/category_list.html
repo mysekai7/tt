@@ -1,0 +1,39 @@
+<{include file="admin/header.html"}>
+    <{strip}>
+          <div id="main">
+              <div id="content">
+                  <h1>分类</h1>
+                  <table class="index">
+                      <thead>
+                          <tr>
+                              <th class="cat_name">Category</th>
+                              <th class="modify" colspan="2">Modify</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <{foreach item=val from=$categories}>
+                          <tr id="category-<{$val->id}>">
+                              <td class="cat_name <{if $val->parent eq '0' }>thin<{/if}>">
+                                  <{section name=blank loop=$val->level}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <{/section}>
+                                  <a href="index.php?job=admin_category&action=edit&id=<{$val->id}>"><{$val->name}></a>
+                              </td>
+                              <td class="add"><a href="index.php?job=admin_category&action=add">Add</a></td>
+                              <td class="remove <{if $val->parent neq '0' }>remove-disabled<{/if}>"><a href="index.php?job=admin_category&action=del&id=<{$val->id}>">Remove</a></td>
+                          </tr>
+                          <{foreachelse}>
+                          <tr id="category-id">
+                              <td class="cat_name">
+                                  <a href="#">无分类</a>
+                              </td>
+                              <td class="add"><a href="index.php?job=admin_category&action=add">Add</a></td>
+                              <td class="remove"></td>
+                          </tr>
+                          <{/foreach}>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+    <{/strip}>
+<{include file="admin/footer.html"}>
